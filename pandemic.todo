@@ -17,7 +17,10 @@ STEPS:
   console
     ✔ write execute @done (23-Jan '19 17:11)
       player movement
+        take command, move pawn
   infection
+    take command, infect city, show cube
+  implement all actions
 
 
 
@@ -50,42 +53,43 @@ player
 
 
 FLOW:
-   ☐ setup
-     setup disease (cube + cure)
-     markers (outbreak + infection)
-     researchstation + pawn (start)
-     shuffle player deck
-     give initial cards (4-3-2)
-     set epidemic difficulty (4,5,6)
-     shuffle player + infection
-     infect 9 cities
-     random start turn
-   turn
+   SETUP:
+     ☐ setup disease (cube + cure)
+     ✔ markers (outbreak + infection) @done (23-Jan '19 19:48)
+     ☐ researchstation + pawn (start)
+     ☐ shuffle player deck
+     ☐ give initial cards (4-3-2)
+     ☐ set epidemic difficulty (4,5,6)
+     ☐ shuffle player
+     ✔ shuffle infection @done (23-Jan '19 19:49)
+     ✔ infect 9 cities @done (23-Jan '19 19:57)
+     ☐ random start turn
+   TURN:
      ☐ 4 actions
-       move
-       direct
-       charter
-       shuttle
-       build
-       treat
-       share
-     draw 2
-       discard to 7
-       epidemic
-         increase infection
-         pick lower, add 3
-         intensify (shuffle)
+       ☐ move
+       ☐ direct
+       ☐ charter
+       ☐ shuttle
+       ☐ build
+       ☐ treat
+       ☐ share
+     ☐ draw 2
+       ☐ discard to 7
+       epidemic:
+         ☐ increase infection
+         ☐ pick lower, add 3
+         ☐ intensify (shuffle)
 
-     infect
+     infect:
        take infect rate cards
        infect city (add 1 cube) if not eradicated
-       outbreak
+       outbreak:
          increase marker
          place 1 in each connected
          if overflow, recurse (without original outbreak)
 
 
- END
+ END:
    LOSE
      no player cards
      no disease cubes

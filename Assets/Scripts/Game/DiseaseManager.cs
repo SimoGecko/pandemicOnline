@@ -50,15 +50,26 @@ public class DiseaseManager : MonoBehaviour {
 
     // commands
     void Setup() {
+        SetupMarkers();
+        CreateDiseases();
+        CreateDecks();
+        BaseInfect();
+    }
+
+    void SetupMarkers() {
         InfectionRate = 0;
         OutbreakNum = 0;
-
-        CreateDiseases();
-
+        //place them on the board
     }
 
     void CreateDiseases() {
         //setup disease
+        int numDiseases = diseaseNids.Length;
+        for (int i = 0; i < numDiseases; i++) {
+            Disease newDisease = new Disease(diseaseNids[i], diseaseColors[i]);
+            newDisease.Setup();
+            diseaseDic.Add(newDisease.Nid, newDisease);
+        }
     }
 
     void CreateDecks() {
@@ -79,6 +90,8 @@ public class DiseaseManager : MonoBehaviour {
         }
     }
 
+
+    //--------------------- commands
     void Infect(string cityNid, int amount=1, string diseaseNid = "") {
         //here it checks if an outbreak should happen
     }
@@ -111,11 +124,7 @@ public class DiseaseManager : MonoBehaviour {
         return diseaseDic[Nid];
     }
 
-    public List<Disease> AllDiseases {
-        get {
-            return diseaseDic.Values.ToList();
-        }
-    }
+    public List<Disease> AllDiseases { get { return diseaseDic.Values.ToList(); } }
 
 
     // other

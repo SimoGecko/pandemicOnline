@@ -18,9 +18,9 @@ public class Disease : IElement {
     // private
     public string Nid { get; set; }
     char color;
-
-    public Status status;
     int availableCubes;
+
+    public Status status { get; private set; }
 
 
     // references
@@ -31,13 +31,15 @@ public class Disease : IElement {
 
 
     // commands
-    public void Setup(string Nid, char color) {
+    public Disease(string Nid, char color) {
         this.Nid = Nid;
         this.color = color;
 
         status = Status.nothing;
         availableCubes = startingCubes;
+    }
 
+    public void Setup() {
         //instantiate cube prefabs
 
     }
