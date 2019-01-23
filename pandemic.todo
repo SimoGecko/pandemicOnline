@@ -1,0 +1,94 @@
+PANDEMIC
+
+
+
+
+
+STEPS:
+  graph
+    ✔ class @done (23-Jan '19 15:39)
+      generic graph class
+    ✔ displayed @done (23-Jan '19 15:39)
+      show graph with connections
+    ✔ create graph & save to file + load @done (23-Jan '19 15:39)
+  deck
+    ✔ functionality @done (23-Jan '19 15:39)
+    ✔ displayed @done (23-Jan '19 17:11)
+  console
+    ✔ write execute @done (23-Jan '19 17:11)
+      player movement
+  infection
+
+
+
+COMMANDS:
+disease
+  infect city num
+  cure
+  eradicate
+
+outbreak
+  city
+  num
+
+epidemic
+
+player
+  move city
+  direct city
+  charter city
+  shuttle city
+  build
+  treat disease
+  share city player
+  cure disease
+
+  add_card city
+  discard_card city
+
+ deck shuffle permutation
+
+
+FLOW:
+   ☐ setup
+     setup disease (cube + cure)
+     markers (outbreak + infection)
+     researchstation + pawn (start)
+     shuffle player deck
+     give initial cards (4-3-2)
+     set epidemic difficulty (4,5,6)
+     shuffle player + infection
+     infect 9 cities
+     random start turn
+   turn
+     ☐ 4 actions
+       move
+       direct
+       charter
+       shuttle
+       build
+       treat
+       share
+     draw 2
+       discard to 7
+       epidemic
+         increase infection
+         pick lower, add 3
+         intensify (shuffle)
+
+     infect
+       take infect rate cards
+       infect city (add 1 cube) if not eradicated
+       outbreak
+         increase marker
+         place 1 in each connected
+         if overflow, recurse (without original outbreak)
+
+
+ END
+   LOSE
+     no player cards
+     no disease cubes
+     outbreak = 8
+   WIN
+     cure all 4
