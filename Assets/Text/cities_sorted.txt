@@ -1,0 +1,51 @@
+San Francisco
+Chicago
+Atlanta
+Montreal
+Washington
+New York
+Madrid
+London
+Paris
+Essen
+Milan
+St. Petersburg
+
+Los Angeles
+Mexico City
+Miami
+Bogota
+Lima
+Santiago
+Buenos Aries
+Sao Paulo
+Johannesburg
+Kinshasa
+Lagos
+Khartoum
+
+Algiers
+Istanbul
+Cairo
+Baghdad
+Moscow
+Tehran
+Karachi
+Riyadh
+Mumbai
+Chennai
+Delhi
+Kolkata
+
+Bangkok
+Jakarta
+Ho Chi Minh City
+Sydney
+Manila
+Hong Kong
+Taipei
+Shanghai
+Beijing
+Seoul
+Tokyo
+Osaka
