@@ -12,7 +12,7 @@ public class GraphVisualizer : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-
+    const float longEdgeLength = 6;
 
     // private
 
@@ -50,12 +50,12 @@ public class GraphVisualizer : MonoBehaviour {
             newVertex.transform.position = v.Position;
 
             //set right color
-            newVertex.GetComponentInChildren<MeshRenderer>().material.color = colorManager.Char2Color(v.color);
+            newVertex.GetComponentInChildren<MeshRenderer>().material = colorManager.Char2Material(v.color);
 
-            //instantiate name
+            //set name
             TextMeshProUGUI tmp = newVertex.GetComponentInChildren<Canvas>().GetComponentInChildren<TextMeshProUGUI>();
             if (tmp == null) Debug.LogError("tmp not found");
-            tmp.text = v.name;
+            tmp.text = v.Nid;
         }
 
         //instantiate edges
@@ -70,6 +70,9 @@ public class GraphVisualizer : MonoBehaviour {
 
                     Vector3 delta = u.Position - v.Position;
                     newEdge.transform.localScale = new Vector3(delta.magnitude, 1, 1);
+                    if (delta.magnitude > longEdgeLength) {
+                        newEdge.SetActive(false); // hide the long ones going through the map
+                    }
 
                     float angle = Mathf.Atan2(delta.z, delta.x)*Mathf.Rad2Deg;
                     newEdge.transform.eulerAngles = new Vector3(0, -angle, 0);

@@ -52,8 +52,8 @@ public class Deck {
 
 
     //ADD
-    public void Add(string name, char color) {
-        Card newCard = new Card(NumCards, color, name);
+    public void Add(string nid, char color) {
+        Card newCard = new Card(NumCards, color, nid);
         AddTop(newCard);
     }
 
@@ -148,7 +148,7 @@ public class Deck {
     }
 
     public string[] CardStrings {
-        get { return Cards.Select(c => c.name).ToArray(); }
+        get { return Cards.Select(c => c.Nid).ToArray(); }
     }
 
 

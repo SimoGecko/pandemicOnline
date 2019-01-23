@@ -16889,7 +16889,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiWGoPlYKbQ="
 							},
-							"name": "player"
+							"name": "player",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -17367,7 +17368,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiZYGfrUH+k="
 							},
-							"name": "name"
+							"name": "name",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -17470,7 +17472,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiZlq/r+riM="
 							},
-							"name": "status"
+							"name": "status",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -17478,7 +17481,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiZlq/r+riM="
 							},
-							"name": "available_cubes"
+							"name": "available_cubes",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -17486,7 +17490,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiZlq/r+riM="
 							},
-							"name": "name"
+							"name": "name",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -17494,7 +17499,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiZlq/r+riM="
 							},
-							"name": "color"
+							"name": "color",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -17548,7 +17554,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFoejzs0zUHQ68="
 									},
-									"name": "city"
+									"name": "city",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -17636,7 +17643,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiaR+/son/Q="
 							},
-							"name": "numCards"
+							"name": "numCards",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -17644,7 +17652,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiaR+/son/Q="
 							},
-							"name": "list string"
+							"name": "list string",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -17740,7 +17749,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFoei3WJgst8Yg="
 									},
-									"name": "string id"
+									"name": "string id",
+									"type": ""
 								}
 							]
 						},
@@ -18030,7 +18040,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeigNWP0Q/GA="
 							},
-							"name": "city"
+							"name": "city",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -18077,7 +18088,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeijF9QATNjs="
 							},
-							"name": "list vertex"
+							"name": "list vertex",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18085,7 +18097,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeijF9QATNjs="
 							},
-							"name": "list edge"
+							"name": "list edge",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -18186,7 +18199,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeijkSgBnlhQ="
 							},
-							"name": "id"
+							"name": "id",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18194,7 +18208,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeijkSgBnlhQ="
 							},
-							"name": "pos"
+							"name": "pos",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18202,7 +18217,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeijkSgBnlhQ="
 							},
-							"name": "name"
+							"name": "name",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18210,7 +18226,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeijkSgBnlhQ="
 							},
-							"name": "color"
+							"name": "color",
+							"type": ""
 						}
 					]
 				},
@@ -18256,7 +18273,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeilODwHBoOE="
 							},
-							"name": "researchStation"
+							"name": "researchStation",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18264,7 +18282,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeilODwHBoOE="
 							},
-							"name": "diseases[]"
+							"name": "diseases[]",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18272,7 +18291,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeilODwHBoOE="
 							},
-							"name": "players[]"
+							"name": "players[]",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -18306,7 +18326,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFoeja5cx1Bd/Y="
 									},
-									"name": "string id"
+									"name": "string id",
+									"type": ""
 								}
 							]
 						}
@@ -18549,7 +18570,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeipE+QO1xHM="
 							},
-							"name": "infectionRate"
+							"name": "infectionRate",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18557,7 +18579,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeipE+QO1xHM="
 							},
-							"name": "outbreakNum"
+							"name": "outbreakNum",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18565,7 +18588,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeipE+QO1xHM="
 							},
-							"name": "deck infect_discard"
+							"name": "deck infect_discard",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18573,7 +18597,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeipE+QO1xHM="
 							},
-							"name": "diseases_names_color"
+							"name": "diseases_names_color",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -18610,7 +18635,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFoej33MTooVZI="
 									},
-									"name": "city"
+									"name": "city",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -18618,7 +18644,8 @@
 									"_parent": {
 										"$ref": "AAAAAAFoej33MTooVZI="
 									},
-									"name": "disease"
+									"name": "disease",
+									"type": ""
 								}
 							]
 						},
@@ -18707,7 +18734,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiqqJATfZfc="
 							},
-							"name": "availableStations"
+							"name": "availableStations",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -18715,7 +18743,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeiqqJATfZfc="
 							},
-							"name": "city starting"
+							"name": "city starting",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -19183,7 +19212,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoekbJkWe9KEc="
 							},
-							"name": "players"
+							"name": "players",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -19191,7 +19221,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoekbJkWe9KEc="
 							},
-							"name": "numPlayer"
+							"name": "numPlayer",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -19199,7 +19230,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoekbJkWe9KEc="
 							},
-							"name": "deck player_discard"
+							"name": "deck player_discard",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -19207,7 +19239,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoekbJkWe9KEc="
 							},
-							"name": "playerTurn"
+							"name": "playerTurn",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -19215,7 +19248,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoekbJkWe9KEc="
 							},
-							"name": "remainingActions"
+							"name": "remainingActions",
+							"type": ""
 						}
 					],
 					"operations": [
@@ -19275,7 +19309,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoelHLoakY8zQ="
 							},
-							"name": "numPlayer"
+							"name": "numPlayer",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -19283,7 +19318,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoelHLoakY8zQ="
 							},
-							"name": "difficulty"
+							"name": "difficulty",
+							"type": ""
 						}
 					]
 				},
@@ -19301,7 +19337,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeln77wPkcLw="
 							},
-							"name": "player host"
+							"name": "player host",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -19309,7 +19346,8 @@
 							"_parent": {
 								"$ref": "AAAAAAFoeln77wPkcLw="
 							},
-							"name": "player[] clients"
+							"name": "player[] clients",
+							"type": ""
 						}
 					],
 					"operations": [

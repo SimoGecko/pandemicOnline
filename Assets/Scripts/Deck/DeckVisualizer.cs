@@ -12,7 +12,7 @@ public class DeckVisualizer : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-
+    public bool openCards = true; // shows front or back
 
     // private
 
@@ -54,7 +54,7 @@ public class DeckVisualizer : MonoBehaviour {
         for (int i = 0; i < deckToVisualize.NumCards; i++) {
             RectTransform newCard = Instantiate(cardUIPrefab, cardPanel) as RectTransform;
             //set values
-            newCard.Find("cardName").GetComponent< TextMeshProUGUI>().text = deckToVisualize.Cards[i].name;
+            newCard.Find("cardName").GetComponent< TextMeshProUGUI>().text = deckToVisualize.Cards[i].Nid;
             newCard.Find("cardColor").GetComponent<Image>().color = ColorManager.instance.Char2Color(deckToVisualize.Cards[i].color);
         }
     }

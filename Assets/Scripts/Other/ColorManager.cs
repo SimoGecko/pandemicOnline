@@ -12,6 +12,7 @@ public class ColorManager : MonoBehaviour {
     // public
     [Header("YRBK")]
     public Color[] colors;
+    public Material[] materials;
 
 
     // private
@@ -42,6 +43,11 @@ public class ColorManager : MonoBehaviour {
         int idx = Char2Int(c);
         if (0 <= idx && idx < colors.Length) return colors[idx];
         return Color.magenta;
+    }
+    public Material Char2Material(char c) {
+        int idx = Char2Int(c);
+        if (0 <= idx && idx < colors.Length) return materials[idx];
+        return null;
     }
 
     public int Char2Int(char c) {

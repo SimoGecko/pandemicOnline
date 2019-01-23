@@ -7,17 +7,17 @@ using UnityEngine;
 
 ////////// DESCRIPTION //////////
 
-public class Card : IComparable {
+public class Card : IComparable, IElement {
     public int id;
     public char color;
-    public string name;
+    public string Nid { get; set; }
 
     public Card() { }
 
-    public Card(int id, char color, string name) {
+    public Card(int id, char color, string Nid) {
         this.id = id;
         this.color = color;
-        this.name = name;
+        this.Nid = Nid;
     }
 
     public int CompareTo(object obj) {
