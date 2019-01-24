@@ -91,15 +91,15 @@ public class InterfaceManager : MonoBehaviour {
 
             newDiseaseUI.transform.Find("color").GetComponent<Image>().color = d.ColorC;
             newDiseaseUI.transform.Find("name").GetComponent<TextMeshProUGUI>().text = d.Nid;
-            AddLink(newDiseaseUI.transform.Find("number").GetComponent<TextMeshProUGUI>(), d.NumAvailableCubes.ToString);
+            AddLink(newDiseaseUI.transform.Find("number").GetComponent<TextMeshProUGUI>(), () => d.NumAvailableCubes.ToString());
             AddLink(newDiseaseUI.transform.Find("status").GetComponent<TextMeshProUGUI>(), d.StatusString);
         }
     }
 
     void SetupInfection() {
-        AddLink(outbreakText, DiseaseManager.instance.OutbreakNum.ToString);
-        AddLink(infectionText, DiseaseManager.instance.InfectionNum.ToString);
-        AddLink(rateText, DiseaseManager.instance.InfectionRate.ToString);
+        AddLink(outbreakText, () => DiseaseManager.instance.OutbreakNum.ToString());
+        AddLink(infectionText, () => DiseaseManager.instance.InfectionNum.ToString());
+        AddLink(rateText, () => DiseaseManager.instance.InfectionRate.ToString());
     }
 
     void SetupGameInfo() {

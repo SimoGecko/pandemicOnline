@@ -47,7 +47,9 @@ public class DiseaseManager : MonoBehaviour {
 	}
 	
 	void Update () {
-        
+        if (Input.GetKeyDown(KeyCode.D) && GameManager.instance.DEBUG) {
+            EndTurnInfect();
+        }
 	}
 
     // --------------------- CUSTOM METHODS ----------------
@@ -90,7 +92,7 @@ public class DiseaseManager : MonoBehaviour {
 
 
     //--------------------- commands
-    void Infect(string cityNid, int amount=1, string diseaseNid = "") {
+    public void Infect(string cityNid, int amount=1, string diseaseNid = "") {
         //here it checks if an outbreak should happen -> only spot that does it
         City city = City.Get(cityNid);
         if (string.IsNullOrEmpty(diseaseNid)) diseaseNid = DiseaseNidFromColor(city.color);

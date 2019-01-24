@@ -110,6 +110,7 @@ public class Deck {
     public Card RemoveAt(int idx) {
         Debug.Assert(!EmptyDeck, "Deck is empty!");
         Debug.Assert(0 <= idx && idx < NumCards, "Card index out of range");
+        if (!(0 <= idx && idx < NumCards)) return null;
         Card result = Cards[idx];
         Cards.RemoveAt(idx);
 

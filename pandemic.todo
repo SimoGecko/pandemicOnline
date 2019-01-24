@@ -16,34 +16,36 @@ STEPS:
     ✔ infect city, show cube @done (Thu 24-Jan-19 11:24)
   ✔ implement all actions @done (Thu 24-Jan-19 12:26)
 
+ ☐ turn system
+ ☐ control flow
+
  ☐ test game
 
   ☐ commands
     ☐ take them, process them, plug method, call it
 
 
+    ✔ interface @done (Thu 24-Jan-19 18:27)
 
 
 COMMANDS:
-diseaseManager (3)
-  infect city
-  outbreak city
-  epidemic city
+disease_infect     @C @D
+disease_outbreak   @C
+disease_epidemic   @C
 
-player (8)
-  move city
-  direct city
-  charter city
-  shuttle city
-  build
-  treat disease
-  share city player
-  cure disease
+action_move     @P @C
+action_direct   @P @C
+action_charter  @P @C
+action_shuttle  @P @C
+action_build    @P @C
+action_treat    @P @C @D
+action_share    @P @C "otherPlayer"
+action_cure     @P @C @D
 
-  draw_card
+deck_draw       @P
+deck_discard    @P @C
+deck_shuffle    @N
 
- deck (1)
-   shuffle permutation
 
 
 FLOW:

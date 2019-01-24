@@ -114,6 +114,8 @@ public class Disease : IElement {
     public bool Eradicated { get { return status == Status.eradicated; } }
     public char Color { get { return color; } }
     public Color ColorC { get { return ColorManager.instance.Char2Color(color); } }
+
+    public string NumAvailableCubesString() { return NumAvailableCubes.ToString(); }
     // other
 
 }

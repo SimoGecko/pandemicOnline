@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 
     // public
     public Difficulty difficulty;
-
+    public bool DEBUG = true;
 
     // private
     List<EndCondition> winConditions;
