@@ -1,42 +1,36 @@
 PANDEMIC
 
-
-
-
-
 STEPS:
   graph
-    ✔ class @done (23-Jan '19 15:39)
-      generic graph class
-    ✔ displayed @done (23-Jan '19 15:39)
-      show graph with connections
+    ✔ class (generic graph class) @done (23-Jan '19 15:39)
+    ✔ displayed (show graph with connections) @done (23-Jan '19 15:39)
     ✔ create graph & save to file + load @done (23-Jan '19 15:39)
   deck
     ✔ functionality @done (23-Jan '19 15:39)
     ✔ displayed @done (23-Jan '19 17:11)
   console
     ✔ write execute @done (23-Jan '19 17:11)
-      player movement
-        take command, move pawn
-  infection
-    take command, infect city, show cube
-  implement all actions
+      ✔ player movement @done (Thu 24-Jan-19 14:30)
+   
+  ✔ infection @done (Thu 24-Jan-19 11:24)
+    ✔ infect city, show cube @done (Thu 24-Jan-19 11:24)
+  ✔ implement all actions @done (Thu 24-Jan-19 12:26)
+
+ ☐ test game
+
+  ☐ commands
+    ☐ take them, process them, plug method, call it
+
 
 
 
 COMMANDS:
-disease
-  infect city num
-  cure
-  eradicate
+diseaseManager (3)
+  infect city
+  outbreak city
+  epidemic city
 
-outbreak
-  city
-  num
-
-epidemic
-
-player
+player (8)
   move city
   direct city
   charter city
@@ -46,53 +40,55 @@ player
   share city player
   cure disease
 
-  add_card city
-  discard_card city
+  draw_card
 
- deck shuffle permutation
+ deck (1)
+   shuffle permutation
 
 
 FLOW:
    SETUP:
-     ☐ setup disease (cube + cure)
+     ✔ setup disease (cube + cure) @done (Thu 24-Jan-19 14:36)
      ✔ markers (outbreak + infection) @done (23-Jan '19 19:48)
-     ☐ researchstation + pawn (start)
-     ☐ shuffle player deck
-     ☐ give initial cards (4-3-2)
-     ☐ set epidemic difficulty (4,5,6)
-     ☐ shuffle player
+     ✔ researchstation + pawn (start) @done (Thu 24-Jan-19 14:24)
+     ✔ shuffle player deck @done (Thu 24-Jan-19 14:24)
+     ✔ give initial cards (4-3-2) @done (Thu 24-Jan-19 14:24)
+     ✔ set epidemic difficulty (4,5,6) @done (Thu 24-Jan-19 14:24)
+     ✔ shuffle player @done (Thu 24-Jan-19 14:24)
      ✔ shuffle infection @done (23-Jan '19 19:49)
      ✔ infect 9 cities @done (23-Jan '19 19:57)
-     ☐ random start turn
+     ✔ random start turn @done (Thu 24-Jan-19 13:55)
    TURN:
-     ☐ 4 actions
-       ☐ move
-       ☐ direct
-       ☐ charter
-       ☐ shuttle
-       ☐ build
-       ☐ treat
-       ☐ share
-     ☐ draw 2
-       ☐ discard to 7
+     ✔ 4 actions @done (Thu 24-Jan-19 14:36)
+       ✔ move @done (Thu 24-Jan-19 12:24)
+       ✔ direct @done (Thu 24-Jan-19 12:24)
+       ✔ charter @done (Thu 24-Jan-19 12:24)
+       ✔ shuttle @done (Thu 24-Jan-19 12:24)
+
+       ✔ build @done (Thu 24-Jan-19 12:24)
+       ✔ treat @done (Thu 24-Jan-19 12:24)
+       ✔ share @done (Thu 24-Jan-19 12:24)
+       ✔ cure @done (Thu 24-Jan-19 12:24)
+     ✔ draw 2 @done (Thu 24-Jan-19 13:55)
+       ✔ discard to 7 @done (Thu 24-Jan-19 13:55)
        epidemic:
-         ☐ increase infection
-         ☐ pick lower, add 3
-         ☐ intensify (shuffle)
+         ✔ increase infection @done (Thu 24-Jan-19 12:25)
+         ✔ pick lower, add 3 @done (Thu 24-Jan-19 12:25)
+         ✔ intensify (shuffle) @done (Thu 24-Jan-19 12:25)
 
      infect:
-       take infect rate cards
-       infect city (add 1 cube) if not eradicated
+       ✔ take infect rate cards @done (Thu 24-Jan-19 14:11)
+       ✔ infect city (add 1 cube) if not eradicated @done (Thu 24-Jan-19 14:11)
        outbreak:
-         increase marker
-         place 1 in each connected
-         if overflow, recurse (without original outbreak)
+         ✔ increase marker @done (Thu 24-Jan-19 14:11)
+         ✔ place 1 in each connected @done (Thu 24-Jan-19 14:11)
+         ✔ if overflow, recurse (without original outbreak) @done (Thu 24-Jan-19 14:11)
 
 
  END:
    LOSE
-     no player cards
-     no disease cubes
-     outbreak = 8
+     ✔ no player cards @done (Thu 24-Jan-19 14:31)
+     ✔ no d isease cubes @done (Thu 24-Jan-19 13:08)
+     ✔ outbreak = 8 @done (Thu 24-Jan-19 12:50)
    WIN
-     cure all 4
+     ✔ cure all 4 @done (Thu 24-Jan-19 12:50)

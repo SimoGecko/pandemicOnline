@@ -16,7 +16,7 @@ public abstract class Action {
 
     // private
     protected Player player;
-    protected string param1, param2; // only some are used
+    protected string param1/*, param2*/; // only some are used
 
     // references
 
@@ -42,9 +42,8 @@ public abstract class Action {
     public string[] AllPerformableParameters() { return null; }
 
     // other
-    public string CityToNid { get { return param1; } }
-    public string DiseaseNid { get { return param1; } }
-    public string PlayerNid { get { return param2; } }
-
+    public string CityParam { get { return param1; } }
+    public string DiseaseParam { get { return param1; } }
+    public string PlayerParam { get { return param1; } }
 
 }

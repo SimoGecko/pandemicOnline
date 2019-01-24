@@ -3,8 +3,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using System.Linq;
 
-////////// DESCRIPTION //////////
+////////// calls the appropriate functions //////////
 
 public class FlowManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
@@ -13,27 +15,39 @@ public class FlowManager : MonoBehaviour {
 
 
     // private
+    
+
 
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        Board.instance.Setup();
-        DiseaseManager.instance.Setup();
-	}
+
+
+    // --------------------- BASE METHODS ------------------
+    void Start () {
+        Setup();
+
+    }
 	
 	void Update () {
-        
+        GameManager.instance.CheckEndCondition();
 	}
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
+    void Setup() {
+        Board.instance.Setup();
+        DiseaseManager.instance.Setup();
+        ResearchManager.instance.Setup();
+        PlayerManager.instance.Setup();
+        GameManager.instance.Setup();
+    }
 
-
+    void Restart() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    
 
     // queries
 

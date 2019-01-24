@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+//using System.Collections.ObjectModel;
 
-////////// DESCRIPTION //////////
+////////// represents a generic deck of cards that can be manipulate (add/remove/peek cards, shuffle/order) //////////
 
 public class Deck {
     // --------------------- VARIABLES ---------------------
@@ -15,9 +16,13 @@ public class Deck {
 
     // private
     //string deckName;
+    //bool covered;
     public List<Card> Cards { get; private set; }
 
     // references
+    public event System.Action OnDeckChange; // plug it
+
+    //public event System.Action OnDeckEnd
 	
 	
 	
@@ -28,10 +33,16 @@ public class Deck {
     // commands
     public Deck() {
         Cards = new List<Card>();
+        //Cards.CollectionChanged += DeckChanged;
     }
 
     public Deck(Deck d) {
         //copies deck
+        Cards = new List<Card>();
+        for (int i = 0; i < d.NumCards; i++) {
+            Card copyCard = new Card(d.PeekAt(i));
+            AddBottom(copyCard);
+        }
     }
 
 
@@ -44,6 +55,12 @@ public class Deck {
 
     public void Shuffle(int[] perm) {
         //to make shuffled decks consistent across clients
+        Cards.Sort();
+        List<Card> newOrder = new List<Card>();
+        for (int i = 0; i < NumCards; i++) {
+            newOrder.Add(Cards[perm[i]]);
+        }
+        Cards = newOrder;
     }
 
     public void Sort() {
@@ -78,7 +95,7 @@ public class Deck {
         return RemoveAt(NumCards-1);
     }
 
-    Card RemoveAt(int idx) {
+    public Card RemoveAt(int idx) {
         Debug.Assert(!EmptyDeck, "Deck is empty!");
         Debug.Assert(0 <= idx && idx < NumCards, "Card index out of range");
         Card result = Cards[idx];
@@ -86,10 +103,20 @@ public class Deck {
         return result;
     }
 
+    public Card Remove(Card c) {
+        Debug.Assert(Cards.Contains(c), "Deck doesn't contain card "+c.Nid);
+        Cards.Remove(c);
+        return c;
+    }
+    public Card Remove(string cardNid) {
+        Debug.Assert(CardStrings.Contains(cardNid), "Deck doesn't contain card " + cardNid);
+        return Remove(GetCard(cardNid));
+    }
+    /*
     public void Discard(Card c) {
         Debug.Assert(Cards.Contains(c), "Card is not present in deck");
         Cards.Remove(c);
-    }
+    }*/
 
 
     //SPLIT JOIN
@@ -104,6 +131,7 @@ public class Deck {
     }
 
     public Deck[] SplitInto(int numDecks) {
+        Debug.Assert(NumCards >= numDecks, "Not enough cards to split into decks");
         //split into n decks
         Deck[] result = new Deck[numDecks];
         int remainingCards = NumCards;
@@ -122,6 +150,9 @@ public class Deck {
     }
 
     
+    void DeckChanged() {
+        if (OnDeckChange != null) OnDeckChange();
+    }
 
 
 
@@ -136,11 +167,27 @@ public class Deck {
         return Cards.Contains(c);
     }
 
+    public bool HasCard(string cardNid) {
+        return CardStrings.Contains(cardNid);
+    }
+
+    public Card[] AllCardsSatisfying(System.Predicate<Card> predicate) {
+        return Cards.Where(c => predicate(c)).ToArray();
+    }
+
+    public Card GetCard(string cardNid) {
+        return Cards.Find(c => c.Nid == cardNid);
+    }
+
     public Card PeekTop() {
         return Cards[0];
     }
     public Card PeekBottom() {
         return Cards[NumCards - 1];
+    }
+    public Card PeekAt(int id) {
+        Debug.Assert(0 <= id && id < NumCards, "invalid peak point");
+        return Cards[id];
     }
 
     public int[] Permutation {

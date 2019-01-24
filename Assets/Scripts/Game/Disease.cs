@@ -12,16 +12,20 @@ public class Disease : IElement {
     public enum Status { nothing, cured, eradicated }
 
     // public
-    const int startingCubes = 24;
+    const int numStartingCubes = 24;
 
 
     // private
-    public string Nid { get; set; }
+    public string Nid { get; private set; }
     char color;
-    int availableCubes;
-    List<DiseaseCube> cubes;
-
     public Status status { get; private set; }
+
+    List<DiseaseCube> cubes;
+    CureMarker cureMarker;
+
+    public int NumAvailableCubes { get; private set; }
+    public bool RunOutOfCubes { get; private set; }
+
 
 
     // references
@@ -35,31 +39,37 @@ public class Disease : IElement {
     public Disease(string Nid, char color) {
         this.Nid = Nid;
         this.color = color;
+        RunOutOfCubes = false;
 
         status = Status.nothing;
-        availableCubes = startingCubes;
     }
 
     public void Setup() {
+        NumAvailableCubes = numStartingCubes;
         cubes = new List<DiseaseCube>();
         //instantiate cube prefabs
-        for (int i = 0; i < startingCubes; i++) {
-            DiseaseCube newCube = DiseaseManager.instance.DiseaseCubeCopy();
+        for (int i = 0; i < numStartingCubes; i++) {
+            DiseaseCube newCube = ElementManager.instance.Copy(ElementManager.instance.diseaseCubePrefab);
             cubes.Add(newCube);
-            newCube.Setup(this, color);
+            newCube.Setup(this);
+            newCube.SetColor(color);
             newCube.MoveTo(Vector3.zero);
         }
+
+        // setup cure marker
+        cureMarker = ElementManager.instance.Copy(ElementManager.instance.cureMarkerPrefab);
+        cureMarker.SetColor(color);
     }
 
     public void Infect(City city) {
         if (Eradicated) return; // cannot infect
 
-        if (availableCubes <= 0) {
-            GameManager.instance.Lose("No more disease cubes");
+        if (NumAvailableCubes <= 0) {
+            RunOutOfCubes = true;
         } else {
-            availableCubes--;
-            DiseaseCube cube = cubes[0];
-            cubes.RemoveAt(0);
+            NumAvailableCubes--;
+            DiseaseCube cube = cubes[NumDeployedCubes];
+            //cubes.RemoveAt(0);
 
             city.AddDisease(cube);
             cube.MoveTo(city);
@@ -76,7 +86,9 @@ public class Disease : IElement {
         for (int i = 0; i < amount; i++) {
             DiseaseCube cube = city.RemoveDisease(Nid);
             cube.MoveTo(Vector3.zero);
+            //add cube back
         }
+        if (NumDeployedCubes == 0 && Cured) Eradicate();
     }
 
     public void Treat(string cityNid) {
@@ -92,13 +104,13 @@ public class Disease : IElement {
 
 
     // queries
-    public int NumDeployedCubes { get { return startingCubes - availableCubes; } }
+    public int NumDeployedCubes { get { return numStartingCubes - NumAvailableCubes; } }
 
     public static Disease Get(string diseaseNid) { return DiseaseManager.instance.GetDisease(diseaseNid); }
 
     public bool Cured { get { return status == Status.cured; } }
     public bool Eradicated { get { return status == Status.eradicated; } }
-
+    public char Color { get { return color; } }
     // other
 
 }

@@ -7,5 +7,5 @@ using UnityEngine;
 ////////// DESCRIPTION //////////
 
 public interface IElement {
-    string Nid { get; set; } // name id
+    string Nid { get; } // name id
 }

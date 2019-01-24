@@ -10,7 +10,7 @@ using UnityEngine;
 public class Card : IComparable, IElement {
     public int id;
     public char color;
-    public string Nid { get; set; }
+    public string Nid { get; private set; }
 
     public Card() { }
 
@@ -18,6 +18,12 @@ public class Card : IComparable, IElement {
         this.id = id;
         this.color = color;
         this.Nid = Nid;
+    }
+
+    public Card(Card other) {
+        this.id = other.id;
+        this.color = other.color;
+        this.Nid = other.Nid; // attention: copying nid
     }
 
     public int CompareTo(object obj) {

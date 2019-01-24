@@ -11,6 +11,7 @@ public class City : Vertex, IElement {
     // --------------------- VARIABLES ---------------------
 
     // public
+    public string Nid { get { return name; } }
 
 
     // private
@@ -32,7 +33,7 @@ public class City : Vertex, IElement {
         diseaseCubes = new Dictionary<string, List<DiseaseCube>>();
     }
 
-    public void SetResearchStation(ResearchStation rs) {
+    public void AddResearchStation(ResearchStation rs) {
         Debug.Assert(!HasResearchStation, "Cannot have more than one research station");
         researchStation = rs;
         //it should move there
@@ -82,10 +83,6 @@ public class City : Vertex, IElement {
         }
     }
 
-    public string Nid {
-        get { return name; }
-        set { }
-    }
 
     public int NumDisease(string diseaseNid) {
         if (diseaseCubes.ContainsKey(diseaseNid)) return diseaseCubes[diseaseNid].Count;

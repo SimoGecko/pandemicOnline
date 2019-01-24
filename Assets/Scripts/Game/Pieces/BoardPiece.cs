@@ -17,6 +17,7 @@ public class BoardPiece : MonoBehaviour {
 
     // private
     Vector3 endPos;
+    public City CurrentCity { get; private set; }
 
 
     // references
@@ -36,15 +37,26 @@ public class BoardPiece : MonoBehaviour {
 
     // commands
     public void MoveTo(string cityNid) {
-        MoveTo(City.Get(cityNid).Position);
+        MoveTo(City.Get(cityNid));
     }
     public void MoveTo(City city) {
-        MoveTo(city.Position);
+        CurrentCity = city;
+        MoveToEffective(city.Position);
     }
-    public void MoveTo(Vector3 p) {
+    public void MoveTo(Vector3 pos) {
+        CurrentCity = null;
+        MoveToEffective(pos);
+    }
+
+
+    void MoveToEffective(Vector3 p) {
         endPos = p + Utility.OnUnitCircle().To3() * circleRadius;
         StopCoroutine("MoveToRoutine");
         StartCoroutine("MoveToRoutine");
+    }
+
+    public void SetColor(char color) {
+        GetComponentInChildren<MeshRenderer>().material = ColorManager.instance.Char2Material(color);
     }
 
 

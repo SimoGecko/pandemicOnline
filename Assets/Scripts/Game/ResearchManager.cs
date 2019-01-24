@@ -10,16 +10,25 @@ public class ResearchManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
+    const int numStartingStations = 6;
 
 
     // private
+    int numAvailableStations;
+    List<ResearchStation> stations;
 
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
+    public static ResearchManager instance;
+
+
+    // --------------------- BASE METHODS ------------------
+    private void Awake() {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
+
+    void Start () {
         
 	}
 	
@@ -31,10 +40,36 @@ public class ResearchManager : MonoBehaviour {
 
 
     // commands
+    public void Setup() {
+        //generate stations
+        numAvailableStations = numStartingStations;
+        stations = new List<ResearchStation>();
+        for (int i = 0; i < numStartingStations; i++) {
+            ResearchStation newStation = Instantiate(ElementManager.instance.stationPrefab) as ResearchStation;
+            stations.Add(newStation);
+            //newStation.Setup();
+            newStation.MoveTo(Vector3.zero);
+        }
+    }
+
+    public void PlaceStartingStation() {
+        PlaceStation(Board.instance.startingCity);
+    }
+
+    public void PlaceStation(string cityNid) {
+        Debug.Assert(numAvailableStations > 0, "No additional research station available");
+        numAvailableStations--;
+        ResearchStation rs = stations[NumDeployedStations];
+
+        City city = City.Get(cityNid);
+        city.AddResearchStation(rs);
+        rs.MoveTo(city);
+    }
 
 
 
     // queries
+    public int NumDeployedStations { get { return numStartingStations - numAvailableStations; } }
 
 
 

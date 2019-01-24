@@ -6,14 +6,14 @@ using UnityEngine;
 
 ////////// DESCRIPTION //////////
 
-public class DiseaseCube : BoardPiece {
+public class CureMarker : BoardPiece {
     // --------------------- VARIABLES ---------------------
 
     // public
 
 
     // private
-    public Disease DiseaseParent { get; private set; }
+
 
     // references
 	
@@ -31,9 +31,6 @@ public class DiseaseCube : BoardPiece {
 
 
     // commands
-    public void Setup(Disease parent) {
-        DiseaseParent = parent;
-    }
 
 
 

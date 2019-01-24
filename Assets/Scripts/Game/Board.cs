@@ -11,7 +11,7 @@ public class Board : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-
+    public string startingCity = "Atlanta";
 
 
     // private

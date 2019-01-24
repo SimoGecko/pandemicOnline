@@ -28,9 +28,12 @@ public class DiseaseManager : MonoBehaviour {
     Dictionary<string, Disease> diseaseDic = new Dictionary<string, Disease>();
 
 
+    bool firstOutbreak;
+    List<string> outbreakCities = new List<string>();
+
     // references
     public static DiseaseManager instance;
-    public DiseaseCube diseaseCubePrefab;
+
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
@@ -104,7 +107,8 @@ public class DiseaseManager : MonoBehaviour {
 
         amount = Mathf.Min(amount, 3 - city.NumDiseaseCubes);
 
-        ConsoleIO.instance.Log(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
+        if(amount>0)
+            ConsoleIO.instance.Log(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
 
         for (int i = 0; i < amount; i++) {
             disease.Infect(city);
@@ -113,18 +117,41 @@ public class DiseaseManager : MonoBehaviour {
         if(mustOutbreak) Outbreak(cityNid, diseaseNid);
     }
 
-    void Outbreak(string cityNid, string diseaseNid = "") {
+    void Outbreak(string cityNid, string diseaseNid) {
+        ConsoleIO.instance.Log(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
+
         OutbreakNum++;
+        //move cursor
+
         //mark it as outbreak not to repeat
+        bool thisWasFirstOutbreak = false;
+        if (!firstOutbreak) {
+            firstOutbreak = true;
+            thisWasFirstOutbreak = true;
+        }
+
+        outbreakCities.Add(cityNid);
+
+        foreach(City c in City.Get(cityNid).AdjacentCities()) {
+            //infect it if not outbreak yet
+            if (!outbreakCities.Contains(c.Nid)) {
+                Infect(c.Nid, 1, diseaseNid);
+            }
+        }
+
+        if (thisWasFirstOutbreak) {
+            //clean up
+            firstOutbreak = false;
+            outbreakCities.Clear();
+        }
     }
 
-    void RecursiveOutbreak() {
 
-    }
-
-    void Epidemic() {
+    public void Epidemic() {
         //1.increase
         InfectionRate++;
+        //move cursor
+   
         //2. infect
         Card infectCard = infectionDeck.RemoveBottom();
         infectionDiscardDeck.AddBottom(infectCard);
@@ -143,10 +170,6 @@ public class DiseaseManager : MonoBehaviour {
     }
 
     public List<Disease> AllDiseases { get { return diseaseDic.Values.ToList(); } }
-
-    public DiseaseCube DiseaseCubeCopy() {
-        return Instantiate(diseaseCubePrefab) as DiseaseCube;
-    }
 
     public static string DiseaseNidFromColor(char color) {
         int idx = System.Array.FindIndex(diseaseColors, c => c == color);// diseaseColors.ToList().Find();

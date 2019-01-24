@@ -10,7 +10,7 @@ public class ColorManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    [Header("YRBK")]
+    [Header("YRBK G")]
     public Color[] colors;
     public Material[] materials;
 
@@ -56,6 +56,7 @@ public class ColorManager : MonoBehaviour {
             case 'r':return 1;
             case 'b':return 2;
             case 'k':return 3;
+            case 'g':return 4;
             default: return -1;
         }
     }
