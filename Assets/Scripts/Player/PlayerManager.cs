@@ -11,6 +11,8 @@ public class PlayerManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
+    public Color[] playerColors;
+
     public int numPlayers = 2;
 
     readonly static int[] numCardsPerPlayerNumber = new int[] { 0, 6, 4, 3, 2, 2 };
@@ -20,7 +22,9 @@ public class PlayerManager : MonoBehaviour {
     Dictionary<string, Player> playerDic = new Dictionary<string, Player>();
     List<Player> players = new List<Player>();
 
-    Deck playerDeck, playerDiscardDeck;
+    public Deck playerDeck {get;private set;}
+    public Deck playerDiscardDeck { get; private set;}
+    
 
     int currentPlayerTurn;
 
@@ -59,7 +63,8 @@ public class PlayerManager : MonoBehaviour {
 
     void CreatePlayers() {
         for (int i = 0; i < numPlayers; i++) {
-            Player newPlayer = new Player(i); //Instantiate(playerPrefab);
+            Color playerColor = i < playerColors.Length ? playerColors[i] : Color.white;
+            Player newPlayer = new Player(i, playerColor); //Instantiate(playerPrefab);
             newPlayer.Setup();
 
             playerDic.Add(newPlayer.Nid, newPlayer);
@@ -67,18 +72,18 @@ public class PlayerManager : MonoBehaviour {
         }
     }
     void CreateDecks() {
-        playerDeck = new Deck();
+        playerDeck = new Deck("Player Deck");
         foreach (City c in Board.instance.AllCities) {
             playerDeck.Add(c.Nid, c.color);
         }
         playerDeck.Shuffle();
-        playerDiscardDeck = new Deck();
+        playerDiscardDeck = new Deck("Player Discard Deck");
     }
 
     void GiveInitialCards() {
         int numCardsPerPlayer = numCardsPerPlayerNumber[numPlayers];
         for (int i = 0; i < numPlayers; i++) {
-            players[i].GiveInitialDeck(playerDeck.Split(numCardsPerPlayer));
+            players[i].GiveInitialDeck(playerDeck.Split(numCardsPerPlayer, "Personal Deck"));
         }
     }
 
@@ -86,7 +91,7 @@ public class PlayerManager : MonoBehaviour {
         int numEpidemics = epidemiCardsPerDifficulty[(int)GameManager.instance.difficulty];
         Deck[] piles = playerDeck.SplitInto(numEpidemics);
         for (int i = 0; i < numEpidemics; i++) {
-            piles[i].Add("epidemic", 'g'); // attention deal with this!
+            piles[i].Add("epidemic", 'g'); // attention, deal with this!
             piles[i].Shuffle();
             playerDeck.JoinTop(piles[i]);
         }

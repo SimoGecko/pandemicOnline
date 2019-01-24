@@ -41,6 +41,11 @@ public class ResearchManager : MonoBehaviour {
 
     // commands
     public void Setup() {
+        CreateStations();
+        PlaceStartingStation();
+    }
+
+    void CreateStations() {
         //generate stations
         numAvailableStations = numStartingStations;
         stations = new List<ResearchStation>();
@@ -48,11 +53,11 @@ public class ResearchManager : MonoBehaviour {
             ResearchStation newStation = Instantiate(ElementManager.instance.stationPrefab) as ResearchStation;
             stations.Add(newStation);
             //newStation.Setup();
-            newStation.MoveTo(Vector3.zero);
+            newStation.MoveAway();
         }
     }
 
-    public void PlaceStartingStation() {
+    void PlaceStartingStation() {
         PlaceStation(Board.instance.startingCity);
     }
 

@@ -20,13 +20,10 @@ public class DeckVisualizer : MonoBehaviour {
     // references
     RectTransform cardPanel;
     Deck deckToVisualize;
-	
+    TextMeshProUGUI cardNumText;
 	
 	// --------------------- BASE METHODS ------------------
 	void Start () {
-        //VisualizeDeck();
-        cardPanel = GetComponent<RectTransform>();
-        Debug.Assert(cardPanel != null, "deckVisualizer is on component without rectTransform");
     }
 	
 	void Update () {
@@ -37,32 +34,33 @@ public class DeckVisualizer : MonoBehaviour {
 
 
     // commands
-    /*
-    void CreateSampleDeck() {
-        deckToVisualize = new Deck();
-        deckToVisualize.Add("sfo", 'k');
-        deckToVisualize.Add("simo", 'b');
-        deckToVisualize.Add("aladspofg", 'y');
-        deckToVisualize.Shuffle();
-        deckToVisualize.Add("newbottom", 'r');
-        deckToVisualize.RemoveBottom();
-    }*/
 
     public void SetDeck(Deck d) {
+        cardPanel = GetComponent<RectTransform>();
+        cardNumText = GetComponentInChildren<TextMeshProUGUI>();
+        Debug.Assert(cardPanel != null, "deckVisualizer is on component without rectTransform");
+        Debug.Assert(cardNumText != null, "deckVisualizer has no TMPro child");
+
+
         deckToVisualize = d;
         d.OnDeckChange += VisualizeDeck;
+        VisualizeDeck();
     }
 
     void VisualizeDeck() {
-        for(int i=0; i<cardPanel.childCount; i++) {
+        for(int i=1; i<cardPanel.childCount; i++) {
             Destroy(cardPanel.GetChild(i).gameObject);
         }
         for (int i = 0; i < deckToVisualize.NumCards; i++) {
             RectTransform newCard = Instantiate(ElementManager.instance.cardUIPrefab, cardPanel) as RectTransform;
             //set values
-            newCard.Find("cardName").GetComponent< TextMeshProUGUI>().text = deckToVisualize.Cards[i].Nid;
-            newCard.Find("cardColor").GetComponent<Image>().color = ColorManager.instance.Char2Color(deckToVisualize.Cards[i].color);
+            string cardName = openCards ? deckToVisualize.Cards[i].Nid : "";
+            Color cardColor = openCards ? ColorManager.instance.Char2Color(deckToVisualize.Cards[i].color) : Color.white;
+
+            newCard.Find("cardName").GetComponent< TextMeshProUGUI>().text = cardName;
+            newCard.Find("cardColor").GetComponent<Image>().color = cardColor;
         }
+        cardNumText.text = deckToVisualize.deckName + ": " + deckToVisualize.NumCards.ToString();
     }
 
 

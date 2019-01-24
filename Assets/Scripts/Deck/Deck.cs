@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-//using System.Collections.ObjectModel;
 
 ////////// represents a generic deck of cards that can be manipulate (add/remove/peek cards, shuffle/order) //////////
 
@@ -15,25 +14,26 @@ public class Deck {
     //info: index 0 is top, assuming covered deck
 
     // private
-    //string deckName;
-    //bool covered;
+    public string deckName { get; private set; }
     public List<Card> Cards { get; private set; }
 
     // references
-    public event System.Action OnDeckChange; // plug it
+    public event System.Action OnDeckChange, OnDeckEnd; // plug it
 
-    //public event System.Action OnDeckEnd
-	
-	
-	
+
+
+
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
-    public Deck() {
+    public Deck(string deckName = "") {
+        this.deckName = deckName;
         Cards = new List<Card>();
         //Cards.CollectionChanged += DeckChanged;
+
+        DeckChanged();
     }
 
     public Deck(Deck d) {
@@ -51,6 +51,8 @@ public class Deck {
     public void Shuffle() {
         Cards.Shuffle();
         //Permutation = Utility.Permutation(NumCards);
+
+        DeckChanged();
     }
 
     public void Shuffle(int[] perm) {
@@ -61,10 +63,14 @@ public class Deck {
             newOrder.Add(Cards[perm[i]]);
         }
         Cards = newOrder;
+
+        DeckChanged();
     }
 
     public void Sort() {
         Cards.Sort();
+
+        DeckChanged();
     }
 
 
@@ -76,14 +82,20 @@ public class Deck {
 
     public void AddTop(Card c) {
         Cards.Insert(0, c);
+
+        DeckChanged();
     }
     public void AddBottom(Card c) {
         Cards.Add(c);
+
+        DeckChanged();
     }
     public void AddAt(Card c, int idx) {
         //idx=NumCards is allowed as it's added at the end
         Debug.Assert(0 <= idx && idx <= NumCards, "Add at index out of range");
         Cards.Insert(idx, c);
+
+        DeckChanged();
     }
 
     //REMOVE
@@ -100,12 +112,15 @@ public class Deck {
         Debug.Assert(0 <= idx && idx < NumCards, "Card index out of range");
         Card result = Cards[idx];
         Cards.RemoveAt(idx);
+
+        DeckChanged();
         return result;
     }
 
     public Card Remove(Card c) {
         Debug.Assert(Cards.Contains(c), "Deck doesn't contain card "+c.Nid);
         Cards.Remove(c);
+        DeckChanged();
         return c;
     }
     public Card Remove(string cardNid) {
@@ -120,13 +135,14 @@ public class Deck {
 
 
     //SPLIT JOIN
-    public Deck Split(int numCards) { // takes n cards from top
-        Debug.Assert(0 <= numCards && numCards < NumCards, "Not enough cards to split");
+    public Deck Split(int numCards, string deckName = "") { // takes n cards from top
+        Debug.Assert(0 <= numCards && numCards <= NumCards, "Not enough cards to split");
 
-        Deck result = new Deck();
+        Deck result = new Deck(deckName);
         for(int i=0; i<numCards; i++) {
             result.AddBottom(RemoveTop());
         }
+
         return result;
     }
 
@@ -140,16 +156,18 @@ public class Deck {
             remainingCards -= cardsToTake;
             result[i] = Split(cardsToTake);
         }
+
         return result;
     }
 
     public void JoinTop(Deck deck) { // adds the other deck on top
-        for (int i = 0; i < deck.NumCards; i++) {
+        int numCards = deck.NumCards; // this is evaluated every time!
+        for (int i = 0; i < numCards; i++) {
             this.AddTop(deck.RemoveBottom());
         }
     }
 
-    
+
     void DeckChanged() {
         if (OnDeckChange != null) OnDeckChange();
     }

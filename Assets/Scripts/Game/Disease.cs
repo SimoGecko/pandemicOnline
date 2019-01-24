@@ -53,7 +53,7 @@ public class Disease : IElement {
             cubes.Add(newCube);
             newCube.Setup(this);
             newCube.SetColor(color);
-            newCube.MoveTo(Vector3.zero);
+            newCube.MoveAway();
         }
 
         // setup cure marker
@@ -85,7 +85,7 @@ public class Disease : IElement {
         int amount = Cured ? city.NumDisease(Nid) : 1;
         for (int i = 0; i < amount; i++) {
             DiseaseCube cube = city.RemoveDisease(Nid);
-            cube.MoveTo(Vector3.zero);
+            cube.MoveAway();
             //add cube back
         }
         if (NumDeployedCubes == 0 && Cured) Eradicate();
@@ -105,12 +105,15 @@ public class Disease : IElement {
 
     // queries
     public int NumDeployedCubes { get { return numStartingCubes - NumAvailableCubes; } }
+    public string StatusString() { return Nothing? "-": Cured ? "Cured" : "Eradicated"; }
 
     public static Disease Get(string diseaseNid) { return DiseaseManager.instance.GetDisease(diseaseNid); }
 
+    public bool Nothing { get { return status == Status.nothing; } }
     public bool Cured { get { return status == Status.cured; } }
     public bool Eradicated { get { return status == Status.eradicated; } }
     public char Color { get { return color; } }
+    public Color ColorC { get { return ColorManager.instance.Char2Color(color); } }
     // other
 
 }

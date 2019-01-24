@@ -19,12 +19,14 @@ public class DiseaseManager : MonoBehaviour {
     readonly static string[] diseaseNids = new string[] { "diseaseYellow", "diseaseRed", "diseaseBlue", "diseaseBlack" };
 
     // private
-    public int InfectionRate { get; private set; }
+    public int InfectionNum { get; private set; }
     public int OutbreakNum { get; private set; }
 
     List<string> alreadyOutbreakedCities;
 
-    Deck infectionDeck, infectionDiscardDeck;
+    public Deck infectionDeck { get; private set; }
+    public Deck infectionDiscardDeck { get; private set; }
+
     Dictionary<string, Disease> diseaseDic = new Dictionary<string, Disease>();
 
 
@@ -60,7 +62,7 @@ public class DiseaseManager : MonoBehaviour {
     }
 
     void SetupMarkers() {
-        InfectionRate = 0;
+        InfectionNum = 0;
         OutbreakNum = 0;
         //place them on the board
     }
@@ -76,22 +78,15 @@ public class DiseaseManager : MonoBehaviour {
     }
 
     void CreateDecks() {
-        infectionDeck = new Deck();
+        infectionDeck = new Deck("Infection Deck");
         foreach(City c in Board.instance.AllCities) {
             infectionDeck.Add(c.Nid, c.color);
         }
         infectionDeck.Shuffle();
-        infectionDiscardDeck = new Deck();
+        infectionDiscardDeck = new Deck("Infection Discard Deck");
     }
 
-    void BaseInfect() {
-        for (int i = 0; i < 9; i++) {
-            Card infectCard = infectionDeck.RemoveTop();
-            infectionDiscardDeck.AddBottom(infectCard);
-
-            Infect(infectCard.Nid, numBaseCubes[i]);
-        }
-    }
+    
 
 
     //--------------------- commands
@@ -115,6 +110,25 @@ public class DiseaseManager : MonoBehaviour {
         }
 
         if(mustOutbreak) Outbreak(cityNid, diseaseNid);
+    }
+
+    void BaseInfect() {
+        for (int i = 0; i < 9; i++) {
+            Card infectCard = infectionDeck.RemoveTop();
+            infectionDiscardDeck.AddBottom(infectCard);
+
+            Infect(infectCard.Nid, numBaseCubes[i]);
+        }
+    }
+
+    void EndTurnInfect() {
+        int infectionsToPerform = InfectionRate;
+        for (int i = 0; i < infectionsToPerform; i++) {
+            Card infectCard = infectionDeck.RemoveTop();
+            infectionDiscardDeck.AddBottom(infectCard);
+
+            Infect(infectCard.Nid, 1);
+        }
     }
 
     void Outbreak(string cityNid, string diseaseNid) {
@@ -149,7 +163,7 @@ public class DiseaseManager : MonoBehaviour {
 
     public void Epidemic() {
         //1.increase
-        InfectionRate++;
+        InfectionNum++;
         //move cursor
    
         //2. infect
@@ -175,6 +189,8 @@ public class DiseaseManager : MonoBehaviour {
         int idx = System.Array.FindIndex(diseaseColors, c => c == color);// diseaseColors.ToList().Find();
         return diseaseNids[idx];
     }
+
+    public int InfectionRate { get { return infectionsPerRate[InfectionNum]; } }
 
 
     // other

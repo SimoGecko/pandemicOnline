@@ -10,9 +10,11 @@ public class BoardPiece : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public float circleRadius = .1f;
-    public float movementSpeed = 1f; // units/s
-    public AnimationCurve movementCurve;
+    float circleRadius = .2f;
+    float movementSpeed = 2f; // units/s
+    AnimationCurve movementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    readonly Vector3 restPosition = new Vector3(-5, 0, 0);
 
 
     // private
@@ -46,6 +48,9 @@ public class BoardPiece : MonoBehaviour {
     public void MoveTo(Vector3 pos) {
         CurrentCity = null;
         MoveToEffective(pos);
+    }
+    public void MoveAway() {
+        MoveTo(restPosition);
     }
 
 

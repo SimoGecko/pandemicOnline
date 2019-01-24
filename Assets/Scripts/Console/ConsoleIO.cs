@@ -12,7 +12,7 @@ public class ConsoleIO : MonoBehaviour {
 
     // public
     public int maxLines = 15;
-
+    public bool keepConsoleFocus = true;
 
     // private
     string[] consoleLines;
@@ -46,7 +46,8 @@ public class ConsoleIO : MonoBehaviour {
             consoleCommand.ProcessCommand(inputField.text);
             AddToConsoleOutput(inputField.text);
             inputField.text = "";
-            inputField.ActivateInputField();
+            if(keepConsoleFocus)
+                inputField.ActivateInputField();
         }
     }
 

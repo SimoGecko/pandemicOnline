@@ -30,6 +30,7 @@ public class FlowManager : MonoBehaviour {
 	
 	void Update () {
         GameManager.instance.CheckEndCondition();
+        //DEAL WITH TURNS AND CALLS
 	}
 
     // --------------------- CUSTOM METHODS ----------------
@@ -42,6 +43,7 @@ public class FlowManager : MonoBehaviour {
         ResearchManager.instance.Setup();
         PlayerManager.instance.Setup();
         GameManager.instance.Setup();
+        InterfaceManager.instance.Setup();
     }
 
     void Restart() {

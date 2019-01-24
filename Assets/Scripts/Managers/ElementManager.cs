@@ -17,11 +17,13 @@ public class ElementManager : MonoBehaviour {
 
     public static ElementManager instance;
     // references
+    [Header("UI")]
     public RectTransform cardUIPrefab;
 
-    public GameObject vertexPrefab;
-    public GameObject edgePrefab;
 
+
+
+    [Header("Pieces")]
     public DiseaseCube diseaseCubePrefab;
     public CureMarker cureMarkerPrefab;
     public Marker infectionMarkerPrefab;

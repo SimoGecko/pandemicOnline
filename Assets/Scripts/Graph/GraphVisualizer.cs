@@ -18,7 +18,9 @@ public class GraphVisualizer : MonoBehaviour {
 
     // references
     GameObject parent;
-
+    [Header("Prefabs")]
+    public GameObject vertexPrefab;
+    public GameObject edgePrefab;
 
     // --------------------- BASE METHODS ------------------
     void Start () {
@@ -44,7 +46,7 @@ public class GraphVisualizer : MonoBehaviour {
 
         //instantiate vertices
         foreach(Vertex v in g.Vertices) {
-            GameObject newVertex = PrefabUtility.InstantiatePrefab(ElementManager.instance.vertexPrefab) as GameObject;
+            GameObject newVertex = PrefabUtility.InstantiatePrefab(vertexPrefab) as GameObject;
             newVertex.transform.parent = parent.transform;
             newVertex.transform.position = v.Position;
 
@@ -61,7 +63,7 @@ public class GraphVisualizer : MonoBehaviour {
         foreach (Vertex v in g.Vertices) {
             foreach(Vertex u in g.Outgoing(v)) {
                 if (u.id < v.id) {
-                    GameObject newEdge = PrefabUtility.InstantiatePrefab(ElementManager.instance.edgePrefab) as GameObject;
+                    GameObject newEdge = PrefabUtility.InstantiatePrefab(edgePrefab) as GameObject;
                     //GameObject newEdge = Instantiate(edgePrefab, parent.transform);
                     newEdge.transform.parent = parent.transform;
 

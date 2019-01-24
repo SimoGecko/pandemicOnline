@@ -21,6 +21,7 @@ public class Player : IElement {
     int numPerformedActions = 0;
     bool isMyTurn = false;
     int id;
+    public Color color { get; private set; }
 
     // references
     Pawn pawn;
@@ -29,8 +30,9 @@ public class Player : IElement {
 
     // --------------------- CUSTOM METHODS ----------------
 
-    public Player(int id) {
+    public Player(int id, Color color) {
         this.id = id;
+        this.color = color;
         Nid = "player_" + id;
     }
 
@@ -105,6 +107,9 @@ public class Player : IElement {
     public static Player Get(string playerNid) {
         return PlayerManager.instance.GetPlayer(playerNid);
     }
+    public static Player Get(int id) {
+        return PlayerManager.instance.GetPlayer(id);
+    }
 
     public int NumRemainingActions {
         get {
@@ -112,6 +117,9 @@ public class Player : IElement {
         }
     }
 
+    public string GetStatus() {
+        return "status";
+    }
 
 
     // other
