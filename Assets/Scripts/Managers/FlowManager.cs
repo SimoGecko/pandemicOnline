@@ -20,7 +20,8 @@ public class FlowManager : MonoBehaviour {
 	
 	// --------------------- BASE METHODS ------------------
 	void Start () {
-        
+        Board.instance.Setup();
+        DiseaseManager.instance.Setup();
 	}
 	
 	void Update () {

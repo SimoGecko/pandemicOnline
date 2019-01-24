@@ -16,10 +16,16 @@ public class GameManager : MonoBehaviour {
 
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
+    public static GameManager instance;
+
+
+    // --------------------- BASE METHODS ------------------
+    private void Awake() {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+    }
+
+    void Start () {
         
 	}
 	
@@ -31,6 +37,9 @@ public class GameManager : MonoBehaviour {
 
 
     // commands
+    public void Lose(string message) {
+
+    }
 
 
 

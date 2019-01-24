@@ -67,8 +67,8 @@ public class Shuttle : Action {
 
     public override bool CanPerform() {
         bool isDifferentCity = player.CurrentCity.Nid != CityToNid;
-        bool fromHasResearch = City.Get(player.CurrentCity.Nid).HasResearchStation();
-        bool toHasresearch   = City.Get(CityToNid).HasResearchStation();
+        bool fromHasResearch = City.Get(player.CurrentCity.Nid).HasResearchStation;
+        bool toHasresearch   = City.Get(CityToNid).HasResearchStation;
 
         return isDifferentCity && fromHasResearch && toHasresearch;
     }

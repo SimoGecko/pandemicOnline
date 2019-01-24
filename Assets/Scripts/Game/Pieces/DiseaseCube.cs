@@ -6,14 +6,14 @@ using UnityEngine;
 
 ////////// DESCRIPTION //////////
 
-public class DiseaseCube : MonoBehaviour {
+public class DiseaseCube : BoardPiece {
     // --------------------- VARIABLES ---------------------
 
     // public
 
 
     // private
-
+    public Disease DiseaseParent { get; private set; }
 
     // references
 	
@@ -31,6 +31,10 @@ public class DiseaseCube : MonoBehaviour {
 
 
     // commands
+    public void Setup(Disease parent, char color) {
+        DiseaseParent = parent;
+        GetComponentInChildren<MeshRenderer>().material = ColorManager.instance.Char2Material(color);
+    }
 
 
 

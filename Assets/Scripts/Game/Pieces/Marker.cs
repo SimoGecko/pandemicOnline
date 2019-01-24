@@ -6,7 +6,7 @@ using UnityEngine;
 
 ////////// DESCRIPTION //////////
 
-public class Marker : MonoBehaviour {
+public class Marker : BoardPiece {
     // --------------------- VARIABLES ---------------------
 
     // public

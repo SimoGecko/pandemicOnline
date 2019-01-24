@@ -45,7 +45,7 @@ public class Board : MonoBehaviour {
         BoardGraph = GraphSaveLoad.LoadGraphFromFile(useCity: true);
         GetComponent<GraphVisualizer>().GenerateGraph(BoardGraph);
         foreach(Vertex v in BoardGraph.Vertices) {
-            cityDic.Add(v.Nid, (City)v);
+            cityDic.Add(v.name, (City)v);
         }
     }
 
@@ -58,6 +58,7 @@ public class Board : MonoBehaviour {
     }
 
     public List<City> AllCities { get {
+
             return BoardGraph.Vertices.Select(v => (City)v).ToList();
     } }
 

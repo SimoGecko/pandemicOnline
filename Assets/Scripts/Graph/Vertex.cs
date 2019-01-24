@@ -12,7 +12,7 @@ public class Vertex {
 
     public int id;
     public char color;
-    public string Nid { get; set; }
+    public string name;
     public float posX, posY;
 
     //CONSTRUCTORS
@@ -20,22 +20,22 @@ public class Vertex {
 
     public Vertex(int id, Vector3 pos) {
         this.id = id;
-        Nid = "city";
+        name = "city";
         Position = pos;
         color = 'k';
     }
 
     public Vertex(Vertex other) { // copy constructor
         this.id = other.id;
-        this.Nid = other.Nid;
+        this.name = other.name;
         this.posX = other.posX;
         this.posY = other.posY;
         this.color = other.color;
     }
 
-    public Vertex(int id, string Nid, float posX, float posY, char color) { // full constructor
+    public Vertex(int id, string name, float posX, float posY, char color) { // full constructor
         this.id = id;
-        this.Nid = Nid;
+        this.name = name;
         this.posX = posX;
         this.posY = posY;
         this.color = color;

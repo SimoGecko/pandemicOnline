@@ -6,7 +6,7 @@ using UnityEngine;
 
 ////////// DESCRIPTION //////////
 
-public class ResearchStation : MonoBehaviour {
+public class ResearchStation : BoardPiece {
     // --------------------- VARIABLES ---------------------
 
     // public

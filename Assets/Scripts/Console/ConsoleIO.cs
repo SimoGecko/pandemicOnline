@@ -22,12 +22,20 @@ public class ConsoleIO : MonoBehaviour {
     CommandManager consoleCommand;
     public Text outputText;
     public InputField inputField;
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
+
+    public static ConsoleIO instance;
+
+
+    // --------------------- BASE METHODS ------------------
+    private void Awake() {
+        if (instance != null) Destroy(gameObject);
+        instance = this;
+
         outputText.text = "";
         consoleLines = new string[maxLines];
+    }
+
+    void Start () {
         consoleCommand = GetComponent<CommandManager>();
 	}
 	
@@ -61,7 +69,9 @@ public class ConsoleIO : MonoBehaviour {
         outputText.text = result;
     }
 
-
+    public void Log(string text) {
+        AddToConsoleOutput(text);
+    }
 
 
     // queries

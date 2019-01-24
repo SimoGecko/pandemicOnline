@@ -39,6 +39,14 @@ public static class Utility {
         return new Vector2((float)Math.Round(pos.x, 2), (float)Math.Round(pos.z, 2));
     }
 
+    public static Vector2 OnUnitCircle() {
+        float phi = UnityEngine.Random.value * 2 * Mathf.PI;
+        return new Vector2(Mathf.Cos(phi), Mathf.Sin(phi));
+    }
+
+    public static Vector3 To3(this Vector2 v) { return new Vector3(v.x, 0, v.y); }
+    public static Vector2 To2(this Vector3 v) { return new Vector2(v.x, v.z); }
+
     // --------------------- CUSTOM METHODS ----------------
 
     //converts an object to a string in the form field1,field2,...

@@ -6,7 +6,7 @@ using UnityEngine;
 
 ////////// DESCRIPTION //////////
 
-public class Pawn : MonoBehaviour {
+public class Pawn : BoardPiece {
     // --------------------- VARIABLES ---------------------
 
     // public
