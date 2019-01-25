@@ -21,7 +21,7 @@ public class MoveAction : Action {
     }
 
     public override string LogString() {
-        return string.Format("{0} {1} {2}", player.Nid, "move", CityParam);
+        return string.Format("{0} {1} {2}", "move", player.Nid, CityParam);
     }
 
 }
@@ -41,7 +41,7 @@ public class DirectAction : Action {
     }
 
     public override string LogString() {
-        return string.Format("{0} {1} {2}", player.Nid, "direct", CityParam);
+        return string.Format("{0} {1} {2}", "direct", player.Nid, CityParam);
     }
 }
 
@@ -60,7 +60,7 @@ public class CharterAction : Action {
     }
 
     public override string LogString() {
-        return string.Format("{0} {1} {2}", player.Nid, "charter", CityParam);
+        return string.Format("{0} {1} {2}", "charter", player.Nid, CityParam);
     }
 }
 
@@ -79,6 +79,6 @@ public class ShuttleAction : Action {
     }
 
     public override string LogString() {
-        return string.Format("{0} {1} {2}", player.Nid, "shuttle", CityParam);
+        return string.Format("{0} {1} {2}", "shuttle", player.Nid, CityParam);
     }
 }
