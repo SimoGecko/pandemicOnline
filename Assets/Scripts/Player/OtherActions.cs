@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class BuildAction : Action {
 
-    public override bool CanPerform() {
+    public override bool CanPerformCustom() {
         City city = player.CurrentCity;
         bool hasNoResearchStation = !city.HasResearchStation;
         bool hasCityCard = player.HasCard(city.Nid);
@@ -16,7 +16,7 @@ public class BuildAction : Action {
         return hasNoResearchStation && hasCityCard;
     }
 
-    public override void Perform() {
+    public override void PerformCustom() {
         City city = player.CurrentCity;
         ResearchManager.instance.PlaceStation(city.Nid);
         player.Discard(city.Nid);
@@ -30,13 +30,13 @@ public class BuildAction : Action {
 
 public class TreatAction : Action {
 
-    public override bool CanPerform() {
+    public override bool CanPerformCustom() {
         City city = player.CurrentCity;
         bool hasDisease = city.HasDisease(DiseaseParam);
         return hasDisease;
     }
 
-    public override void Perform() {
+    public override void PerformCustom() {
         City city = player.CurrentCity;
         Disease.Get(DiseaseParam).Treat(city.Nid);
     }
@@ -49,7 +49,7 @@ public class TreatAction : Action {
 
 public class ShareAction : Action {
 
-    public override bool CanPerform() {
+    public override bool CanPerformCustom() {
         City city = player.CurrentCity;
         Player otherPlayer = Player.Get(PlayerParam);
 
@@ -58,7 +58,7 @@ public class ShareAction : Action {
         return otherPlayerInSameCity && hasCard;
     }
 
-    public override void Perform() {
+    public override void PerformCustom() {
         City city = player.CurrentCity;
         Player otherPlayer = Player.Get(PlayerParam);
 
@@ -85,7 +85,7 @@ public class ShareAction : Action {
 
 public class CureAction : Action {
 
-    public override bool CanPerform() {
+    public override bool CanPerformCustom() {
         char diseaseColor = Disease.Get(DiseaseParam).Color;
         Card[] cardsRightColor = player.personalDeck.AllCardsSatisfying(c => c.color == diseaseColor);
 
@@ -93,7 +93,7 @@ public class CureAction : Action {
         return hasEnoughCards;
     }
 
-    public override void Perform() {
+    public override void PerformCustom() {
         char diseaseColor = Disease.Get(DiseaseParam).Color;
         Card[] cardsRightColor = player.personalDeck.AllCardsSatisfying(c => c.color == diseaseColor);
 

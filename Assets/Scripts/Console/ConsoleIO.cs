@@ -16,14 +16,16 @@ public class ConsoleIO : MonoBehaviour {
 
     // private
     string[] consoleLines;
-    string lastInputText = "";
+    string lastTypedLine = "";
 
     bool wasFocused;
 
     // references
+    public GameObject consoleUI;
     CommandManager consoleCommand;
     public Text outputText;
     public InputField inputField;
+    public Toggle showConsoleToggle;
 
     public static ConsoleIO instance;
 
@@ -38,8 +40,11 @@ public class ConsoleIO : MonoBehaviour {
     }
 
     void Start () {
+        if(keepConsoleFocus) inputField.ActivateInputField();
+
         consoleCommand = GetComponent<CommandManager>();
-	}
+        showConsoleToggle.onValueChanged.AddListener(ToggleConsoleVisibility);
+    }
 	
 	void Update () {
         if (Input.GetKeyDown(KeyCode.Return)) {
@@ -47,15 +52,19 @@ public class ConsoleIO : MonoBehaviour {
             if (wasFocused && inputField.text != "") {
                 Debug.Assert(!string.IsNullOrEmpty(inputField.text), "null or empty console input");
 
-                //consoleCommand.ProcessCommand(inputField.text);
-                AddToConsoleOutput(inputField.text);
+                lastTypedLine = inputField.text;
+                string lower = inputField.text.ToLower();
+
+                AddToConsoleOutput(lower);
                 inputField.text = "";
+                consoleCommand.ProcessCommand(lower);
+
                 if (keepConsoleFocus) inputField.ActivateInputField();
             }
         }
 
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            inputField.text = lastInputText;
+            inputField.text = lastTypedLine;
         }
 
         wasFocused = inputField.isFocused;
@@ -65,6 +74,9 @@ public class ConsoleIO : MonoBehaviour {
 
 
     // commands
+    void ToggleConsoleVisibility(bool b) {
+        consoleUI.SetActive(b);
+    }
 
 
     void AddToConsoleOutput(string text) {
@@ -77,8 +89,6 @@ public class ConsoleIO : MonoBehaviour {
         }
         consoleLines[maxLines - 1] = text;
         result += text;
-
-        lastInputText = text;
 
         outputText.text = result;
     }

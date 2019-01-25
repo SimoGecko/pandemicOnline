@@ -56,7 +56,7 @@ public class GraphVisualizer : MonoBehaviour {
             //set name
             TextMeshProUGUI tmp = newVertex.GetComponentInChildren<Canvas>().GetComponentInChildren<TextMeshProUGUI>();
             if (tmp == null) Debug.LogError("tmp not found");
-            tmp.text = v.name;
+            tmp.text = v.name.ToUpper();
         }
 
         //instantiate edges

@@ -54,6 +54,7 @@ public class Board : MonoBehaviour {
     // queries
     public City GetCity(string Nid) {
         Debug.Assert(cityDic.ContainsKey(Nid), "No city exists in dictionary with Nid " + Nid);
+        if (!cityDic.ContainsKey(Nid)) return null;
         return cityDic[Nid];
     }
 

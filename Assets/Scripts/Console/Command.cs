@@ -7,6 +7,9 @@ using System.Linq;
 using System;
 ////////// DESCRIPTION //////////
 
+public delegate void CommandInvoke(string p, string c, string d, string o);
+
+
 public class Command {
     readonly char[] paramChars = new char[] { 'P', 'C', 'D', 'O' }; // player city disease otherPlayer
 
@@ -16,7 +19,7 @@ public class Command {
     string[] param; // given when invoking
     public int NumRequiredParams { get; private set; }
 
-    public System.Action f;
+    public CommandInvoke f;
 
     public Command(string formulation) {
         //formulation = formulation.Replace(" ", "").Replace("\t", ""); // remove spaces & tabs
@@ -37,12 +40,13 @@ public class Command {
         }
     }
 
-    public void GiveMethod(System.Action method) {
+    public void GiveMethod(CommandInvoke method) {
         f = method;
     }
 
     public bool IsValid(string[] parameters) {
         param = parameters;
+        if (param.Length != NumRequiredParams) return false;
         for (int i = 0; i < paramIndex.Length; i++) {
             if (paramIndex[i] != -1) {
                 if (Elem(i) == null) return false;
@@ -55,7 +59,7 @@ public class Command {
         Debug.Assert(IsValid(parameters), "Passed parameters to invoke are not valid");
         if (IsValid(parameters)) {
             param = parameters;
-            f();
+            f(playerNid, cityNid, diseaseNid, otherPlayerNid);
         }
     }
 
@@ -73,29 +77,33 @@ public class Command {
     #region elementAccess
     public Player player {
         get {
-            if (paramIndex[0] != -1)
+            if (paramIndex[0] != -1) {
                 return Player.Get(param[paramIndex[0]]);
+            }
             return null;
         }
     }
     public City city {
         get {
-            if (paramIndex[1] != -1)
+            if (paramIndex[1] != -1) {
                 return City.Get(param[paramIndex[1]]);
+            }
             return null;
         }
     }
     public Disease disease {
         get {
-            if (paramIndex[2] != -1)
+            if (paramIndex[2] != -1) {
                 return Disease.Get(param[paramIndex[2]]);
+            }
             return null;
         }
     }
     public Player otherPlayer {
         get {
-            if (paramIndex[3] != -1)
+            if (paramIndex[3] != -1) {
                 return Player.Get(param[paramIndex[3]]);
+            }
             return null;
         }
     }

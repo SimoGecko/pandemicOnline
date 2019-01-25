@@ -26,7 +26,7 @@ public class ElementManager : MonoBehaviour {
     [Header("Pieces")]
     public DiseaseCube diseaseCubePrefab;
     public CureMarker cureMarkerPrefab;
-    public Marker infectionMarkerPrefab;
+    public Marker infectionMarkerPrefab, outbreakMarkerPrefab;
     public ResearchStation stationPrefab;
     public Pawn pawnPrefab;
 

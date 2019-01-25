@@ -1,16 +1,19 @@
-disease_infect, 	    @C, @D
-disease_outbreak, 	    @C,
-disease_epidemic, 	    @C,
+//disease
+infect, 	   C, D
+outbreak, 	   C,
+epidemic, 	   C,
 
-action_move, 		@P, @C,
-action_direct, 		@P, @C,
-action_charter, 	@P, @C,
-action_shuttle, 	@P, @C,
-action_build, 		@P, @C,
-action_treat, 		@P, @C, @D
-action_share, 		@P, @C,     @O
-action_cure, 		@P, @C, @D
+//actions
+move, 		P, C,
+direct, 	P, C,
+charter, 	P, C,
+shuttle, 	P, C,
+build, 		P, C,
+treat, 		P, C, D
+share, 		P, C,     O
+cure, 		P, C, D
 
-deck_draw, 			@P,
-deck_discard, 		@P, @C
-deck_shuffle, 		@N
+//deck
+draw, 		P,
+discard, 	P, C
+shuffle, 	      N

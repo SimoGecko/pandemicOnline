@@ -70,7 +70,7 @@ public class InterfaceManager : MonoBehaviour {
         for (int i = 0; i < PlayerManager.instance.numPlayers; i++) {
             GameObject newPlayerUI = Instantiate(playerUI, playerArea);
             Player p = Player.Get(i);
-            newPlayerUI.transform.Find("playerColor").GetComponent<Image>().color = p.color;
+            newPlayerUI.transform.Find("playerColor").GetComponent<Image>().color = p.Color;
             newPlayerUI.transform.Find("playerName").GetComponent<TextMeshProUGUI>().text = p.Nid;
             AddLink(newPlayerUI.transform.Find("playerInfo").GetComponent<TextMeshProUGUI>(), p.GetStatus);
             newPlayerUI.transform.Find("personalDeck").GetComponent<DeckVisualizer>().SetDeck(p.personalDeck);

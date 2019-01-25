@@ -15,8 +15,8 @@ public class DiseaseManager : MonoBehaviour {
     readonly static int[] infectionsPerRate = new int[] { 2, 2, 2, 3, 3, 4, 4 };
     readonly static int[] numBaseCubes = new int[] { 3, 3, 3, 2, 2, 2, 1, 1, 1 };
 
-    readonly static char[] diseaseColors = new char[] { 'y', 'r', 'b', 'k' };
-    readonly static string[] diseaseNids = new string[] { "yellow", "red", "blue", "black" };
+    readonly static char[] diseaseColors = new char[]   { 'y', 'r', 'b', 'k' };
+    readonly static string[] diseaseNids = new string[] { "y", "r", "b", "k" };
 
     // private
     public int InfectionNum { get; private set; }
@@ -133,7 +133,7 @@ public class DiseaseManager : MonoBehaviour {
         }
     }
 
-    void Outbreak(string cityNid, string diseaseNid) {
+    public void Outbreak(string cityNid, string diseaseNid) {
         ConsoleIO.instance.Log(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
 
         OutbreakNum++;
@@ -163,15 +163,14 @@ public class DiseaseManager : MonoBehaviour {
     }
 
 
-    public void Epidemic() {
+
+    public void Epidemic(string cityNid) { // done at will
         //1.increase
         InfectionNum++;
         //move cursor
-   
+
         //2. infect
-        Card infectCard = infectionDeck.RemoveBottom();
-        infectionDiscardDeck.AddBottom(infectCard);
-        Infect(infectCard.Nid, 3);
+        Infect(cityNid, 3);
 
         //3.intensify
         infectionDiscardDeck.Shuffle();
@@ -179,9 +178,17 @@ public class DiseaseManager : MonoBehaviour {
     }
 
 
+    public void EpidemicByCard() { // done at the right moment by looking at card
+        Card infectCard = infectionDeck.RemoveBottom();
+        infectionDiscardDeck.AddBottom(infectCard);
+        Epidemic(infectCard.Nid);
+    }
+
+
     // queries
     public Disease GetDisease(string Nid) {
         Debug.Assert(diseaseDic.ContainsKey(Nid), "No disease exists in dictionary with Nid " + Nid);
+        if (!diseaseDic.ContainsKey(Nid)) return null;
         return diseaseDic[Nid];
     }
 

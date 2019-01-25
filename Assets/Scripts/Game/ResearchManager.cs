@@ -51,6 +51,7 @@ public class ResearchManager : MonoBehaviour {
         stations = new List<ResearchStation>();
         for (int i = 0; i < numStartingStations; i++) {
             ResearchStation newStation = Instantiate(ElementManager.instance.stationPrefab) as ResearchStation;
+            newStation.SetColor('s');
             stations.Add(newStation);
             //newStation.Setup();
             newStation.MoveAway();

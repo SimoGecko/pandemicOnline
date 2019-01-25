@@ -123,6 +123,7 @@ public class PlayerManager : MonoBehaviour {
     // queries
     public Player GetPlayer(string Nid) {
         Debug.Assert(playerDic.ContainsKey(Nid), "No player exists in dictionary with Nid " + Nid);
+        if (!playerDic.ContainsKey(Nid)) return null;
         return playerDic[Nid];
     }
     public Player GetPlayer(int id) {

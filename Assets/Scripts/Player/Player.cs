@@ -1,5 +1,6 @@
 ﻿// (c) Simone Guggiari 2018
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,7 +22,7 @@ public class Player : IElement {
     int numPerformedActions = 0;
     bool isMyTurn = false;
     int id;
-    public Color color { get; private set; }
+    char colorChar;
 
     // references
     Pawn pawn;
@@ -32,7 +33,8 @@ public class Player : IElement {
 
     public Player(int id, Color color, string nid) {
         this.id = id;
-        this.color = color;
+        //this.color = color;
+        colorChar = id.ToString()[0];
         Nid = nid;
     }
 
@@ -41,6 +43,7 @@ public class Player : IElement {
     public void Setup() {
         //create pawn
         pawn = ElementManager.instance.Copy(ElementManager.instance.pawnPrefab);
+        pawn.SetColor(colorChar);
     }
 
     public void Move(string cityNid) {
@@ -53,12 +56,18 @@ public class Player : IElement {
 
 
     //ACTIONS
+    /*
+    public void TryDoAction(Action a) {
+        if (CanDoAction(a)) DoAction(a);
+    }*/
+
+
     public bool CanDoAction() {
-        return numPerformedActions<maxActions && isMyTurn && true;
+        return true;
+        //return numPerformedActions<maxActions && isMyTurn && true;
     }
 
     public void DoAction() {
-        //TODO
         numPerformedActions++;
     }
 
@@ -74,8 +83,8 @@ public class Player : IElement {
     public void Draw(int numCards) {
         for (int i = 0; i < numCards; i++) {
             Card drawnCard = PlayerManager.instance.DrawCard();
-            if(drawnCard.Nid == "epidemic") {
-                DiseaseManager.instance.Epidemic();
+            if (drawnCard.Nid == "epidemic") {
+                DiseaseManager.instance.EpidemicByCard();
             } else {
                 personalDeck.AddTop(drawnCard);
                 personalDeck.Sort();
@@ -95,6 +104,8 @@ public class Player : IElement {
         get { return pawn.CurrentCity; }
     }
 
+    
+
     public bool HasCard(string cardNid) {
         return personalDeck.HasCard(cardNid);
     }
@@ -113,12 +124,17 @@ public class Player : IElement {
 
     public int NumRemainingActions {
         get {
-           return isMyTurn ? maxActions - numPerformedActions : 0;
+            return isMyTurn ? maxActions - numPerformedActions : 0;
         }
     }
 
+    public Color Color {
+        get { return ColorManager.instance.Char2Color(colorChar); }
+    }
+
+
     public string GetStatus() {
-        return "status";
+        return "-";
     }
 
 
