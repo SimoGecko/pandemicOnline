@@ -20,7 +20,8 @@ public class City : Vertex, IElement {
     Dictionary<string, List<DiseaseCube>> diseaseCubes;
 
     // references
-    
+
+    static List<string> cityNames = new List<string>();
 	
 	
 
@@ -31,6 +32,7 @@ public class City : Vertex, IElement {
     public City(Vertex v) : base(v) { // copy constructor
         researchStation = null;
         diseaseCubes = new Dictionary<string, List<DiseaseCube>>();
+        Debug.Assert(!cityNames.Contains(Nid), "duplicate nid: " + Nid);
     }
 
     public void AddResearchStation(ResearchStation rs) {

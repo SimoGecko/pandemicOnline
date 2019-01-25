@@ -60,6 +60,7 @@ public static class Utility {
 
     //takes a string in the above format and creates an object of the correct type from it
     public static T Deserialize<T>(string s) where T : new() {
+        s = RemoveSpaceAndTabs(s);
         string[] values = s.Split(',');
         T result = new T();
         int v = 0;
@@ -86,6 +87,11 @@ public static class Utility {
             list[n] = value;
         }
     }
+
+    public static string RemoveSpaceAndTabs(this string s) {
+        return s.Replace(" ", "").Replace("\t", "");
+    }
+
 
     public static int[] Permutation(int n) {
         int[] result = LinearArray(n);

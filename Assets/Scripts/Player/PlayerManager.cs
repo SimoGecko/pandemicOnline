@@ -64,7 +64,7 @@ public class PlayerManager : MonoBehaviour {
     void CreatePlayers() {
         for (int i = 0; i < numPlayers; i++) {
             Color playerColor = i < playerColors.Length ? playerColors[i] : Color.white;
-            Player newPlayer = new Player(i, playerColor); //Instantiate(playerPrefab);
+            Player newPlayer = new Player(i, playerColor, "p"+i); //Instantiate(playerPrefab);
             newPlayer.Setup();
 
             playerDic.Add(newPlayer.Nid, newPlayer);

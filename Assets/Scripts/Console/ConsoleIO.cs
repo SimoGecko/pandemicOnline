@@ -16,7 +16,9 @@ public class ConsoleIO : MonoBehaviour {
 
     // private
     string[] consoleLines;
+    string lastInputText = "";
 
+    bool wasFocused;
 
     // references
     CommandManager consoleCommand;
@@ -40,24 +42,33 @@ public class ConsoleIO : MonoBehaviour {
 	}
 	
 	void Update () {
-        if (inputField.isFocused && inputField.text != "" && Input.GetKey(KeyCode.Return)) {
-            Debug.Assert(!string.IsNullOrEmpty(inputField.text), "null or empty console input");
+        if (Input.GetKeyDown(KeyCode.Return)) {
 
-            consoleCommand.ProcessCommand(inputField.text);
-            AddToConsoleOutput(inputField.text);
-            inputField.text = "";
-            if(keepConsoleFocus)
-                inputField.ActivateInputField();
+            if (wasFocused && inputField.text != "") {
+                Debug.Assert(!string.IsNullOrEmpty(inputField.text), "null or empty console input");
+
+                //consoleCommand.ProcessCommand(inputField.text);
+                AddToConsoleOutput(inputField.text);
+                inputField.text = "";
+                if (keepConsoleFocus) inputField.ActivateInputField();
+            }
         }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            inputField.text = lastInputText;
+        }
+
+        wasFocused = inputField.isFocused;
     }
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
-    
+
 
     void AddToConsoleOutput(string text) {
+
         string result = "";
         for (int i = 0; i < maxLines-1; i++) {
             consoleLines[i] = consoleLines[i + 1];
@@ -66,6 +77,8 @@ public class ConsoleIO : MonoBehaviour {
         }
         consoleLines[maxLines - 1] = text;
         result += text;
+
+        lastInputText = text;
 
         outputText.text = result;
     }

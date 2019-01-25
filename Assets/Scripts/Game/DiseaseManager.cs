@@ -16,7 +16,7 @@ public class DiseaseManager : MonoBehaviour {
     readonly static int[] numBaseCubes = new int[] { 3, 3, 3, 2, 2, 2, 1, 1, 1 };
 
     readonly static char[] diseaseColors = new char[] { 'y', 'r', 'b', 'k' };
-    readonly static string[] diseaseNids = new string[] { "diseaseYellow", "diseaseRed", "diseaseBlue", "diseaseBlack" };
+    readonly static string[] diseaseNids = new string[] { "yellow", "red", "blue", "black" };
 
     // private
     public int InfectionNum { get; private set; }
@@ -48,7 +48,7 @@ public class DiseaseManager : MonoBehaviour {
 	
 	void Update () {
         if (Input.GetKeyDown(KeyCode.D) && GameManager.instance.DEBUG) {
-            EndTurnInfect();
+            //EndTurnInfect();
         }
 	}
 

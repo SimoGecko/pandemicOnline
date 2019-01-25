@@ -19,16 +19,16 @@ public class CommandManager : MonoBehaviour {
 
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
+
+
+    // --------------------- BASE METHODS ------------------
+    void Start() {
         CreateCommands();
-	}
-	
-	void Update () {
-        
-	}
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
@@ -36,7 +36,10 @@ public class CommandManager : MonoBehaviour {
     // commands
     void CreateCommands() {
         allCommands = new List<Command>();
-        Command newC = new Command("disease_infect c");
+
+        Command newC = new Command("disease_infect C D");
+        newC.GiveMethod(() => DiseaseManager.instance.Infect(newC.cityNid, 1, newC.diseaseNid));
+        allCommands.Add(newC);
         //DiseaseManager.instance.Infect(particleEmitter[0]) // plug
     }
 
@@ -52,6 +55,14 @@ public class CommandManager : MonoBehaviour {
             Debug.Log("couldn't find command named " + parts[0]);
             return;
         }
+
+        parts.RemoveAt(0);
+        string[] parameters = parts.ToArray();
+        if (c.IsValid(parameters)) {
+            c.Invoke(parameters);
+        } else {
+            Debug.Log("invalid parameters for command " + c.memo);
+        }
     }
 
 
@@ -64,18 +75,6 @@ public class CommandManager : MonoBehaviour {
 
 
     // other
-    public class Command {
-        public string memo;
-        //public string pId, cId, dId; // player, city, disease Nid
-        //string[] p;
-        public System.Action f;
-
-        public Command(string formulation) {
-            List<string> parts = formulation.Split(' ').ToList();
-            memo = parts[0];
-            //p = new string[3];
-        }
-
-    }
+    
 
 }

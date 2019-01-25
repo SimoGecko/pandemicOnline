@@ -1,0 +1,48 @@
+sf, San Francisco
+ch, Chicago
+at, Atlanta
+mo, Montreal
+wa, Washington
+ny, New York
+ma, Madrid
+lo, London
+pa, Paris
+es, Essen
+ml, Milan
+st, St. Petersburg
+la, Los Angeles
+mc, Mexico City
+mi, Miami
+bo, Bogota
+li, Lima
+sa, Santiago
+bu, Buenos Aires
+sp, Sao Paulo
+jo, Johannesburg
+ki, Kinshasa
+lg, Lagos
+kh, Khartoum
+al, Algiers
+is, Istanbul
+ca, Cairo
+ba, Baghdad
+ms, Moscow
+te, Tehran
+ka, Karachi
+ri, Riyadh
+mu, Mumbai
+ce, Chennai
+de, Delhi
+ko, Kolkata
+bk, Bangkok
+ja, Jakarta
+hc, Ho Chi Minh City
+sy, Sydney
+mn, Manila
+hk, Hong Kong
+ta, Taipei
+sh, Shanghai
+be, Beijing
+se, Seoul
+to, Tokyo
+os, Osaka

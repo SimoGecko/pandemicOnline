@@ -30,10 +30,10 @@ public class Player : IElement {
 
     // --------------------- CUSTOM METHODS ----------------
 
-    public Player(int id, Color color) {
+    public Player(int id, Color color, string nid) {
         this.id = id;
         this.color = color;
-        Nid = "player_" + id;
+        Nid = nid;
     }
 
 
