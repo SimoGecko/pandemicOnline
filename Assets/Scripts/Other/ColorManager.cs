@@ -33,11 +33,11 @@ public class ColorManager : MonoBehaviour {
     // --------------------- BASE METHODS ------------------
     private void Awake() {
         instance = this;
+        CreateMaterials();
 
     }
 
     void Start () {
-        CreateMaterials();
 	}
 	
 	void Update () {

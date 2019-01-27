@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// reads mouse input and click=add vertex, drag=add edge //////////
 
 public class GraphBuilder : MonoBehaviour {
     // --------------------- VARIABLES ---------------------

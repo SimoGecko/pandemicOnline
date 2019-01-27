@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 ////////// DESCRIPTION //////////
@@ -10,9 +11,11 @@ using UnityEngine.UI;
 public class ConsoleIO : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
+
     // public
     public int maxLines = 15;
-    public bool keepConsoleFocus = true;
+    public bool keepInputFocus = true;
+    public bool toLower = false;
 
     // private
     string[] consoleLines;
@@ -22,50 +25,49 @@ public class ConsoleIO : MonoBehaviour {
 
     // references
     public GameObject consoleUI;
-    CommandManager consoleCommand;
     public Text outputText;
     public InputField inputField;
     public Toggle showConsoleToggle;
 
-    public static ConsoleIO instance;
+    public StringEvent OnSubmitString;
 
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        if (instance != null) Destroy(gameObject);
-        instance = this;
-
         outputText.text = "";
         consoleLines = new string[maxLines];
     }
 
     void Start () {
-        if(keepConsoleFocus) inputField.ActivateInputField();
-
-        consoleCommand = GetComponent<CommandManager>();
+        if(keepInputFocus) inputField.ActivateInputField();
         showConsoleToggle.onValueChanged.AddListener(ToggleConsoleVisibility);
     }
 	
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Return)) {
+        if (wasFocused) {
+            if (Input.GetKeyDown(KeyCode.Return)) {
 
-            if (wasFocused && inputField.text != "") {
-                Debug.Assert(!string.IsNullOrEmpty(inputField.text), "null or empty console input");
+                if (!string.IsNullOrEmpty(inputField.text)) {
+                    lastTypedLine = inputField.text;
 
-                lastTypedLine = inputField.text;
-                string lower = inputField.text.ToLower();
+                    string text = inputField.text;
+                    if(toLower) text = text.ToLower();
 
-                AddToConsoleOutput(lower);
-                inputField.text = "";
-                consoleCommand.ProcessCommand(lower);
+                    AddToConsoleOutput(text);
+                    inputField.text = "";
+                    OnSubmitString.Invoke(text);
+                    //CommandManager.in.ProcessCommand(lower);
 
-                if (keepConsoleFocus) inputField.ActivateInputField();
+                    if (keepInputFocus) inputField.ActivateInputField();
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.UpArrow)) {
+                inputField.text = lastTypedLine;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-            inputField.text = lastTypedLine;
-        }
+        
 
         wasFocused = inputField.isFocused;
     }
@@ -80,7 +82,6 @@ public class ConsoleIO : MonoBehaviour {
 
 
     void AddToConsoleOutput(string text) {
-
         string result = "";
         for (int i = 0; i < maxLines-1; i++) {
             consoleLines[i] = consoleLines[i + 1];
@@ -105,3 +106,6 @@ public class ConsoleIO : MonoBehaviour {
     // other
 
 }
+
+[System.Serializable]
+public class StringEvent : UnityEvent<string> { }

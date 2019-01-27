@@ -6,7 +6,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// takes a graph and instantiates vertices and edges from prefabs //////////
 
 public class GraphVisualizer : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
@@ -36,7 +36,6 @@ public class GraphVisualizer : MonoBehaviour {
 
     // commands
     public void GenerateGraph(Graph g) {
-        ColorManager colorManager = GetComponent<ColorManager>();
 
         //clean previous one
         if (parent != null) {
@@ -51,7 +50,10 @@ public class GraphVisualizer : MonoBehaviour {
             newVertex.transform.position = v.Position;
 
             //set right color
-            newVertex.GetComponentInChildren<MeshRenderer>().material = colorManager.Char2Material(v.color);
+            ColorManager cm = ColorManager.instance;
+            if (ColorManager.instance == null) cm = transform.root.GetComponentInChildren<ColorManager>();
+
+            newVertex.GetComponentInChildren<MeshRenderer>().material = cm.Char2Material(v.color);
 
             //set name
             TextMeshProUGUI tmp = newVertex.GetComponentInChildren<Canvas>().GetComponentInChildren<TextMeshProUGUI>();

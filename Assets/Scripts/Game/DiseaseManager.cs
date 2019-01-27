@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-////////// DESCRIPTION //////////
+////////// controls infection, outbreak, epidemics //////////
 
 public class DiseaseManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
@@ -104,8 +104,9 @@ public class DiseaseManager : MonoBehaviour {
 
         amount = Mathf.Min(amount, 3 - city.NumDiseaseCubes);
 
-        if(amount>0)
-            ConsoleIO.instance.Log(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
+        if (amount > 0) {
+            //ConsoleIO.instance.Log(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
+        }
 
         for (int i = 0; i < amount; i++) {
             disease.Infect(city);
@@ -123,7 +124,7 @@ public class DiseaseManager : MonoBehaviour {
         }
     }
 
-    void EndTurnInfect() {
+    public void EndTurnInfect() {
         int infectionsToPerform = InfectionRate;
         for (int i = 0; i < infectionsToPerform; i++) {
             Card infectCard = infectionDeck.RemoveTop();
@@ -134,7 +135,7 @@ public class DiseaseManager : MonoBehaviour {
     }
 
     public void Outbreak(string cityNid, string diseaseNid) {
-        ConsoleIO.instance.Log(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
+        //ConsoleIO.instance.Log(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
 
         OutbreakNum++;
         //move cursor

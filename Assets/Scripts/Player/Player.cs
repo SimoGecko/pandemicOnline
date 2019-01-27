@@ -20,7 +20,7 @@ public class Player : IElement {
     public Deck personalDeck { get; private set; }
 
     int numPerformedActions = 0;
-    bool isMyTurn = false;
+    public bool isTurn { get; private set; }
     int id;
     char colorChar;
 
@@ -63,8 +63,8 @@ public class Player : IElement {
 
 
     public bool CanDoAction() {
-        return true;
-        //return numPerformedActions<maxActions && isMyTurn && true;
+        //return true;
+        return numPerformedActions < maxActions && isTurn && true;
     }
 
     public void DoAction() {
@@ -73,11 +73,13 @@ public class Player : IElement {
 
     public void StartTurn() {
         numPerformedActions = 0;
-        isMyTurn = true;
+        isTurn = true;
     }
 
-    public void EndTurn() {
-        isMyTurn = false;
+    public void EndTurn() { // this is called as action
+        if (!isTurn) return;
+        isTurn = false;
+        FlowManager.instance.OnTurnEnd();
     }
 
     public void Draw(int numCards) {
@@ -104,7 +106,7 @@ public class Player : IElement {
         get { return pawn.CurrentCity; }
     }
 
-    
+
 
     public bool HasCard(string cardNid) {
         return personalDeck.HasCard(cardNid);
@@ -124,7 +126,7 @@ public class Player : IElement {
 
     public int NumRemainingActions {
         get {
-            return isMyTurn ? maxActions - numPerformedActions : 0;
+            return isTurn ? maxActions - numPerformedActions : 0;
         }
     }
 
@@ -134,7 +136,7 @@ public class Player : IElement {
 
 
     public string GetStatus() {
-        return "-";
+        return isTurn ? "turn" : "-";
     }
 
 

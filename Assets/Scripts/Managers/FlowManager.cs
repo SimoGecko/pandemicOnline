@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Linq;
 
-////////// calls the appropriate functions //////////
+////////// calls the appropriate functions -> all game is run from here //////////
 
 public class FlowManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
@@ -15,14 +15,19 @@ public class FlowManager : MonoBehaviour {
 
 
     // private
-    
+
 
 
 
     // references
+    public static FlowManager instance;
 
 
     // --------------------- BASE METHODS ------------------
+    private void Awake() {
+        instance = this;
+    }
+
     void Start () {
         Setup();
 
@@ -31,6 +36,7 @@ public class FlowManager : MonoBehaviour {
 	void Update () {
         GameManager.instance.CheckEndCondition();
         //DEAL WITH TURNS AND CALLS
+
 	}
 
     // --------------------- CUSTOM METHODS ----------------
@@ -46,6 +52,13 @@ public class FlowManager : MonoBehaviour {
         InterfaceManager.instance.Setup();
     }
 
+    public void OnTurnEnd() {
+        PlayerManager.instance.CurrentPlayer.Draw(2);
+        DiseaseManager.instance.EndTurnInfect();
+        PlayerManager.instance.IncreaseTurn();
+        PlayerManager.instance.CurrentPlayer.StartTurn();
+    }
+
     void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
@@ -56,5 +69,6 @@ public class FlowManager : MonoBehaviour {
 
 
     // other
+    
 
 }

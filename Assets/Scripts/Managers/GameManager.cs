@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-////////// DESCRIPTION //////////
+////////// difficulty, win/lose conditions (should only control the play/pause/state of game) //////////
 
 public class GameManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void CheckEndCondition() {
+        if (winConditions == null || loseConditions == null) return;
         foreach (var c in winConditions) if (c()) Win();
         foreach (var c in loseConditions) if (c()) Lose();
     }

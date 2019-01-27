@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-////////// DESCRIPTION //////////
+////////// generates and manages players as well as player decks //////////
 
 public class PlayerManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public Color[] playerColors;
+    //public Color[] playerColors;
 
     public int numPlayers = 2;
 
@@ -61,10 +61,11 @@ public class PlayerManager : MonoBehaviour {
         SetStartingPlayer();
     }
 
+    #region setup
     void CreatePlayers() {
         for (int i = 0; i < numPlayers; i++) {
-            Color playerColor = i < playerColors.Length ? playerColors[i] : Color.white;
-            Player newPlayer = new Player(i, playerColor, "p"+i); //Instantiate(playerPrefab);
+            //Color playerColor = i < playerColors.Length ? playerColors[i] : Color.white;
+            Player newPlayer = new Player(i, Color.white, "p"+i); //Instantiate(playerPrefab);
             newPlayer.Setup();
 
             playerDic.Add(newPlayer.Nid, newPlayer);
@@ -107,6 +108,8 @@ public class PlayerManager : MonoBehaviour {
         currentPlayerTurn = Random.Range(0, numPlayers);
     }
 
+    #endregion
+
     public Card DrawCard() {
         if (playerDeck.NumCards == 0) {
             RunOutOfCards = true;
@@ -119,6 +122,12 @@ public class PlayerManager : MonoBehaviour {
         playerDiscardDeck.AddBottom(card);
     }
 
+    
+
+    public void IncreaseTurn() {
+        currentPlayerTurn = (currentPlayerTurn + 1) % numPlayers;
+    }
+    public Player CurrentPlayer { get { return players[currentPlayerTurn]; } }
 
     // queries
     public Player GetPlayer(string Nid) {

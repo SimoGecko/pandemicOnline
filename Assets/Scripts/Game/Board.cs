@@ -5,13 +5,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-////////// DESCRIPTION //////////
+////////// generates board at the beginning of the game //////////
 
 public class Board : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public string startingCity = "Atlanta";
+    public string startingCity = "at"; // atlanta
 
 
     // private
@@ -43,7 +43,7 @@ public class Board : MonoBehaviour {
     // commands
     public void Setup() {
         BoardGraph = GraphSaveLoad.LoadGraphFromFile(useCity: true);
-        GetComponent<GraphVisualizer>().GenerateGraph(BoardGraph);
+        transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
         foreach(Vertex v in BoardGraph.Vertices) {
             cityDic.Add(v.name, (City)v);
         }

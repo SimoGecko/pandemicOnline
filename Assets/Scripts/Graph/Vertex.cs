@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// general vertex class with id, name, pos, color //////////
 
 public class Vertex {
     // --------------------- VARIABLES ---------------------

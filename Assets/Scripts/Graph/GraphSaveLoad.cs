@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// saves and loads graph to/from text file //////////
 
 public class GraphSaveLoad : MonoBehaviour {
     // --------------------- VARIABLES ---------------------

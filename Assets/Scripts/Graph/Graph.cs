@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// general graph class with vertex and edges, adding and queries //////////
 
 public class Graph {
     // --------------------- VARIABLES ---------------------
