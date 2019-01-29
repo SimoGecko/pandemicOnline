@@ -31,6 +31,7 @@ public class FlowManager : MonoBehaviour {
     void Start () {
         Setup();
 
+        PlayerManager.instance.StartTurn();
     }
 	
 	void Update () {

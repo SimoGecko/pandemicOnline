@@ -105,7 +105,7 @@ public class DiseaseManager : MonoBehaviour {
         amount = Mathf.Min(amount, 3 - city.NumDiseaseCubes);
 
         if (amount > 0) {
-            //ConsoleIO.instance.Log(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
+            CommandManager.instance.Log(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
         }
 
         for (int i = 0; i < amount; i++) {
@@ -135,7 +135,7 @@ public class DiseaseManager : MonoBehaviour {
     }
 
     public void Outbreak(string cityNid, string diseaseNid) {
-        //ConsoleIO.instance.Log(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
+        CommandManager.instance.Log(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
 
         OutbreakNum++;
         //move cursor
@@ -166,6 +166,8 @@ public class DiseaseManager : MonoBehaviour {
 
 
     public void Epidemic(string cityNid) { // done at will
+        CommandManager.instance.Log(string.Format("epidemic {0} {1}", cityNid));
+
         //1.increase
         InfectionNum++;
         //move cursor

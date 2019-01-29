@@ -68,11 +68,18 @@ public class CommandManager : MonoBehaviour {
 
 
     // references
+    public static CommandManager instance;
+
 
 
     // --------------------- BASE METHODS ------------------
+    private void Awake() {
+        instance = this;
+    }
+
     void Start() {
         CreateCommands();
+        console.OnSubmitString += ProcessCommand;
     }
 
     void Update() {
@@ -90,14 +97,15 @@ public class CommandManager : MonoBehaviour {
 
         for (int i = 0; i < commandStrings.Length; i++) {
             Command newC = new Command(commandStrings[i]);
-            newC.GiveMethod(commandInvokes[i]);// (() => newC.playerNid() + "", newC.city, newC.disease, newC.otherPlayer)); // plug it here
+            newC.GiveMethod(commandInvokes[i]);
             allCommands.Add(newC);
         }
-        //CommandInvoke i = (p, c, d, o) => DiseaseManager.instance.Infect(c.Nid, 1, d.Nid);
     }
    
 
     public void ProcessCommand(string text) {
+        if (string.IsNullOrEmpty(text)) return;
+
         List<string> parts = text.Split(' ').ToList();
 
         if (text == "help") {
@@ -124,12 +132,16 @@ public class CommandManager : MonoBehaviour {
         }
     }
 
+    public void Log(string s) {
+        console.Log(s);
+    }
 
     // queries
     Command FindMatchingCommand(string memo) {
         Command result = allCommands.Find(c => c.memo == memo);
         return result;
     }
+
 
 
     // other

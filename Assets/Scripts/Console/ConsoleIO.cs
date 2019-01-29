@@ -6,7 +6,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+
 ////////// DESCRIPTION //////////
+
+public delegate void StringEvent(string v);
 
 public class ConsoleIO : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
@@ -14,8 +17,10 @@ public class ConsoleIO : MonoBehaviour {
 
     // public
     public int maxLines = 15;
+    public bool startFocus = false;
     public bool keepInputFocus = true;
     public bool toLower = false;
+    public bool autoAddToOutput = false;
 
     // private
     string[] consoleLines;
@@ -29,18 +34,17 @@ public class ConsoleIO : MonoBehaviour {
     public InputField inputField;
     public Toggle showConsoleToggle;
 
-    public StringEvent OnSubmitString;
+    [HideInInspector]
+    public event StringEvent OnSubmitString;
 
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        outputText.text = "";
-        consoleLines = new string[maxLines];
+        //OnSubmitString.RemoveAllListeners();
     }
 
     void Start () {
-        if(keepInputFocus) inputField.ActivateInputField();
-        showConsoleToggle.onValueChanged.AddListener(ToggleConsoleVisibility);
+        Setup();
     }
 	
 	void Update () {
@@ -48,26 +52,27 @@ public class ConsoleIO : MonoBehaviour {
             if (Input.GetKeyDown(KeyCode.Return)) {
 
                 if (!string.IsNullOrEmpty(inputField.text)) {
+                    //get text
                     lastTypedLine = inputField.text;
-
                     string text = inputField.text;
                     if(toLower) text = text.ToLower();
 
-                    AddToConsoleOutput(text);
-                    inputField.text = "";
-                    OnSubmitString.Invoke(text);
-                    //CommandManager.in.ProcessCommand(lower);
+                    //invoke
+                    if(autoAddToOutput) AddToConsoleOutput(text);
+                    if (OnSubmitString != null) OnSubmitString(text);
+                    //OnSubmitString.Invoke(text);
 
+                    //reset
+                    inputField.text = "";
                     if (keepInputFocus) inputField.ActivateInputField();
                 }
             }
 
             if (Input.GetKeyDown(KeyCode.UpArrow)) {
                 inputField.text = lastTypedLine;
+                inputField.caretPosition = inputField.text.Length; // put cursor at end
             }
         }
-
-        
 
         wasFocused = inputField.isFocused;
     }
@@ -76,6 +81,14 @@ public class ConsoleIO : MonoBehaviour {
 
 
     // commands
+    void Setup() {
+        outputText.text = "";
+        consoleLines = new string[maxLines];
+        if (startFocus) inputField.ActivateInputField();
+
+        showConsoleToggle.onValueChanged.AddListener(ToggleConsoleVisibility);
+    }
+
     void ToggleConsoleVisibility(bool b) {
         consoleUI.SetActive(b);
     }
@@ -106,6 +119,3 @@ public class ConsoleIO : MonoBehaviour {
     // other
 
 }
-
-[System.Serializable]
-public class StringEvent : UnityEvent<string> { }

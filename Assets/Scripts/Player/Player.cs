@@ -85,8 +85,11 @@ public class Player : IElement {
     public void Draw(int numCards) {
         for (int i = 0; i < numCards; i++) {
             Card drawnCard = PlayerManager.instance.DrawCard();
+            personalDeck.AddTop(drawnCard);
             if (drawnCard.Nid == "epidemic") {
                 DiseaseManager.instance.EpidemicByCard();
+                //set in discard pile
+                Discard("epidemic");
             } else {
                 personalDeck.AddTop(drawnCard);
                 personalDeck.Sort();
@@ -136,7 +139,7 @@ public class Player : IElement {
 
 
     public string GetStatus() {
-        return isTurn ? "turn" : "-";
+        return isTurn ? string.Format("turn: ({0} left) ",NumRemainingActions) : "-";
     }
 
 

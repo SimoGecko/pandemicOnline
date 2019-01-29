@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 ////////// DESCRIPTION //////////
 
@@ -10,17 +11,28 @@ public class LobbyManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-
+    public string lobbyID;// { get; private set; }
+    public bool randomId = false;
 
     // private
 
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        
+    public static LobbyManager instance;
+    public Button connectButton;
+    public InputField username,inputID;
+
+
+    // --------------------- BASE METHODS ------------------
+    private void Awake() {
+        if (instance != null) Destroy(this);
+        instance = this;
+
+        if(randomId) lobbyID = Utility.GetAlphanumericRandomString(6);
+    }
+
+    void Start () {
+        connectButton.onClick.AddListener(Connect);
 	}
 	
 	void Update () {
@@ -31,7 +43,12 @@ public class LobbyManager : MonoBehaviour {
 
 
     // commands
+    private void Connect() {
+        lobbyID = inputID.text;
+        ChatManager.instance.myName = username.text;
 
+        ChatManager.instance.StartChat();
+    }
 
 
     // queries

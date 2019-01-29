@@ -13,13 +13,21 @@ public class CommunicationManager : MonoBehaviour {
 
 
     // private
-
+    //fName in the form "/folder/file.txt"
+    //base folder: pandemic_online
+    string downloadedResult = "";
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
+    public static CommunicationManager instance;
+
+
+    // --------------------- BASE METHODS ------------------
+    private void Awake() {
+        if (instance != null) Destroy(this);
+        instance = this;
+    }
+
+    void Start () {
         
 	}
 	
@@ -30,7 +38,9 @@ public class CommunicationManager : MonoBehaviour {
     // --------------------- CUSTOM METHODS ----------------
 
 
+
     // commands
+    
 
 
 

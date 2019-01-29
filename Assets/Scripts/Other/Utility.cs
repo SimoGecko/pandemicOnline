@@ -98,4 +98,23 @@ public static class Utility {
         result.Shuffle();
         return result;
     }
+
+    public static string GetAlphanumericRandomString(int n) {
+        const string glyphs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        //length: 62
+        //6 letters space: 56 bn
+        string result = "";
+        for (int i = 0; i < n; i++) {
+            result += glyphs[UnityEngine.Random.Range(0, glyphs.Length)];
+        }
+        return result;
+    }
+
+    public static string TimeStamp(DateTime value) {
+        return value.ToString("dd/MM/yy_HH:mm:ss");
+    }
+
+    public static string HourStamp(DateTime value) {
+        return value.ToString("HH:mm:ss");
+    }
 }

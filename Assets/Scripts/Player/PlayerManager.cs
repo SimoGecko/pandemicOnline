@@ -61,6 +61,10 @@ public class PlayerManager : MonoBehaviour {
         SetStartingPlayer();
     }
 
+    public void StartTurn() {
+        CurrentPlayer.StartTurn();
+    }
+
     #region setup
     void CreatePlayers() {
         for (int i = 0; i < numPlayers; i++) {
