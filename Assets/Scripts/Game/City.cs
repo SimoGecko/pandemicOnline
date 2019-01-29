@@ -15,6 +15,7 @@ public class City : Vertex, IElement {
 
 
     // private
+    string fullName;
     ResearchStation researchStation;
     //Player[] stationedPlayers; // not needed
     Dictionary<string, List<DiseaseCube>> diseaseCubes;
@@ -60,7 +61,9 @@ public class City : Vertex, IElement {
         return cube;
     }
 
-
+    public void SetFullName(string s) {
+        fullName = s;
+    }
 
     // queries
     public bool IsAdjacentTo(City c) {

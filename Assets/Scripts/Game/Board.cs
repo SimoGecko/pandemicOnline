@@ -22,6 +22,8 @@ public class Board : MonoBehaviour {
     // references
     public static Board instance;
 
+    public TextAsset graphText, citiesText;
+
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
@@ -42,10 +44,27 @@ public class Board : MonoBehaviour {
 
     // commands
     public void Setup() {
-        BoardGraph = GraphSaveLoad.LoadGraphFromFile(useCity: true);
+        BoardGraph = GraphSaveLoad.LoadGraph(graphText.text, useCity: true);
         transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
         foreach(Vertex v in BoardGraph.Vertices) {
             cityDic.Add(v.name, (City)v);
+        }
+        ReadCitiesNames();
+    }
+
+    //read cities name
+    void ReadCitiesNames() {
+        string[] lines = citiesText.text.RemoveSpaceAndTabs().GetLines();
+        for (int i = 0; i < lines.Length; i++) {
+            string[] content = lines[i].Split(',');
+
+            string id = content[0];
+            string fullname = content[1];
+            if (cityDic.ContainsKey(id)) {
+                cityDic[id].SetFullName(fullname);
+            } else {
+                Debug.LogError("no city with nid " + id);
+            }
         }
     }
 

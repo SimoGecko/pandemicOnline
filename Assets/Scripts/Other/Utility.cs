@@ -92,6 +92,10 @@ public static class Utility {
         return s.Replace(" ", "").Replace("\t", "");
     }
 
+    public static string[] GetLines(this string content) {
+        return content.Split(new[] { System.Environment.NewLine, "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+    }
+
 
     public static int[] Permutation(int n) {
         int[] result = LinearArray(n);

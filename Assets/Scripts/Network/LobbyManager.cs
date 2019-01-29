@@ -11,7 +11,7 @@ public class LobbyManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public string lobbyID;// { get; private set; }
+    public string lobbyID = "default";// { get; private set; }
     public bool randomId = false;
 
     // private
@@ -33,7 +33,9 @@ public class LobbyManager : MonoBehaviour {
 
     void Start () {
         connectButton.onClick.AddListener(Connect);
-	}
+        username.text = "player";
+        inputID.text = lobbyID;
+    }
 	
 	void Update () {
         

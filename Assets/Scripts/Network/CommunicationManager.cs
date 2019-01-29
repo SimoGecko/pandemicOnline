@@ -15,7 +15,7 @@ public class CommunicationManager : MonoBehaviour {
     // private
     //fName in the form "/folder/file.txt"
     //base folder: pandemic_online
-    string downloadedResult = "";
+    //string downloadedResult = "";
 
     // references
     public static CommunicationManager instance;

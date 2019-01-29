@@ -41,10 +41,11 @@ public class ConsoleIO : MonoBehaviour {
     // --------------------- BASE METHODS ------------------
     private void Awake() {
         //OnSubmitString.RemoveAllListeners();
+        Setup();
+
     }
 
     void Start () {
-        Setup();
     }
 	
 	void Update () {

@@ -42,7 +42,7 @@ public class ChatManager : MonoBehaviour {
         chatConsole.OnSubmitString += Chat;
 
         sf = gameObject.AddComponent<SyncedFile>();
-        sf.Setup(string.Format("chat_{0}.txt", LobbyManager.instance.lobbyID));
+        sf.Setup(string.Format("chats/chat_{0}.txt", LobbyManager.instance.lobbyID));
 
         sf.OnNewRemoteLine += OnNewLine;
     }

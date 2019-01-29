@@ -64,9 +64,8 @@ public class GraphSaveLoad : MonoBehaviour {
         System.IO.File.WriteAllText(savePath, result);
     }
 
-    public static Graph LoadGraphFromFile(string savePath = defaultSavePath, bool useCity = false) {
-        string text = System.IO.File.ReadAllText(savePath);
-        string[] lines = text.Split(new[] { System.Environment.NewLine, "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
+    public static Graph LoadGraph(string graph_encoding, bool useCity = false) {
+        string[] lines = graph_encoding.GetLines();//graph_encoding.Split(new[] { System.Environment.NewLine, "\n" }, System.StringSplitOptions.RemoveEmptyEntries);
 
         Graph newGraph = new Graph();
         var vals = lines[0].Split(',');
@@ -95,6 +94,11 @@ public class GraphSaveLoad : MonoBehaviour {
             newGraph.AddEdge(u, v);
         }
         return newGraph;
+    }
+
+    public static Graph LoadGraphFromFile(string savePath = defaultSavePath, bool useCity = false) {
+        string text = System.IO.File.ReadAllText(savePath);
+        return LoadGraph(text, useCity);
     }
 
 

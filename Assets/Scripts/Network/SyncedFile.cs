@@ -14,6 +14,8 @@ public class SyncedFile : MonoBehaviour {
     const string websiteUrl = "https://simoneguggiari.altervista.org/pandemic_online/"; // HTTPS
 
     public float refreshRate = 2f;
+    public bool log = false;
+    public bool deleteOnClose = true;
 
     // private
     string fName;
@@ -26,15 +28,28 @@ public class SyncedFile : MonoBehaviour {
     // references
     public StringEvent OnNewRemoteLine;
 
-  
+    private void OnApplicationQuit() {
+        if(deleteOnClose)
+            DeleteFile();
+    }
+
+    private void Update() {
+        if (Input.GetKeyDown(KeyCode.F8)) DeleteFile();
+    }
+
     // --------------------- CUSTOM METHODS ----------------
 
     public void Setup(string fName) {
         this.fName = fName;
         lines = new List<string>();
+        Write(""); // to create it
         StartCoroutine("DownloadRoutine");
     }
 
+    void DeleteFile() {
+        StartCoroutine("DeleteRoutine");
+
+    }
 
     // commands
     public void Write(string data) {
@@ -43,6 +58,8 @@ public class SyncedFile : MonoBehaviour {
         lines.Add(data);
         StartCoroutine(UploadRoutine(data + '\n'));
     }
+
+
 
     void ProcessFileContent(string content) {
         string[] contentLines = content.Split('\n');
@@ -83,28 +100,43 @@ public class SyncedFile : MonoBehaviour {
         yield return www;
 
         if (!string.IsNullOrEmpty(www.error)) Debug.Log("www error: " + www.error);
+        if (log) {
+            Debug.Log("uploaded in " + (DateTime.Now - uploadStartTime).TotalMilliseconds + "ms");
 
-        DateTime endTime = DateTime.Now;
-        Debug.Log("uploaded in " + (endTime - uploadStartTime).TotalMilliseconds + "ms");
+        }
     }
 
     public IEnumerator DownloadRoutine() {
         while (true) {
             downloadStartTime = DateTime.Now;
 
-            WWW www = new WWW(websiteUrl + fName);
+            WWWForm form = new WWWForm();
+            form.AddField("name", fName);
+
+            WWW www = new WWW(websiteUrl + "read.php", form);
             yield return www;
 
             if (!string.IsNullOrEmpty(www.error)) Debug.Log("www error: " + www.error);
             else {
-                DateTime endTime = DateTime.Now;
-                Debug.Log("downloaded in " + (endTime - downloadStartTime).TotalMilliseconds + "ms");
+                if (log) {
+                    Debug.Log("downloaded in " + (DateTime.Now - downloadStartTime).TotalMilliseconds + "ms");
 
+                }
                 ProcessFileContent(www.text);
-
-                yield return new WaitForSeconds(refreshRate);
             }
+
+            yield return new WaitForSeconds(refreshRate);
         }
+    }
+
+    public IEnumerator DeleteRoutine() {
+        WWWForm form = new WWWForm();
+        form.AddField("name", fName);
+
+        WWW www = new WWW(websiteUrl + "delete.php", form);
+        yield return www;
+
+        if (!string.IsNullOrEmpty(www.error)) Debug.Log("www error: " + www.error);
     }
 
 
