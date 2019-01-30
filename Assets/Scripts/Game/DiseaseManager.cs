@@ -22,14 +22,12 @@ public class DiseaseManager : MonoBehaviour {
     public int InfectionNum { get; private set; }
     public int OutbreakNum { get; private set; }
 
-    List<string> alreadyOutbreakedCities;
-
     public Deck infectionDeck { get; private set; }
     public Deck infectionDiscardDeck { get; private set; }
 
     Dictionary<string, Disease> diseaseDic = new Dictionary<string, Disease>();
 
-
+    //for outbreaks
     bool firstOutbreak;
     List<string> outbreakCities = new List<string>();
 
@@ -43,33 +41,26 @@ public class DiseaseManager : MonoBehaviour {
         instance = this;
     }
 
-    void Start () {
-	}
-	
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.D) && GameManager.instance.DEBUG) {
-            //EndTurnInfect();
-        }
-	}
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
+    /*
     public void Setup() {
         SetupMarkers();
         CreateDiseases();
         CreateDecks();
-        BaseInfect();
-    }
+        //BaseInfect();
+    }*/
 
-    void SetupMarkers() {
+    public void SetupMarkers() {
         InfectionNum = 0;
         OutbreakNum = 0;
         //place them on the board
     }
 
-    void CreateDiseases() {
+    public void CreateDiseases() {
         //setup disease
         int numDiseases = diseaseNids.Length;
         for (int i = 0; i < numDiseases; i++) {
@@ -79,7 +70,7 @@ public class DiseaseManager : MonoBehaviour {
         }
     }
 
-    void CreateDecks() {
+    public void CreateDecks() {
         infectionDeck = new Deck("Infection Deck");
         foreach(City c in Board.instance.AllCities) {
             infectionDeck.Add(c.Nid, c.color);
@@ -88,7 +79,15 @@ public class DiseaseManager : MonoBehaviour {
         infectionDiscardDeck = new Deck("Infection Discard Deck");
     }
 
-    
+    public void BaseInfect() {
+        for (int i = 0; i < 9; i++) {
+            Card infectCard = infectionDeck.RemoveTop();
+            infectionDiscardDeck.AddBottom(infectCard);
+
+            Infect(infectCard.Nid, numBaseCubes[i]);
+        }
+    }
+
 
 
     //--------------------- commands
@@ -105,7 +104,7 @@ public class DiseaseManager : MonoBehaviour {
         amount = Mathf.Min(amount, 3 - city.NumDiseaseCubes);
 
         if (amount > 0) {
-            CommandManager.instance.Log(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
+            CommandManager.instance.OutputText(string.Format("infect {0} {1} {2}", cityNid, diseaseNid, amount));
         }
 
         for (int i = 0; i < amount; i++) {
@@ -114,15 +113,7 @@ public class DiseaseManager : MonoBehaviour {
 
         if(mustOutbreak) Outbreak(cityNid, diseaseNid);
     }
-
-    void BaseInfect() {
-        for (int i = 0; i < 9; i++) {
-            Card infectCard = infectionDeck.RemoveTop();
-            infectionDiscardDeck.AddBottom(infectCard);
-
-            Infect(infectCard.Nid, numBaseCubes[i]);
-        }
-    }
+    
 
     public void EndTurnInfect() {
         int infectionsToPerform = InfectionRate;
@@ -135,7 +126,7 @@ public class DiseaseManager : MonoBehaviour {
     }
 
     public void Outbreak(string cityNid, string diseaseNid) {
-        CommandManager.instance.Log(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
+        CommandManager.instance.OutputText(string.Format("outbreak {0} {1}", cityNid, diseaseNid));
 
         OutbreakNum++;
         //move cursor
@@ -166,7 +157,7 @@ public class DiseaseManager : MonoBehaviour {
 
 
     public void Epidemic(string cityNid) { // done at will
-        CommandManager.instance.Log(string.Format("epidemic {0} {1}", cityNid));
+        CommandManager.instance.OutputText(string.Format("epidemic {0} {1}", cityNid));
 
         //1.increase
         InfectionNum++;

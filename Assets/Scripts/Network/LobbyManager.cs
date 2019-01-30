@@ -11,16 +11,16 @@ public class LobbyManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public string lobbyID = "default";// { get; private set; }
     public bool randomId = false;
 
     // private
-
+    List<Lobby> existingLobbies;
+    Lobby testLobby;
 
     // references
     public static LobbyManager instance;
-    public Button connectButton;
-    public InputField username,inputID;
+    public Button connectButton; 
+    public InputField username, inputID;
 
 
     // --------------------- BASE METHODS ------------------
@@ -28,13 +28,14 @@ public class LobbyManager : MonoBehaviour {
         if (instance != null) Destroy(this);
         instance = this;
 
-        if(randomId) lobbyID = Utility.GetAlphanumericRandomString(6);
+        //if(randomId) lobbyID = 
+        existingLobbies = new List<Lobby>();
     }
 
     void Start () {
         connectButton.onClick.AddListener(Connect);
         username.text = "player";
-        inputID.text = lobbyID;
+        //inputID.text = lobbyID;
     }
 	
 	void Update () {
@@ -45,11 +46,16 @@ public class LobbyManager : MonoBehaviour {
 
 
     // commands
+    void CreateLobby() {
+        string lobbyId = Utility.GetAlphanumericRandomString(6);
+        Lobby newLobby = new Lobby(lobbyId, "lobbyName");
+    }
+
     private void Connect() {
-        lobbyID = inputID.text;
+        //lobbyID = inputID.text;
         ChatManager.instance.myName = username.text;
 
-        ChatManager.instance.StartChat();
+        ChatManager.instance.StartChat(testLobby);
     }
 
 

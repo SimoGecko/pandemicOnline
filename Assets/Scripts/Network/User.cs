@@ -6,28 +6,22 @@ using UnityEngine;
 
 ////////// DESCRIPTION //////////
 
-public class CommunicationManager : MonoBehaviour {
+public class User : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
+    public string username;
+    public Color color;
 
 
     // private
-    //fName in the form "/folder/file.txt"
-    //base folder: pandemic_online
-    //string downloadedResult = "";
+    public bool IsInLobby { get; private set; }
 
     // references
-    public static CommunicationManager instance;
-
-
-    // --------------------- BASE METHODS ------------------
-    private void Awake() {
-        if (instance != null) Destroy(this);
-        instance = this;
-    }
-
-    void Start () {
+	
+	
+	// --------------------- BASE METHODS ------------------
+	void Start () {
         
 	}
 	
@@ -38,9 +32,7 @@ public class CommunicationManager : MonoBehaviour {
     // --------------------- CUSTOM METHODS ----------------
 
 
-
     // commands
-    
 
 
 

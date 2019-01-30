@@ -29,7 +29,7 @@ public class FlowManager : MonoBehaviour {
     }
 
     void Start () {
-        Setup();
+        //Setup();
 
         PlayerManager.instance.StartTurn();
     }
@@ -44,14 +44,44 @@ public class FlowManager : MonoBehaviour {
 
 
     // commands
-    void Setup() {
-        Board.instance.Setup();
-        DiseaseManager.instance.Setup();
+    void CreateAllObjects() {
+        //BOARD
+        //Board.instance.Setup();
+        Board.instance.GenerateBoardGraph();
+
+        //DISEASE
+        //DiseaseManager.instance.Setup();
+        DiseaseManager.instance.SetupMarkers();
+        DiseaseManager.instance.CreateDiseases();
+        DiseaseManager.instance.CreateDecks();
+
+        //RESEARCH
         ResearchManager.instance.Setup();
+
+        //PlAYERS
         PlayerManager.instance.Setup();
+
+        //GAME
         GameManager.instance.Setup();
+
+        //UI
         InterfaceManager.instance.Setup();
+
+
+        //GAME RELEVANT
     }
+
+    void GameStart() {
+        //makes things happen in the game
+        DiseaseManager.instance.BaseInfect();
+
+    }
+
+
+
+
+
+
 
     public void OnTurnEnd() {
         PlayerManager.instance.CurrentPlayer.Draw(2);
@@ -59,6 +89,9 @@ public class FlowManager : MonoBehaviour {
         PlayerManager.instance.IncreaseTurn();
         PlayerManager.instance.CurrentPlayer.StartTurn();
     }
+
+
+
 
     void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

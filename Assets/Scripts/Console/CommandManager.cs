@@ -64,12 +64,12 @@ public class CommandManager : MonoBehaviour {
 
     // private
     List<Command> allCommands;
-    public ConsoleIO console;
+    //public ConsoleIO console;
 
 
     // references
     public static CommandManager instance;
-
+    public event StringEvent outputEvent;
 
 
     // --------------------- BASE METHODS ------------------
@@ -79,7 +79,7 @@ public class CommandManager : MonoBehaviour {
 
     void Start() {
         CreateCommands();
-        console.OnSubmitString += ProcessCommand;
+        //console.OnSubmitString += ProcessCommand;
     }
 
     void Update() {
@@ -110,16 +110,16 @@ public class CommandManager : MonoBehaviour {
 
         if (text == "help") {
             //special case, output help in console
-            console.Log("available commands: (P=player, C=city, D=disease, O=other player)");
+            OutputText("available commands: (P=player, C=city, D=disease, O=other player)");
             foreach(string s in commandStrings) {
-                console.Log(s);
+                OutputText(s);
             }
             return;
         }
 
         Command c = FindMatchingCommand(parts[0]);
         if (c == null) {
-            console.Log("unrecognized command '" + parts[0] + "'. Type 'help'.");
+            OutputText("unrecognized command '" + parts[0] + "'. Type 'help'.");
             return;
         }
 
@@ -128,12 +128,13 @@ public class CommandManager : MonoBehaviour {
         if (c.IsValid(parameters)) {
             c.Invoke(parameters);
         } else {
-            console.Log("Invalid parameters for command " + c.memo + ".");
+            OutputText("Invalid parameters for command " + c.memo + ".");
         }
     }
 
-    public void Log(string s) {
-        console.Log(s);
+    public void OutputText(string s) {
+        if (outputEvent != null) outputEvent(s);
+        //console.Log(s);
     }
 
     // queries

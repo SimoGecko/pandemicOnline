@@ -13,6 +13,8 @@ public class SyncedFile : MonoBehaviour {
     // public
     const string websiteUrl = "https://simoneguggiari.altervista.org/pandemic_online/"; // HTTPS
 
+    const string privateKey = ""; // nobody should know about this
+
     public float refreshRate = 2f;
     public bool log = false;
     public bool deleteOnClose = true;

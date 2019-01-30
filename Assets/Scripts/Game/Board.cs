@@ -15,10 +15,10 @@ public class Board : MonoBehaviour {
 
 
     // private
-    Dictionary<string, City> cityDic = new Dictionary<string, City>();
-
     public Graph BoardGraph { get; private set; }
 
+    Dictionary<string, City> cityDic = new Dictionary<string, City>();
+    
     // references
     public static Board instance;
 
@@ -31,25 +31,27 @@ public class Board : MonoBehaviour {
         instance = this;
     }
 
-    void Start () {
-        //Setup(); called from flow to avoid dataraces
-	}
-	
-	void Update () {
-        
-	}
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
-    public void Setup() {
+    /*public void Setup() {
+        GenerateBoardGraph();
+        ReadCitiesNames();
+    }*/
+
+    public void GenerateBoardGraph() {
+        //load graph ds
         BoardGraph = GraphSaveLoad.LoadGraph(graphText.text, useCity: true);
-        transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
-        foreach(Vertex v in BoardGraph.Vertices) {
+        foreach (Vertex v in BoardGraph.Vertices) {
             cityDic.Add(v.name, (City)v);
         }
+
         ReadCitiesNames();
+
+        //create is visually
+        transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
     }
 
     //read cities name
@@ -78,7 +80,6 @@ public class Board : MonoBehaviour {
     }
 
     public List<City> AllCities { get {
-
             return BoardGraph.Vertices.Select(v => (City)v).ToList();
     } }
 

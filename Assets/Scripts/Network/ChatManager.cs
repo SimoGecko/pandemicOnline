@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// manages the communication of chat lines //////////
 
 public class ChatManager : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
@@ -38,11 +38,11 @@ public class ChatManager : MonoBehaviour {
 
 
     // commands
-    public void StartChat() {
+    public void StartChat(Lobby lobby) {
         chatConsole.OnSubmitString += Chat;
 
         sf = gameObject.AddComponent<SyncedFile>();
-        sf.Setup(string.Format("chats/chat_{0}.txt", LobbyManager.instance.lobbyID));
+        sf.Setup(string.Format("chats/chat_{0}.txt", lobby.lobbyID));
 
         sf.OnNewRemoteLine += OnNewLine;
     }
