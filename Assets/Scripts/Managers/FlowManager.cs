@@ -29,14 +29,10 @@ public class FlowManager : MonoBehaviour {
     }
 
     void Start () {
-        //Setup();
 
-        PlayerManager.instance.StartTurn();
     }
 	
 	void Update () {
-        GameManager.instance.CheckEndCondition();
-        //DEAL WITH TURNS AND CALLS
 
 	}
 
@@ -74,6 +70,17 @@ public class FlowManager : MonoBehaviour {
     void GameStart() {
         //makes things happen in the game
         DiseaseManager.instance.BaseInfect();
+
+        PlayerManager.instance.StartTurn();
+
+    }
+
+
+    void GameUpdate() {
+        //DEAL WITH TURNS AND CALLS
+
+
+        GameManager.instance.CheckEndCondition();
 
     }
 

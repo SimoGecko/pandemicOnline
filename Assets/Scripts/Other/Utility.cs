@@ -10,7 +10,6 @@ using System;
 public static class Utility {
     // --------------------- MATH METHODS ---------------------
 
-    private static System.Random rng = new System.Random();
 
     public static Vector3 CamRaycast() {
         Plane plane = new Plane(Vector3.up, 0);
@@ -40,7 +39,7 @@ public static class Utility {
     }
 
     public static Vector2 OnUnitCircle() {
-        float phi = UnityEngine.Random.value * 2 * Mathf.PI;
+        float phi = RandomValue * 2 * Mathf.PI;
         return new Vector2(Mathf.Cos(phi), Mathf.Sin(phi));
     }
 
@@ -81,7 +80,7 @@ public static class Utility {
         int n = list.Count;
         while (n > 1) {
             n--;
-            int k = rng.Next(n + 1);
+            int k = Random(0, n + 1);
             T value = list[k];
             list[k] = list[n];
             list[n] = value;
@@ -104,12 +103,12 @@ public static class Utility {
     }
 
     public static string GetAlphanumericRandomString(int n) {
-        const string glyphs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        //length: 62
+        const string glyphs = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"; //length: 62
         //6 letters space: 56 bn
         string result = "";
         for (int i = 0; i < n; i++) {
-            result += glyphs[UnityEngine.Random.Range(0, glyphs.Length)];
+            int randomIdx = Random(0, glyphs.Length);
+            result += glyphs[randomIdx];
         }
         return result;
     }
@@ -121,4 +120,18 @@ public static class Utility {
     public static string HourStamp(DateTime value) {
         return value.ToString("HH:mm:ss");
     }
+
+
+    //--------------------------------- RANDOM ---------------------------------
+    private static System.Random rng = new System.Random();
+
+    public static void SetRandomSeed(int seed) {
+        rng = new System.Random(seed);
+    }
+
+    public static int Random(int min, int max) { // returns random int in range [min, max[
+        Debug.Assert(min < max, "min should be smaller than max");
+        return min + rng.Next(max - min);
+    }
+    public static float RandomValue { get { return (float)rng.NextDouble(); } }
 }

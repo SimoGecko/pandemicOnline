@@ -109,7 +109,7 @@ public class PlayerManager : MonoBehaviour {
     }
 
     void SetStartingPlayer() {
-        currentPlayerTurn = Random.Range(0, numPlayers);
+        currentPlayerTurn = Utility.Random(0, numPlayers);
     }
 
     #endregion
