@@ -22,6 +22,7 @@ public class LobbyManager : MonoBehaviour {
 
     public Button connectButton;
     public InputField usernameInput, lobbyInput;
+    public Toggle hostToggle;
 
 
     // --------------------- BASE METHODS ------------------
@@ -64,6 +65,7 @@ public class LobbyManager : MonoBehaviour {
         Utility.SetRandomSeed(testLobby.lobbyID.GetHashCode());
 
         ChatManager.instance.Setup(testLobby);
+        NetworkManager.instance.IsHost = hostToggle.isOn;
         NetworkManager.instance.Setup(testLobby);
 
         GameManager.instance.StartGame();

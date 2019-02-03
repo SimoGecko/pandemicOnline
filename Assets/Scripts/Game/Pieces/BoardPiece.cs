@@ -10,9 +10,8 @@ public class BoardPiece : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    bool useRandomPos = true;
-    float circleRadius = .2f; // random around center
-
+    public bool useRandomPos = true;
+    public float circleRadius = .15f; // random around center
 
     float movementSpeed = 2f; // units/s
 
@@ -20,8 +19,8 @@ public class BoardPiece : MonoBehaviour {
 
     readonly Vector3 restPosition = new Vector3(-5, 0, 0);
 
-    Vector3 posOffset;
-
+    protected Vector3 posOffset;
+    bool anim; // if in animation
     // private
     Vector3 endPos;
     public City CurrentCity { get; private set; }
@@ -35,8 +34,12 @@ public class BoardPiece : MonoBehaviour {
 
     }
 
-    void Update() {
-
+    protected virtual void Update() {
+        //lerp to target pos
+        if (!anim) {
+            transform.position = endPos + posOffset;
+        }
+        
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -61,8 +64,11 @@ public class BoardPiece : MonoBehaviour {
 
 
     void MoveToPosition(Vector3 p) {
+        
         if (useRandomPos) {
             posOffset = Utility.OnUnitCircle().To3() * circleRadius;
+        } else {
+            posOffset = Vector3.zero;
         }
 
         endPos = p + posOffset;
@@ -82,6 +88,7 @@ public class BoardPiece : MonoBehaviour {
 
     // other
     IEnumerator MoveToRoutine() {
+        anim = true;
         float percent = 0;
         float dist = Vector3.Distance(transform.position, endPos);
         Vector3 startPos = transform.position;
@@ -92,6 +99,8 @@ public class BoardPiece : MonoBehaviour {
             yield return null;
         }
         transform.position = endPos;
+        anim = false;
+
     }
 
 }

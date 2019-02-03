@@ -23,8 +23,9 @@ public class Marker : BoardPiece {
 
     }
 
-    void Update() {
-
+    protected override void Update() {
+        base.Update();
+        posOffset = Offset();
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -35,7 +36,9 @@ public class Marker : BoardPiece {
 
 
     // queries
-
+    Vector3 Offset() {
+        return Vector3.zero;
+    }
 
 
     // other

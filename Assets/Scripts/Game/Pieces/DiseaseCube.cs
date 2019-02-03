@@ -10,10 +10,12 @@ public class DiseaseCube : BoardPiece {
     // --------------------- VARIABLES ---------------------
 
     // public
-
+    float timeToRevolution = 6f;
+    public float dist = .15f;
 
     // private
     public Disease DiseaseParent { get; private set; }
+    int ith;
 
     // references
 
@@ -23,8 +25,9 @@ public class DiseaseCube : BoardPiece {
 
     }
 
-    void Update() {
-
+    protected override void Update() {
+        base.Update();
+        posOffset = Offset();
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -38,8 +41,21 @@ public class DiseaseCube : BoardPiece {
     }
 
 
+    public void SetIth(int i) {
+        ith = i;
+    }
+
+    Vector3 Offset() {
+        if (CurrentCity == null) return Vector3.zero;
+
+        float rot = (360f / 3 * ith) + 360 * (Time.time / timeToRevolution) % 360;
+        return (Quaternion.Euler(0, rot, 0) * Vector3.forward) * dist;
+    }
+
+
 
     // queries
+
 
 
 

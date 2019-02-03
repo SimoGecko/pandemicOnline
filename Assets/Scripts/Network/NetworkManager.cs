@@ -18,7 +18,7 @@ public class NetworkManager : MonoBehaviour {
     //string downloadedResult = "";
     SyncedFile sf;
 
-    public bool IsHost { get; private set; }
+    public bool IsHost { get; set; }
 
     // references
     public static NetworkManager instance;

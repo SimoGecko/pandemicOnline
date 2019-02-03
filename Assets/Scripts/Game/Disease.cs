@@ -72,9 +72,11 @@ public class Disease : IElement {
         if (NumAvailableCubes <= 0) {
             RunOutOfCubes = true; // game over
         } else {
-            NumAvailableCubes--;
+            Debug.Assert(0 <= NumDeployedCubes && NumDeployedCubes < numStartingCubes, "NumDeployedCubes out of range: " + NumDeployedCubes);
             DiseaseCube cube = cubes[NumDeployedCubes];
+            NumAvailableCubes--;
 
+            cube.SetIth(city.NumTotalDiseaseCubes);
             city.AddDisease(cube);
             cube.MoveToCity(city);
         }

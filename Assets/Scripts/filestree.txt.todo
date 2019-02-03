@@ -11,9 +11,9 @@ Deck
 Game
     ✔ Board @done (Sun 03-Feb-19 13:41)
     ✔ City @done (Sun 03-Feb-19 13:41)
-    ☐ Disease
-    ☐ DiseaseManager
-    ☐ ResearchManager
+    ✔ Disease @done (Sun 03-Feb-19 13:48)
+    ✘ DiseaseManager @cancelled (Sun 03-Feb-19 15:18)
+    ✔ ResearchManager @done (Sun 03-Feb-19 15:20)
   
     Pieces
         ✔ BoardPiece @done (Sun 03-Feb-19 13:41)
@@ -24,16 +24,17 @@ Game
         ✔ ResearchStation @done (Sun 03-Feb-19 13:41)
 
 Graph
-    ☐ Graph
-    ☐ GraphBuilder
-    ☐ GraphSaveLoad
-    ☐ GraphVisualizer
+    ✔ Graph @done (Sun 03-Feb-19 15:24)
+    ✔ GraphBuilder @done (Sun 03-Feb-19 15:26)
+    ✔ GraphSaveLoad @done (Sun 03-Feb-19 15:27)
+    ✔ GraphVisualizer @done (Sun 03-Feb-19 15:27)
     ☐ Vertex
 
 Managers
-    ☐ ElementManager
+    ✔ ElementManager @done (Sun 03-Feb-19 15:33)
     ☐ FlowManager
-    ☐ GameManager
+    ✔ GameManager @done (Sun 03-Feb-19 15:38)
+    ✔ EndManager @done (Sun 03-Feb-19 15:38)
     ☐ InterfaceManager
 
 Network

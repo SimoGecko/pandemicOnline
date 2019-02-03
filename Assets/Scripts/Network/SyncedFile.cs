@@ -62,7 +62,9 @@ public class SyncedFile : MonoBehaviour {
     }
 
     void DeleteFile() {
-        StartCoroutine("DeleteRoutine");
+        if (NetworkManager.instance.IsHost) {
+            StartCoroutine("DeleteRoutine");
+        }
     }
 
     // commands
@@ -91,7 +93,7 @@ public class SyncedFile : MonoBehaviour {
 
         for (int i = 0; i < minLength; i++) {
             if (!lines[i].Equals(contentLines[i])) {
-                Debug.LogError("line online mismatch: " + lines[i]);
+                Debug.LogWarning("line online mismatch: " + lines[i]);
                 mismatch = true;
             }
         }

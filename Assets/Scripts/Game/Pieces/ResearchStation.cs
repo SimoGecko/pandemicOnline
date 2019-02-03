@@ -23,8 +23,9 @@ public class ResearchStation : BoardPiece {
 
     }
 
-    void Update() {
-
+    protected override void Update() {
+        base.Update();
+        posOffset = Offset();
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -35,7 +36,9 @@ public class ResearchStation : BoardPiece {
 
 
     // queries
-
+    Vector3 Offset() {
+        return Vector3.left * .2f;
+    }
 
 
     // other

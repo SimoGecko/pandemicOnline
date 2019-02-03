@@ -7,6 +7,8 @@ using UnityEngine;
 ////////// DESCRIPTION //////////
 
 public class CureMarker : BoardPiece {
+    
+
     // --------------------- VARIABLES ---------------------
 
     // public
@@ -23,8 +25,9 @@ public class CureMarker : BoardPiece {
 
     }
 
-    void Update() {
-
+    protected override void Update() {
+        base.Update();
+        posOffset = Offset();
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -35,7 +38,9 @@ public class CureMarker : BoardPiece {
 
 
     // queries
-
+    Vector3 Offset() {
+        return Vector3.zero;
+    }
 
 
     // other
