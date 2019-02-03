@@ -5,13 +5,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// generic card class //////////
 
 public class Card : IComparable, IElement {
+
     public int id;
     public char color;
     public string Nid { get; private set; }
 
+
+    //------------------
     public Card() { }
 
     public Card(int id, char color, string Nid) {
@@ -25,6 +28,8 @@ public class Card : IComparable, IElement {
         this.color = other.color;
         this.Nid = other.Nid; // attention: copying nid
     }
+
+    //------------------
 
     public int CompareTo(object obj) {
         Card c = (Card)obj;

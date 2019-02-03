@@ -37,12 +37,12 @@ public class ColorManager : MonoBehaviour {
 
     }
 
-    void Start () {
-	}
-	
-	void Update () {
-        
-	}
+    void Start() {
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 

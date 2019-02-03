@@ -19,8 +19,9 @@ public class LobbyManager : MonoBehaviour {
 
     // references
     public static LobbyManager instance;
-    public Button connectButton; 
-    public InputField username, inputID;
+
+    public Button connectButton;
+    public InputField usernameInput, lobbyInput;
 
 
     // --------------------- BASE METHODS ------------------
@@ -28,34 +29,44 @@ public class LobbyManager : MonoBehaviour {
         if (instance != null) Destroy(this);
         instance = this;
 
-        //if(randomId) lobbyID = 
         existingLobbies = new List<Lobby>();
     }
 
-    void Start () {
-        connectButton.onClick.AddListener(Connect);
-        username.text = "player";
-        //inputID.text = lobbyID;
+    void Start() {
+        //testLobby = new Lobby(Lobby.defaultID, "my lobby");
+
+        usernameInput.text = "player";
+        lobbyInput.text = "aloe";
+        connectButton.onClick.AddListener(ConnectTest);
+
     }
-	
-	void Update () {
-        
-	}
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
     void CreateLobby() {
+        /*
         string lobbyId = Utility.GetAlphanumericRandomString(6);
         Lobby newLobby = new Lobby(lobbyId, "lobbyName");
+        */
     }
 
-    private void Connect() {
-        //lobbyID = inputID.text;
-        ChatManager.instance.myName = username.text;
+    private void ConnectTest() {
+        ChatManager.instance.myName = usernameInput.text;
 
-        ChatManager.instance.StartChat(testLobby);
+        testLobby = new Lobby(lobbyInput.text, "lobbyName");
+
+        Utility.SetRandomSeed(testLobby.lobbyID.GetHashCode());
+
+        ChatManager.instance.Setup(testLobby);
+        NetworkManager.instance.Setup(testLobby);
+
+        GameManager.instance.StartGame();
     }
 
 

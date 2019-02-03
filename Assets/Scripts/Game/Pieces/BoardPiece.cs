@@ -4,18 +4,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// generic board piece that can be moved smoothly around and set in a particular position //////////
 
 public class BoardPiece : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    float circleRadius = .2f;
+    bool useRandomPos = true;
+    float circleRadius = .2f; // random around center
+
+
     float movementSpeed = 2f; // units/s
+
     AnimationCurve movementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     readonly Vector3 restPosition = new Vector3(-5, 0, 0);
 
+    Vector3 posOffset;
 
     // private
     Vector3 endPos;
@@ -23,39 +28,44 @@ public class BoardPiece : MonoBehaviour {
 
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+
+
+    // --------------------- BASE METHODS ------------------
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
-    public void MoveTo(string cityNid) {
-        MoveTo(City.Get(cityNid));
+    public void MoveToCity(string cityNid) {
+        MoveToCity(City.Get(cityNid));
     }
-    public void MoveTo(City city) {
+    public void MoveToCity(City city) {
         CurrentCity = city;
-        MoveToEffective(city.Position);
+        MoveToPosition(city.Position);
     }
+
     public void MoveTo(Vector3 pos) {
         CurrentCity = null;
-        MoveToEffective(pos);
+        MoveToPosition(pos);
     }
     public void MoveAway() {
         MoveTo(restPosition);
     }
 
 
-    void MoveToEffective(Vector3 p) {
-        endPos = p + Utility.OnUnitCircle().To3() * circleRadius;
+    void MoveToPosition(Vector3 p) {
+        if (useRandomPos) {
+            posOffset = Utility.OnUnitCircle().To3() * circleRadius;
+        }
+
+        endPos = p + posOffset;
         StopCoroutine("MoveToRoutine");
         StartCoroutine("MoveToRoutine");
     }
@@ -75,11 +85,13 @@ public class BoardPiece : MonoBehaviour {
         float percent = 0;
         float dist = Vector3.Distance(transform.position, endPos);
         Vector3 startPos = transform.position;
+
         while (percent < 1) {
             percent += Time.deltaTime * movementSpeed / dist;
             transform.position = Vector3.Lerp(startPos, endPos, movementCurve.Evaluate(percent));
             yield return null;
         }
+        transform.position = endPos;
     }
 
 }

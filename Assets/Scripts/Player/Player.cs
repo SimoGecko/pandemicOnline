@@ -48,7 +48,7 @@ public class Player : IElement {
 
     public void Move(string cityNid) {
         //move pawn
-        pawn.MoveTo(cityNid);
+        pawn.MoveToCity(cityNid);
     }
     public void GiveInitialDeck(Deck deck) {
         personalDeck = deck;
@@ -91,10 +91,11 @@ public class Player : IElement {
                 //set in discard pile
                 Discard("epidemic");
             } else {
-                personalDeck.AddTop(drawnCard);
-                personalDeck.Sort();
+                //personalDeck.AddTop(drawnCard);
             }
         }
+        personalDeck.Sort();
+
         //hand limit
         while (personalDeck.NumCards > handLimit) {
             //TODO let user choose which to discard
@@ -139,7 +140,7 @@ public class Player : IElement {
 
 
     public string GetStatus() {
-        return isTurn ? string.Format("turn: ({0} left) ",NumRemainingActions) : "-";
+        return isTurn ? string.Format("turn: ({0} left) ", NumRemainingActions) : "-";
     }
 
 

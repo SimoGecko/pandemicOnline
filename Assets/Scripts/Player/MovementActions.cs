@@ -69,7 +69,7 @@ public class ShuttleAction : Action {
     public override bool CanPerformCustom() {
         bool isDifferentCity = player.CurrentCity.Nid != CityParam;
         bool fromHasResearch = City.Get(player.CurrentCity.Nid).HasResearchStation;
-        bool toHasresearch   = City.Get(CityParam).HasResearchStation;
+        bool toHasresearch = City.Get(CityParam).HasResearchStation;
 
         return isDifferentCity && fromHasResearch && toHasresearch;
     }

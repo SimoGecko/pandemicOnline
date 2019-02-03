@@ -26,38 +26,40 @@ public class ChatManager : MonoBehaviour {
         instance = this;
     }
 
-    void Start () {
-        
+    void Start() {
+
     }
 
-    void Update () {
-        
-	}
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
-    public void StartChat(Lobby lobby) {
-        chatConsole.OnSubmitString += Chat;
+    public void Setup(Lobby lobby) {
 
         sf = gameObject.AddComponent<SyncedFile>();
         sf.Setup(string.Format("chats/chat_{0}.txt", lobby.lobbyID));
 
-        sf.OnNewRemoteLine += OnNewLine;
+
+        chatConsole.OnInput += LocalNewInput; // local input
+        sf.OnNewRemoteLine += RemoteNewInput; // remote input
     }
 
 
-    public void Chat(string s) {
+    public void LocalNewInput(string s) {
         string toLog = string.Format("[{0}] {1}:\t{2}", Utility.HourStamp(System.DateTime.Now), myName, s);
-        chatConsole.Log(toLog);
+        chatConsole.OutputConsole(toLog);
+
         if (logOnline) {
             sf.Write(toLog);
         }
     }
 
-    public void OnNewLine(string s) {
-        chatConsole.Log(s);
+    public void RemoteNewInput(string s) {
+        chatConsole.OutputConsole(s);
     }
 
 

@@ -7,7 +7,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 
-////////// DESCRIPTION //////////
+////////// deals with reading output and printing output to console //////////
 
 public delegate void StringEvent(string v);
 
@@ -29,52 +29,29 @@ public class ConsoleIO : MonoBehaviour {
     bool wasFocused;
 
     // references
-    public GameObject consoleUI;
-    public Text outputText;
-    public InputField inputField;
-    public Toggle showConsoleToggle;
+    GameObject consoleUI;
+    Text outputText;
+    InputField inputField;
+    Toggle showConsoleToggle;
 
-    [HideInInspector]
-    public event StringEvent OnSubmitString;
+    public event StringEvent OnInput;
 
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        //OnSubmitString.RemoveAllListeners();
         Setup();
 
     }
 
-    void Start () {
+    void Start() {
+
     }
-	
-	void Update () {
+
+    void Update() {
         if (wasFocused) {
-            if (Input.GetKeyDown(KeyCode.Return)) {
-
-                if (!string.IsNullOrEmpty(inputField.text)) {
-                    //get text
-                    lastTypedLine = inputField.text;
-                    string text = inputField.text;
-                    if(toLower) text = text.ToLower();
-
-                    //invoke
-                    if(autoAddToOutput) AddToConsoleOutput(text);
-                    if (OnSubmitString != null) OnSubmitString(text);
-                    //OnSubmitString.Invoke(text);
-
-                    //reset
-                    inputField.text = "";
-                    if (keepInputFocus) inputField.ActivateInputField();
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.UpArrow)) {
-                inputField.text = lastTypedLine;
-                inputField.caretPosition = inputField.text.Length; // put cursor at end
-            }
+            if (Input.GetKeyDown(KeyCode.Return)) InputConsole();
+            if (Input.GetKeyDown(KeyCode.UpArrow)) FillPreviousLine();
         }
-
         wasFocused = inputField.isFocused;
     }
 
@@ -83,24 +60,51 @@ public class ConsoleIO : MonoBehaviour {
 
     // commands
     void Setup() {
+        //find refs
+        consoleUI = transform.Find("background").gameObject;
+        outputText = consoleUI.GetComponentInChildren<Text>();
+        inputField = consoleUI.GetComponentInChildren<InputField>();
+        showConsoleToggle = GetComponentInChildren<Toggle>();
+
+        //init them
         outputText.text = "";
         consoleLines = new string[maxLines];
+        showConsoleToggle.onValueChanged.AddListener(b => consoleUI.SetActive(b));
         if (startFocus) inputField.ActivateInputField();
-
-        showConsoleToggle.onValueChanged.AddListener(ToggleConsoleVisibility);
-    }
-
-    void ToggleConsoleVisibility(bool b) {
-        consoleUI.SetActive(b);
     }
 
 
-    void AddToConsoleOutput(string text) {
+    void InputConsole() {
+        if (!string.IsNullOrEmpty(inputField.text)) {
+            //get text
+            lastTypedLine = inputField.text;
+            string text = inputField.text;
+            if (toLower) text = text.ToLower();
+
+            //invoke
+            if (autoAddToOutput) OutputConsole(text);
+            if (OnInput != null) OnInput(text);
+
+            //reset
+            inputField.text = "";
+            if (keepInputFocus) inputField.ActivateInputField();
+        }
+    }
+
+    void FillPreviousLine() {
+        inputField.text = lastTypedLine;
+        inputField.caretPosition = inputField.text.Length; // put cursor at end
+    }
+
+
+
+    public void OutputConsole(string text) {
         string result = "";
-        for (int i = 0; i < maxLines-1; i++) {
+        for (int i = 0; i < maxLines - 1; i++) {
             consoleLines[i] = consoleLines[i + 1];
-            if(!string.IsNullOrEmpty(consoleLines[i]))
-                result += consoleLines[i]+"\n";
+            if (!string.IsNullOrEmpty(consoleLines[i])) {
+                result += consoleLines[i] + "\n";
+            }
         }
         consoleLines[maxLines - 1] = text;
         result += text;
@@ -108,9 +112,6 @@ public class ConsoleIO : MonoBehaviour {
         outputText.text = result;
     }
 
-    public void Log(string text) {
-        AddToConsoleOutput(text);
-    }
 
 
     // queries

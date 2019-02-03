@@ -11,8 +11,9 @@ public class Lobby {
 
     // public
     const int maxNumUsersPerLobby = 4;
+    public static readonly string defaultID = "aloe"; // oBsZXE
 
-    public string lobbyID = "oBsZXE";// { get; private set; }
+    public string lobbyID = "id";// { get; private set; }
     public string lobbyName = "defaultName";
 
 

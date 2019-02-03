@@ -16,13 +16,13 @@ public class Vertex {
     public float posX, posY;
 
     //CONSTRUCTORS
-    public Vertex() {  }
+    public Vertex() { }
 
     public Vertex(int id, Vector3 pos) {
         this.id = id;
-        name = "city";
-        Position = pos;
         color = 'k';
+        name = "default";
+        Position = pos;
     }
 
     public Vertex(Vertex other) { // copy constructor

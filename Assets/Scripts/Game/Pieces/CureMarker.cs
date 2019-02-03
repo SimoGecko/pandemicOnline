@@ -16,16 +16,16 @@ public class CureMarker : BoardPiece {
 
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+
+
+    // --------------------- BASE METHODS ------------------
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 

@@ -15,7 +15,7 @@ public static class Utility {
         Plane plane = new Plane(Vector3.up, 0);
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         float enter;
-        if(plane.Raycast(ray, out enter)) {
+        if (plane.Raycast(ray, out enter)) {
             return ray.GetPoint(enter);
         }
         return Vector3.zero;

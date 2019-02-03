@@ -15,21 +15,21 @@ public class GraphVisualizer : MonoBehaviour {
     const float longEdgeLength = 6;
 
     // private
+    GameObject parent;
 
     // references
-    GameObject parent;
     [Header("Prefabs")]
     public GameObject vertexPrefab;
     public GameObject edgePrefab;
 
     // --------------------- BASE METHODS ------------------
-    void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
@@ -44,7 +44,7 @@ public class GraphVisualizer : MonoBehaviour {
         parent = new GameObject("graph parent");
 
         //instantiate vertices
-        foreach(Vertex v in g.Vertices) {
+        foreach (Vertex v in g.Vertices) {
             //GameObject newVertex = PrefabUtility.InstantiatePrefab(vertexPrefab) as GameObject;
             GameObject newVertex = Instantiate(vertexPrefab) as GameObject;
             newVertex.transform.parent = parent.transform;
@@ -64,14 +64,14 @@ public class GraphVisualizer : MonoBehaviour {
 
         //instantiate edges
         foreach (Vertex v in g.Vertices) {
-            foreach(Vertex u in g.Outgoing(v)) {
+            foreach (Vertex u in g.Outgoing(v)) {
                 if (u.id < v.id) {
                     //GameObject newEdge = PrefabUtility.InstantiatePrefab(edgePrefab) as GameObject;
 
                     GameObject newEdge = Instantiate(edgePrefab) as GameObject;
                     newEdge.transform.parent = parent.transform;
 
-                    newEdge.transform.position = (u.Position + v.Position)/2;
+                    newEdge.transform.position = (u.Position + v.Position) / 2;
 
                     Vector3 delta = u.Position - v.Position;
                     newEdge.transform.localScale = new Vector3(delta.magnitude, 1, 1);
@@ -79,7 +79,7 @@ public class GraphVisualizer : MonoBehaviour {
                         newEdge.SetActive(false); // hide the long ones going through the map
                     }
 
-                    float angle = Mathf.Atan2(delta.z, delta.x)*Mathf.Rad2Deg;
+                    float angle = Mathf.Atan2(delta.z, delta.x) * Mathf.Rad2Deg;
                     newEdge.transform.eulerAngles = new Vector3(0, -angle, 0);
                 }
             }

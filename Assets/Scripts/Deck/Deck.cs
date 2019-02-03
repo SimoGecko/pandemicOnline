@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-////////// represents a generic deck of cards that can be manipulate (add/remove/peek cards, shuffle/order) //////////
+////////// represents a generic deck of cards that can be manipulated (add/remove/peek cards, shuffle/order) //////////
 
 public class Deck {
     // --------------------- VARIABLES ---------------------
@@ -14,7 +14,7 @@ public class Deck {
     //info: index 0 is top, assuming covered deck
 
     // private
-    public string deckName { get; private set; }
+    public string DeckName { get; private set; }
     public List<Card> Cards { get; private set; }
 
     // references
@@ -27,11 +27,10 @@ public class Deck {
     // --------------------- CUSTOM METHODS ----------------
 
 
-    // commands
+    // constructors
     public Deck(string deckName = "") {
-        this.deckName = deckName;
+        DeckName = deckName;
         Cards = new List<Card>();
-        //Cards.CollectionChanged += DeckChanged;
 
         DeckChanged();
     }
@@ -51,7 +50,6 @@ public class Deck {
     public void Shuffle() {
         Cards.Shuffle();
         //Permutation = Utility.Permutation(NumCards);
-
         DeckChanged();
     }
 
@@ -75,7 +73,7 @@ public class Deck {
 
 
     //ADD
-    public void Add(string nid, char color) {
+    public void AddNew(string nid, char color) {
         Card newCard = new Card(NumCards, color, nid);
         AddTop(newCard);
     }
@@ -101,10 +99,11 @@ public class Deck {
     //REMOVE
     public Card RemoveTop() {
         return RemoveAt(0);
+
     }
 
     public Card RemoveBottom() {
-        return RemoveAt(NumCards-1);
+        return RemoveAt(NumCards - 1);
     }
 
     public Card RemoveAt(int idx) {
@@ -114,14 +113,17 @@ public class Deck {
         Card result = Cards[idx];
         Cards.RemoveAt(idx);
 
+        if (NumCards == 0) DeckEnd();
+
         DeckChanged();
         return result;
     }
 
     public Card Remove(Card c) {
-        Debug.Assert(Cards.Contains(c), "Deck doesn't contain card "+c.Nid);
+        Debug.Assert(Cards.Contains(c), "Deck doesn't contain card " + c.Nid);
         Cards.Remove(c);
         DeckChanged();
+        if (NumCards == 0) DeckEnd();
         return c;
     }
     public Card Remove(string cardNid) {
@@ -140,7 +142,7 @@ public class Deck {
         Debug.Assert(0 <= numCards && numCards <= NumCards, "Not enough cards to split");
 
         Deck result = new Deck(deckName);
-        for(int i=0; i<numCards; i++) {
+        for (int i = 0; i < numCards; i++) {
             result.AddBottom(RemoveTop());
         }
 
@@ -172,7 +174,9 @@ public class Deck {
     void DeckChanged() {
         if (OnDeckChange != null) OnDeckChange();
     }
-
+    void DeckEnd() {
+        if (NumCards == 0 && OnDeckEnd != null) OnDeckEnd();
+    }
 
 
 

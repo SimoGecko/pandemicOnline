@@ -22,9 +22,9 @@ public class PlayerManager : MonoBehaviour {
     Dictionary<string, Player> playerDic = new Dictionary<string, Player>();
     List<Player> players = new List<Player>();
 
-    public Deck playerDeck {get;private set;}
-    public Deck playerDiscardDeck { get; private set;}
-    
+    public Deck playerDeck { get; private set; }
+    public Deck playerDiscardDeck { get; private set; }
+
 
     int currentPlayerTurn;
 
@@ -36,17 +36,17 @@ public class PlayerManager : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        if (instance != null) Destroy(gameObject);
+        if (instance != null) Destroy(this);
         instance = this;
     }
 
-    void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
@@ -69,7 +69,7 @@ public class PlayerManager : MonoBehaviour {
     void CreatePlayers() {
         for (int i = 0; i < numPlayers; i++) {
             //Color playerColor = i < playerColors.Length ? playerColors[i] : Color.white;
-            Player newPlayer = new Player(i, Color.white, "p"+i); //Instantiate(playerPrefab);
+            Player newPlayer = new Player(i, Color.white, "p" + i); //Instantiate(playerPrefab);
             newPlayer.Setup();
 
             playerDic.Add(newPlayer.Nid, newPlayer);
@@ -79,7 +79,7 @@ public class PlayerManager : MonoBehaviour {
     void CreateDecks() {
         playerDeck = new Deck("Player Deck");
         foreach (City c in Board.instance.AllCities) {
-            playerDeck.Add(c.Nid, c.color);
+            playerDeck.AddNew(c.Nid, c.color);
         }
         playerDeck.Shuffle();
         playerDiscardDeck = new Deck("Player Discard Deck");
@@ -96,7 +96,7 @@ public class PlayerManager : MonoBehaviour {
         int numEpidemics = epidemiCardsPerDifficulty[(int)GameManager.instance.difficulty];
         Deck[] piles = playerDeck.SplitInto(numEpidemics);
         for (int i = 0; i < numEpidemics; i++) {
-            piles[i].Add("epidemic", 'g'); // attention, deal with this!
+            piles[i].AddNew("epidemic", 'g'); // attention, deal with this!
             piles[i].Shuffle();
             playerDeck.JoinTop(piles[i]);
         }
@@ -126,7 +126,7 @@ public class PlayerManager : MonoBehaviour {
         playerDiscardDeck.AddBottom(card);
     }
 
-    
+
 
     public void IncreaseTurn() {
         currentPlayerTurn = (currentPlayerTurn + 1) % numPlayers;

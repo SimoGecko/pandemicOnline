@@ -1,4 +1,4 @@
-﻿ // (c) Simone Guggiari 2018
+﻿// (c) Simone Guggiari 2018
 
 using System.Collections;
 using System.Collections.Generic;
@@ -14,30 +14,30 @@ public class Graph {
 
     // private
     bool directed;
-    public int NumEdges { get; private set; }
-    public List<Vertex> Vertices { get; private set; }
+
+    List<Vertex> vertices;
     Dictionary<Vertex, List<Vertex>> edges;
 
     // references
-	
-	
+
+
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
     public Graph(bool directed = false) {
-        Vertices = new List<Vertex>();
+        vertices = new List<Vertex>();
         edges = new Dictionary<Vertex, List<Vertex>>();
         this.directed = directed;
         NumEdges = 0;
     }
 
     public void AddVertex(Vertex v) {
-        Debug.Assert(!Vertices.Contains(v), "No vertex duplicate allowed");
-        Debug.Assert(v!=null, "No null vertex allowed");
+        Debug.Assert(v != null, "No null vertex allowed");
+        Debug.Assert(!vertices.Contains(v), "No vertex duplicate allowed");
 
-        Vertices.Add(v);
+        vertices.Add(v);
         edges.Add(v, new List<Vertex>());
     }
 
@@ -47,28 +47,31 @@ public class Graph {
     }
 
     public void AddEdge(Vertex u, Vertex v) {
-        Debug.Assert(u != null && v!=null, "No null vertex allowed");
-        Debug.Assert(Vertices.Contains(u) && Vertices.Contains(v), "vertices must be in graph");
+        Debug.Assert(u != null && v != null, "No null vertex allowed");
+        Debug.Assert(vertices.Contains(u) && vertices.Contains(v), "vertices must be in graph");
 
         edges[u].Add(v);
-        if(!directed) edges[v].Add(u);
+        if (!directed) edges[v].Add(u);
         NumEdges++;
     }
 
     public void AddEdge(int u, int v) {
-        Debug.Assert(u <NumVertices && v<NumVertices, "Vertex index out of range");
+        Debug.Assert(u < NumVertices && v < NumVertices, "Vertex index out of range");
 
-        AddEdge(Vertices[u], Vertices[v]);
+        AddEdge(vertices[u], vertices[v]);
     }
 
 
 
 
     // queries
-    public int NumVertices { get { return Vertices.Count; } }
+    public int NumVertices { get { return vertices.Count; } }
+    public int NumEdges { get; private set; }
+
+    public List<Vertex> Vertices { get { return vertices; } }
 
     public List<Vertex> Outgoing(Vertex v) {
-        Debug.Assert(Vertices.Contains(v), "V must be present");
+        Debug.Assert(vertices.Contains(v), "V must be present");
         return edges[v];
     }
 

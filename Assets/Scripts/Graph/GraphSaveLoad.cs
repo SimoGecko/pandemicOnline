@@ -22,16 +22,14 @@ public class GraphSaveLoad : MonoBehaviour {
 
 
     // --------------------- BASE METHODS ------------------
-    void Start () {
+    void Start() {
         builder = GetComponent<GraphBuilder>();
-	}
-	
-	void Update () {
+    }
+
+    void Update() {
         if (allowSaveLoad) {
             if (Input.GetKeyDown(KeyCode.S)) SaveToText(builder.BuiltGraph, defaultSavePath);
-            if (Input.GetKeyDown(KeyCode.L)) {
-                CreateAndDisplayGraphFromFile();
-            }
+            if (Input.GetKeyDown(KeyCode.L)) LoadAndDisplayGraphFromFile();
         }
     }
 
@@ -40,10 +38,14 @@ public class GraphSaveLoad : MonoBehaviour {
 
     // commands
     [ContextMenu("Create graph from file")]
-    void CreateAndDisplayGraphFromFile() {
+    void LoadAndDisplayGraphFromFile() {
         Graph loadedGraph = LoadGraphFromFile(defaultSavePath);
         GetComponent<GraphVisualizer>().GenerateGraph(loadedGraph);
     }
+
+
+
+
 
     public static void SaveToText(Graph graphToSave, string savePath = defaultSavePath) {
         string result = string.Format("{0},{1},{2}\n", "graphName", graphToSave.NumVertices, graphToSave.NumEdges);

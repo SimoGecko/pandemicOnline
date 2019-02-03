@@ -20,16 +20,16 @@ public class SetFont : MonoBehaviour {
     // references
     public TMP_FontAsset font;
     public Font textFont;
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+
+
+    // --------------------- BASE METHODS ------------------
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
@@ -37,8 +37,8 @@ public class SetFont : MonoBehaviour {
     // commands
     [ContextMenu("Change Font TMP")]
     void SetAllFont() {
-        TextMeshProUGUI[] allTmp= FindObjectsOfType<TextMeshProUGUI>();
-        foreach(var t in allTmp) {
+        TextMeshProUGUI[] allTmp = FindObjectsOfType<TextMeshProUGUI>();
+        foreach (var t in allTmp) {
             t.font = font;
         }
         Debug.Log("changed tmp font for " + allTmp.Length);

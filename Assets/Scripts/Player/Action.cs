@@ -10,7 +10,7 @@ public abstract class Action {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public enum Type { Move, Direct, Charter, Shuttle, Build, Treat, Share, Cure};
+    public enum Type { Move, Direct, Charter, Shuttle, Build, Treat, Share, Cure };
     //public Type type;
 
 
@@ -32,12 +32,12 @@ public abstract class Action {
     }
 
 
-    public static Action GetAction(Type type, string pNid, string cNid="", string dNid="", string oNid = "") {
+    public static Action GetAction(Type type, string pNid, string cNid = "", string dNid = "", string oNid = "") {
         //create object, set parameters, give it back
-        Action result=null;
+        Action result = null;
         switch (type) {
-            case Type.Move:     result = new MoveAction(); break;
-            case Type.Direct:   result = new DirectAction(); break;
+            case Type.Move: result = new MoveAction(); break;
+            case Type.Direct: result = new DirectAction(); break;
             case Type.Charter: result = new CharterAction(); break;
             case Type.Shuttle: result = new ShuttleAction(); break;
             case Type.Build: result = new BuildAction(); break;

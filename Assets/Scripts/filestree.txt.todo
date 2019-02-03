@@ -1,0 +1,59 @@
+Console
+    ✔ Command @done (Sun 03-Feb-19 13:40)
+    ✔ CommandManager @done (Sun 03-Feb-19 13:40)
+    ✔ ConsoleIO @done (Sun 03-Feb-19 13:40)
+     
+Deck
+    ✔ Card @done (Sun 03-Feb-19 13:41)
+    ✔ Deck @done (Sun 03-Feb-19 13:41)
+    ✔ DeckVisualizer @done (Sun 03-Feb-19 13:41)
+     
+Game
+    ✔ Board @done (Sun 03-Feb-19 13:41)
+    ✔ City @done (Sun 03-Feb-19 13:41)
+    ☐ Disease
+    ☐ DiseaseManager
+    ☐ ResearchManager
+  
+    Pieces
+        ✔ BoardPiece @done (Sun 03-Feb-19 13:41)
+        ✔ CureMarker @done (Sun 03-Feb-19 13:41)
+        ✔ DiseaseCube @done (Sun 03-Feb-19 13:41)
+        ✔ Marker @done (Sun 03-Feb-19 13:41)
+        ✔ Pawn @done (Sun 03-Feb-19 13:41)
+        ✔ ResearchStation @done (Sun 03-Feb-19 13:41)
+
+Graph
+    ☐ Graph
+    ☐ GraphBuilder
+    ☐ GraphSaveLoad
+    ☐ GraphVisualizer
+    ☐ Vertex
+
+Managers
+    ☐ ElementManager
+    ☐ FlowManager
+    ☐ GameManager
+    ☐ InterfaceManager
+
+Network
+    ☐ ChatManager
+    ☐ Lobby
+    ☐ LobbyManager
+    ☐ NetworkManager
+    ☐ SyncedFile
+    ☐ User
+
+Other
+    ☐ ColorManager
+    ☐ IInterface
+    ☐ SetFont
+    ☐ Utility
+
+Player
+    ☐ Action
+    ☐ MovementActions
+    ☐ OtherActions
+    ☐ Player
+    ☐ PlayerManager
+        

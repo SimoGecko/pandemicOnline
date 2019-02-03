@@ -35,30 +35,30 @@ public class InterfaceManager : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        if (instance != null) Destroy(gameObject);
+        if (instance != null) Destroy(this);
         instance = this;
     }
 
 
-    void Start () {
+    void Start() {
         //LINK STUFF    
-	}
-	
-	void Update () {
+    }
+
+    void Update() {
         UpdateUI();
-	}
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
     void UpdateUI() {
-        foreach(Link l in links) {
+        foreach (Link l in links) {
             l.textComp.text = l.value();
         }
     }
 
-    public void Setup() {
+    public void LinkEverything() {
         SetupPlayers();
         SetupDecks();
         SetupDiseases();
@@ -81,15 +81,15 @@ public class InterfaceManager : MonoBehaviour {
         playerDeck.SetDeck(PlayerManager.instance.playerDeck);
         playerDeckDiscard.SetDeck(PlayerManager.instance.playerDiscardDeck);
 
-        infectionDeck.SetDeck(DiseaseManager.instance.infectionDeck);
-        infectionDeckDiscard.SetDeck(DiseaseManager.instance.infectionDiscardDeck);
+        infectionDeck.SetDeck(DiseaseManager.instance.InfectionDeck);
+        infectionDeckDiscard.SetDeck(DiseaseManager.instance.InfectionDiscardDeck);
     }
 
     void SetupDiseases() {
-        foreach(Disease d in DiseaseManager.instance.AllDiseases) { 
+        foreach (Disease d in DiseaseManager.instance.AllDiseases) {
             GameObject newDiseaseUI = Instantiate(diseaseUI, diseaseArea);
 
-            newDiseaseUI.transform.Find("color").GetComponent<Image>().color = d.ColorC;
+            newDiseaseUI.transform.Find("color").GetComponent<Image>().color = ColorManager.instance.Char2Color(d.Color);
             newDiseaseUI.transform.Find("name").GetComponent<TextMeshProUGUI>().text = d.Nid;
             AddLink(newDiseaseUI.transform.Find("number").GetComponent<TextMeshProUGUI>(), () => d.NumAvailableCubes.ToString());
             AddLink(newDiseaseUI.transform.Find("status").GetComponent<TextMeshProUGUI>(), d.StatusString);

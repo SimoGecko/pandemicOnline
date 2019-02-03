@@ -62,5 +62,8 @@ public class GraphBuilder : MonoBehaviour {
 
 
     // other
+    private void OnDrawGizmos() {
+        //call here to build
+    }
 
 }

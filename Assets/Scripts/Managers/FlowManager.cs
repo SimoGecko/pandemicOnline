@@ -18,7 +18,6 @@ public class FlowManager : MonoBehaviour {
 
 
 
-
     // references
     public static FlowManager instance;
 
@@ -28,46 +27,50 @@ public class FlowManager : MonoBehaviour {
         instance = this;
     }
 
-    void Start () {
+    void Start() {
 
     }
-	
-	void Update () {
 
-	}
+    void Update() {
+        if (GameManager.instance.Playing) GameUpdate();
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
-    void CreateAllObjects() {
+    public void GameSetup() {
         //BOARD
-        //Board.instance.Setup();
+        Board.instance.LoadBoardGraph();
+        Board.instance.ReadCitiesNames();
         Board.instance.GenerateBoardGraph();
 
         //DISEASE
-        //DiseaseManager.instance.Setup();
         DiseaseManager.instance.SetupMarkers();
         DiseaseManager.instance.CreateDiseases();
         DiseaseManager.instance.CreateDecks();
 
         //RESEARCH
-        ResearchManager.instance.Setup();
+        ResearchManager.instance.CreateStations();
+        ResearchManager.instance.PlaceStartingStation();
 
         //PlAYERS
         PlayerManager.instance.Setup();
 
         //GAME
-        GameManager.instance.Setup();
+        //GameManager.instance.Setup();
+
+        //END
+        EndManager.instance.CreateWinLoseConditions();
 
         //UI
-        InterfaceManager.instance.Setup();
+        InterfaceManager.instance.LinkEverything();
 
 
         //GAME RELEVANT
     }
 
-    void GameStart() {
+    public void GameStart() {
         //makes things happen in the game
         DiseaseManager.instance.BaseInfect();
 
@@ -79,8 +82,7 @@ public class FlowManager : MonoBehaviour {
     void GameUpdate() {
         //DEAL WITH TURNS AND CALLS
 
-
-        GameManager.instance.CheckEndCondition();
+        EndManager.instance.CheckEndCondition();
 
     }
 
@@ -103,13 +105,13 @@ public class FlowManager : MonoBehaviour {
     void Restart() {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
-    
+
 
     // queries
 
 
 
     // other
-    
+
 
 }

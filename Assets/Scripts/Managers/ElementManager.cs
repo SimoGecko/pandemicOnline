@@ -17,10 +17,12 @@ public class ElementManager : MonoBehaviour {
 
     public static ElementManager instance;
     // references
+
     [Header("UI")]
     public RectTransform cardUIPrefab;
 
 
+    //[Header("Objects")]
 
 
     [Header("Pieces")]
@@ -34,17 +36,17 @@ public class ElementManager : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        if (instance != null) Destroy(gameObject);
+        if (instance != null) Destroy(this);
         instance = this;
     }
 
-    void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 

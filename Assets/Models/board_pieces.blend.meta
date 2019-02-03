@@ -16,6 +16,7 @@ ModelImporter:
     100020: diseaseCube
     100022: pawn
     100024: researchstation
+    100026: line
     400000: //RootNode
     400002: Cube
     400004: Cube_001
@@ -29,6 +30,7 @@ ModelImporter:
     400020: diseaseCube
     400022: pawn
     400024: researchstation
+    400026: line
     2100000: unnamed
     2300000: Cube
     2300002: Cube_001
@@ -42,6 +44,7 @@ ModelImporter:
     2300018: diseaseCube
     2300020: pawn
     2300022: researchstation
+    2300024: line
     3300000: Cube
     3300002: Cube_001
     3300004: Cube_002
@@ -54,6 +57,7 @@ ModelImporter:
     3300018: diseaseCube
     3300020: pawn
     3300022: researchstation
+    3300024: line
     4300000: Cylinder_002
     4300002: Cube_002
     4300004: Cylinder_001
@@ -66,6 +70,7 @@ ModelImporter:
     4300018: diseaseCube
     4300020: researchstation
     4300022: pawn
+    4300024: line
     7400000: Default Take
     9500000: //RootNode
   externalObjects: {}
@@ -119,7 +124,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
+    previousCalculatedGlobalScale: 0.2
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60

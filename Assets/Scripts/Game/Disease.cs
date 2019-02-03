@@ -4,20 +4,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-////////// DESCRIPTION //////////
+////////// represents a disease in  //////////
 
 public class Disease : IElement {
     // --------------------- VARIABLES ---------------------
 
     public enum Status { nothing, cured, eradicated }
+    const int numStartingCubes = 24;
 
     // public
-    const int numStartingCubes = 24;
 
 
     // private
     public string Nid { get; private set; }
-    char color;
+    public char Color { get; private set; }
+
     public Status status { get; private set; }
 
     List<DiseaseCube> cubes;
@@ -38,41 +39,44 @@ public class Disease : IElement {
     // commands
     public Disease(string Nid, char color) {
         this.Nid = Nid;
-        this.color = color;
-        RunOutOfCubes = false;
+        this.Color = color;
 
         status = Status.nothing;
+
+        NumAvailableCubes = numStartingCubes;
+        RunOutOfCubes = false;
+
+        InstantiateCubesAndMarkers();
     }
 
-    public void Setup() {
-        NumAvailableCubes = numStartingCubes;
-        cubes = new List<DiseaseCube>();
+    public void InstantiateCubesAndMarkers() {
         //instantiate cube prefabs
+        cubes = new List<DiseaseCube>();
         for (int i = 0; i < numStartingCubes; i++) {
             DiseaseCube newCube = ElementManager.instance.Copy(ElementManager.instance.diseaseCubePrefab);
             cubes.Add(newCube);
             newCube.Setup(this);
-            newCube.SetColor(color);
-            newCube.MoveAway();
         }
 
         // setup cure marker
         cureMarker = ElementManager.instance.Copy(ElementManager.instance.cureMarkerPrefab);
-        cureMarker.SetColor(color);
+        cureMarker.SetColor(Color); // setup
     }
+
+
+    //commands
 
     public void Infect(City city) {
         if (Eradicated) return; // cannot infect
 
         if (NumAvailableCubes <= 0) {
-            RunOutOfCubes = true;
+            RunOutOfCubes = true; // game over
         } else {
             NumAvailableCubes--;
             DiseaseCube cube = cubes[NumDeployedCubes];
-            //cubes.RemoveAt(0);
 
             city.AddDisease(cube);
-            cube.MoveTo(city);
+            cube.MoveToCity(city);
         }
     }
 
@@ -82,20 +86,23 @@ public class Disease : IElement {
 
     public void Treat(City city) {
         Debug.Assert(city.HasDisease(Nid), "City doesn't have disease to be treated");
-        int amount = Cured ? city.NumDisease(Nid) : 1;
+
+        int amount = Cured ? city.NumDiseaseCubes(Nid) : 1;
         for (int i = 0; i < amount; i++) {
             DiseaseCube cube = city.RemoveDisease(Nid);
             cube.MoveAway();
-            //add cube back
         }
         if (NumDeployedCubes == 0 && Cured) Eradicate();
     }
+
 
     public void Treat(string cityNid) {
         Treat(City.Get(cityNid));
     }
 
+
     public void Cure() { status = Status.cured; }
+
     public void Eradicate() {
         Debug.Assert(NumDeployedCubes == 0, "Should not be able to eradicate yet");
         status = Status.eradicated;
@@ -105,17 +112,16 @@ public class Disease : IElement {
 
     // queries
     public int NumDeployedCubes { get { return numStartingCubes - NumAvailableCubes; } }
-    public string StatusString() { return Nothing? "-": Cured ? "Cured" : "Eradicated"; }
 
-    public static Disease Get(string diseaseNid) { return DiseaseManager.instance.GetDisease(diseaseNid); }
+    public string StatusString() { return Nothing ? "-" : Cured ? "Cured" : "Eradicated"; }
 
     public bool Nothing { get { return status == Status.nothing; } }
     public bool Cured { get { return status == Status.cured; } }
     public bool Eradicated { get { return status == Status.eradicated; } }
-    public char Color { get { return color; } }
-    public Color ColorC { get { return ColorManager.instance.Char2Color(color); } }
 
-    public string NumAvailableCubesString() { return NumAvailableCubes.ToString(); }
     // other
+
+    public static Disease Get(string diseaseNid) { return DiseaseManager.instance.GetDisease(diseaseNid); }
+
 
 }

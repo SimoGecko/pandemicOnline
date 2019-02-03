@@ -18,16 +18,16 @@ public class User : MonoBehaviour {
     public bool IsInLobby { get; private set; }
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+
+
+    // --------------------- BASE METHODS ------------------
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 

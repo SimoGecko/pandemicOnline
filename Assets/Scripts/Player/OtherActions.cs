@@ -89,7 +89,7 @@ public class CureAction : Action {
         char diseaseColor = Disease.Get(DiseaseParam).Color;
         Card[] cardsRightColor = player.personalDeck.AllCardsSatisfying(c => c.color == diseaseColor);
 
-        bool hasEnoughCards = cardsRightColor.Length>=5;
+        bool hasEnoughCards = cardsRightColor.Length >= 5;
         return hasEnoughCards;
     }
 

@@ -18,7 +18,7 @@ public class Board : MonoBehaviour {
     public Graph BoardGraph { get; private set; }
 
     Dictionary<string, City> cityDic = new Dictionary<string, City>();
-    
+
     // references
     public static Board instance;
 
@@ -27,7 +27,7 @@ public class Board : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        if (instance != null) Destroy(gameObject);
+        if (instance != null) Destroy(this);
         instance = this;
     }
 
@@ -37,25 +37,20 @@ public class Board : MonoBehaviour {
 
     // commands
     /*public void Setup() {
-        GenerateBoardGraph();
+        LoadBoardGraph();
         ReadCitiesNames();
+        GenerateBoardGraph();
     }*/
 
-    public void GenerateBoardGraph() {
+    public void LoadBoardGraph() {
         //load graph ds
         BoardGraph = GraphSaveLoad.LoadGraph(graphText.text, useCity: true);
         foreach (Vertex v in BoardGraph.Vertices) {
             cityDic.Add(v.name, (City)v);
         }
-
-        ReadCitiesNames();
-
-        //create is visually
-        transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
     }
 
-    //read cities name
-    void ReadCitiesNames() {
+    public void ReadCitiesNames() {
         string[] lines = citiesText.text.RemoveSpaceAndTabs().GetLines();
         for (int i = 0; i < lines.Length; i++) {
             string[] content = lines[i].Split(',');
@@ -70,18 +65,26 @@ public class Board : MonoBehaviour {
         }
     }
 
+    public void GenerateBoardGraph() {
+        //create is visually
+        transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
+    }
+
 
 
     // queries
     public City GetCity(string Nid) {
-        Debug.Assert(cityDic.ContainsKey(Nid), "No city exists in dictionary with Nid " + Nid);
+        //Debug.Assert(cityDic.ContainsKey(Nid), "No city exists in dictionary with Nid " + Nid);
+
         if (!cityDic.ContainsKey(Nid)) return null;
         return cityDic[Nid];
     }
 
-    public List<City> AllCities { get {
+    public List<City> AllCities {
+        get {
             return BoardGraph.Vertices.Select(v => (City)v).ToList();
-    } }
+        }
+    }
 
 
     // other

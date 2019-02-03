@@ -16,16 +16,16 @@ public class DiseaseCube : BoardPiece {
     public Disease DiseaseParent { get; private set; }
 
     // references
-	
-	
-	// --------------------- BASE METHODS ------------------
-	void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+
+
+    // --------------------- BASE METHODS ------------------
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
@@ -33,6 +33,8 @@ public class DiseaseCube : BoardPiece {
     // commands
     public void Setup(Disease parent) {
         DiseaseParent = parent;
+        SetColor(parent.Color);
+        MoveAway();
     }
 
 

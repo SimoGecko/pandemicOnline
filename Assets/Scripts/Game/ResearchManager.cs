@@ -24,28 +24,29 @@ public class ResearchManager : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     private void Awake() {
-        if (instance != null) Destroy(gameObject);
+        if (instance != null) Destroy(this);
         instance = this;
     }
 
-    void Start () {
-        
-	}
-	
-	void Update () {
-        
-	}
+    void Start() {
+
+    }
+
+    void Update() {
+
+    }
 
     // --------------------- CUSTOM METHODS ----------------
 
 
     // commands
+    /*
     public void Setup() {
         CreateStations();
         PlaceStartingStation();
-    }
+    }*/
 
-    void CreateStations() {
+    public void CreateStations() {
         //generate stations
         numAvailableStations = numStartingStations;
         stations = new List<ResearchStation>();
@@ -58,18 +59,21 @@ public class ResearchManager : MonoBehaviour {
         }
     }
 
-    void PlaceStartingStation() {
+    public void PlaceStartingStation() {
         PlaceStation(Board.instance.startingCity);
     }
 
+
     public void PlaceStation(string cityNid) {
-        Debug.Assert(numAvailableStations > 0, "No additional research station available");
+        //Debug.Assert(numAvailableStations > 0, "No additional research station available");
+        if (numAvailableStations <= 0) return;
+
         numAvailableStations--;
         ResearchStation rs = stations[NumDeployedStations];
 
         City city = City.Get(cityNid);
         city.AddResearchStation(rs);
-        rs.MoveTo(city);
+        rs.MoveToCity(city);
     }
 
 
