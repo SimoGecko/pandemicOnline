@@ -17,6 +17,7 @@ public class EndManager : MonoBehaviour {
     // private
     List<EndCondition> winConditions;
     List<EndCondition> loseConditions;
+    bool won, lost;
 
     // references
     public static EndManager instance;
@@ -68,15 +69,18 @@ public class EndManager : MonoBehaviour {
 
     void Win() {
         Debug.Log("===== W I N ! =====");
+        won = true;
         GameManager.instance.SetState (GameManager.State.end);
     }
     void Lose() {
         Debug.Log("===== L O S E ! =====");
+        lost = true;
         GameManager.instance.SetState(GameManager.State.end);
     }
 
 
     // queries
+    public string EndStatus { get { return won ? "WIN!" : lost ? "LOST!" : ""; } }
 
 
 

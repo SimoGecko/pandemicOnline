@@ -31,7 +31,7 @@ public class BoardPiece : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     void Start() {
-
+        MoveAway();
     }
 
     protected virtual void Update() {

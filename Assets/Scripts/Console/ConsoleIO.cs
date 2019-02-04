@@ -30,7 +30,7 @@ public class ConsoleIO : MonoBehaviour {
 
     // references
     GameObject consoleUI;
-    Text outputText;
+    public Text outputText;
     InputField inputField;
     Toggle showConsoleToggle;
 
@@ -62,7 +62,7 @@ public class ConsoleIO : MonoBehaviour {
     void Setup() {
         //find refs
         consoleUI = transform.Find("background").gameObject;
-        outputText = consoleUI.GetComponentInChildren<Text>();
+        //outputText = consoleUI.GetComponentInChildren<Text>();
         inputField = consoleUI.GetComponentInChildren<InputField>();
         showConsoleToggle = GetComponentInChildren<Toggle>();
 

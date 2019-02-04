@@ -85,11 +85,13 @@ public class ShareAction : Action {
 
 public class CureAction : Action {
 
+    const int NumCardsToCure = 4;
+
     public override bool CanPerformCustom() {
         char diseaseColor = Disease.Get(DiseaseParam).Color;
         Card[] cardsRightColor = player.personalDeck.AllCardsSatisfying(c => c.color == diseaseColor);
 
-        bool hasEnoughCards = cardsRightColor.Length >= 5;
+        bool hasEnoughCards = cardsRightColor.Length >= NumCardsToCure;
         return hasEnoughCards;
     }
 
@@ -97,8 +99,8 @@ public class CureAction : Action {
         char diseaseColor = Disease.Get(DiseaseParam).Color;
         Card[] cardsRightColor = player.personalDeck.AllCardsSatisfying(c => c.color == diseaseColor);
 
-        for (int i = 0; i < 5; i++) {
-            player.personalDeck.Remove(cardsRightColor[i]); // let player choose which
+        for (int i = 0; i < NumCardsToCure; i++) {
+            player.personalDeck.Remove(cardsRightColor[i]); // TODO: let player choose which
         }
         Disease.Get(DiseaseParam).Cure();
     }

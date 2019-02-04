@@ -24,7 +24,7 @@ public class InterfaceManager : MonoBehaviour {
     public RectTransform playerArea;
     public RectTransform diseaseArea;
     public DeckVisualizer playerDeck, playerDeckDiscard, infectionDeck, infectionDeckDiscard;
-    public TextMeshProUGUI outbreakText, infectionText, rateText, playtimeText;
+    public TextMeshProUGUI outbreakText, infectionText, rateText, playtimeText, gameStatusText;
 
     [Header("Prefabs")]
     public GameObject playerUI;
@@ -104,6 +104,7 @@ public class InterfaceManager : MonoBehaviour {
 
     void SetupGameInfo() {
         AddLink(playtimeText, () => Utility.HourStamp(GameManager.instance.GameTimer));
+        AddLink(gameStatusText, () => EndManager.instance.EndStatus);
     }
 
 
