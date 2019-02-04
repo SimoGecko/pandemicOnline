@@ -5,7 +5,7 @@ FEATURES:
     ☐ buttons for actions & clicking cities/diseases
     ☐ highlight possible actions & consumed cards
     ☐ simplified console typing (only necessary params)
-    ☐ timer (game & turn) & max turn time
+    ✔ timer (game & turn) & max turn time @done (19-02-04 19:34)
     ☐ only allow current player to take actions
     ✘ roles @cancelled (Mon 04-Feb-19 10:46)
     ✘ events @cancelled (Mon 04-Feb-19 10:46)
@@ -25,7 +25,7 @@ VISUALS:
     ☐ show available stations UI
     ☐ card drawing animation (time between & show)
     ☐ adjust background map
-    ☐ hidden cards & inverted
+    ✔ hidden cards & inverted @done (19-02-04 18:54)
     ☐ cards/console scrolling
     ☐ various flaticons (disease, action, players, decks, ...)
     ☐ show win/lose

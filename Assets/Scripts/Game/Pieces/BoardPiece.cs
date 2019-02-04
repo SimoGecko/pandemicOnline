@@ -49,7 +49,7 @@ public class BoardPiece : MonoBehaviour {
     public void MoveToCity(string cityNid) {
         MoveToCity(City.Get(cityNid));
     }
-    public void MoveToCity(City city) {
+    public virtual void MoveToCity(City city) {
         CurrentCity = city;
         MoveToPosition(city.Position);
     }

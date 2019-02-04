@@ -120,6 +120,23 @@ public static class Utility {
     public static string HourStamp(DateTime value) {
         return value.ToString("HH:mm:ss");
     }
+    public static string HourStamp(float secs) {
+        TimeSpan t = TimeSpan.FromSeconds(secs);//new TimeSpan(0, 0, Mathf.RoundToInt(secs));
+        return string.Format("{0:D2}:{1:D2}:{2:D2}",
+                t.Hours,
+                t.Minutes,
+                t.Seconds);
+
+    }
+    public static string MinuteStamp(DateTime value) {
+        return value.ToString("mm:ss");
+    }
+    public static string MinuteStamp(float secs) {
+        TimeSpan t = TimeSpan.FromSeconds(secs);//new TimeSpan(0, 0, Mathf.RoundToInt(secs));
+        return string.Format("{0:D2}:{1:D2}",
+                t.Minutes,
+                t.Seconds);
+    }
 
 
     //--------------------------------- RANDOM ---------------------------------

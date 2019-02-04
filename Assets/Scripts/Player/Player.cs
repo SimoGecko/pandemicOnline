@@ -14,6 +14,8 @@ public class Player : IElement {
     const int maxActions = 4;
     const int handLimit = 7;
 
+    public float TurnTimer;// { get; private set; }
+
 
     // private
     public string Nid { get; private set; }
@@ -43,7 +45,7 @@ public class Player : IElement {
     public void Setup() {
         //create pawn
         pawn = ElementManager.instance.Copy(ElementManager.instance.pawnPrefab);
-        pawn.SetColor(colorChar);
+        pawn.Setup(this, colorChar);
     }
 
     public void Move(string cityNid) {
@@ -73,6 +75,7 @@ public class Player : IElement {
 
     public void StartTurn() {
         numPerformedActions = 0;
+        TurnTimer = 0;
         isTurn = true;
     }
 
@@ -140,7 +143,7 @@ public class Player : IElement {
 
 
     public string GetStatus() {
-        return isTurn ? string.Format("turn: ({0} left) ", NumRemainingActions) : "-";
+        return isTurn ? string.Format("turn: ({0} left)\n{1}", NumRemainingActions, Utility.MinuteStamp(TurnTimer)) : "-";
     }
 
 

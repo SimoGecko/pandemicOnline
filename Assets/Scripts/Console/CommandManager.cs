@@ -73,11 +73,11 @@ public class CommandManager : MonoBehaviour {
     // --------------------- BASE METHODS ------------------
     private void Awake() {
         instance = this;
+        CreateCommands();
 
     }
 
     void Start() {
-        CreateCommands();
 
     }
 
@@ -137,7 +137,7 @@ public class CommandManager : MonoBehaviour {
     }
 
     // queries
-    Command FindMatchingCommand(string memo) {
+    public Command FindMatchingCommand(string memo) {
         Command result = allCommands.Find(c => c.memo == memo);
         return result;
     }
