@@ -1,4 +1,84 @@
-PANDEMIC
+=== P A N D E M I C   O N L I N E ===
+
+
+FEATURES:
+    ☐ buttons for actions & clicking cities/diseases
+    ☐ highlight possible actions & consumed cards
+    ☐ simplified console typing (only necessary params)
+    ☐ timer (game & turn) & max turn time
+    ☐ only allow current player to take actions
+    ✘ roles @cancelled (Mon 04-Feb-19 10:46)
+    ✘ events @cancelled (Mon 04-Feb-19 10:46)
+
+ONLINE:
+    ☐ lobby system (show players in lobby)
+    ☐ lobby chat (max amount of lines)
+    ☐ player icons/colors
+    ☐ game settings (difficulty, starting loc, mode, time limit, ...)
+    ☐ lobby settings communication
+    ☐ save/load with lobbyID
+    ☐ variable number players
+
+VISUALS:
+    ☐ cubes infect animation & smooth movement (one after other)
+    ☐ board pieces placement
+    ☐ show available stations UI
+    ☐ card drawing animation (time between & show)
+    ☐ adjust background map
+    ☐ hidden cards & inverted
+    ☐ cards/console scrolling
+    ☐ various flaticons (disease, action, players, decks, ...)
+    ☐ show win/lose
+    ✘ sounds @cancelled (Mon 04-Feb-19 10:52)
+    ✘ particle effects @cancelled (Mon 04-Feb-19 10:52)
+    ✘ camera movement to highligh actions @cancelled (Mon 04-Feb-19 10:52)
+
+
+BUGS:
+    ☐ inverted command sequence
+    ☐ end game at endcondition (& print console)
+    ☐ (duplicate insertion)
+    ☐ synchronization with server file (only write to remote?)
+
+TESTING:
+    ☐ complete test game
+    ☐ win
+    ☐ lose
+    ✘ robustness @cancelled (Mon 04-Feb-19 11:01)
+
+
+ROLES:
+☐ basic
+medic
+researcher
+scientist
+dispatcher
+operations expert
+☐ advanced
+containment specialist
+generalist
+trouble shooter
+epidemiologist
+field operative
+archivist
+exterminator
+
+EVENTS:
+ ☐ base
+ resilient pop
+ quiet night
+ forecast
+ government grant
+ airlift
+☐ brink
+borrowed time
+commercial travel ban
+mobile hospital
+new assignment
+rapid vaccine deployment
+re-examined research
+remote treatment
+special orders
 
 STEPS:
   graph
@@ -16,13 +96,11 @@ STEPS:
     ✔ infect city, show cube @done (Thu 24-Jan-19 11:24)
   ✔ implement all actions @done (Thu 24-Jan-19 12:26)
 
- ☐ turn system
- ☐ control flow
+ ✔ turn system @done (Mon 04-Feb-19 10:34)
+ ✔ control flow @done (Mon 04-Feb-19 10:34)
 
- ☐ test game
-
-  ☐ commands
-    ☐ take them, process them, plug method, call it
+  ✔ commands @done (Mon 04-Feb-19 10:34)
+    ✔ take them, process them, plug method, call it @done (Mon 04-Feb-19 10:34)
 
 
     ✔ interface @done (Thu 24-Jan-19 18:27)
