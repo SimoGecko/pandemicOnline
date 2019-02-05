@@ -22,7 +22,7 @@ public class LobbyManager : MonoBehaviour {
 
     public Button connectButton;
     public InputField usernameInput, lobbyInput;
-    public Toggle hostToggle;
+    public Toggle hostToggle, newgameToggle;
 
 
     // --------------------- BASE METHODS ------------------

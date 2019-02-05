@@ -70,7 +70,6 @@ public class NetworkManager : MonoBehaviour {
     }
 
     public void LogSeparator() {
-        Debug.Log("separator");
         sf.Write("");
     }
 

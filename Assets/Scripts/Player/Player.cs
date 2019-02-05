@@ -47,6 +47,8 @@ public class Player : IElement {
         //create pawn
         pawn = ElementManager.instance.Copy(ElementManager.instance.pawnPrefab);
         pawn.SetColor(colorChar);
+        pawn.offsetPos = Quaternion.Euler(0, 60 * (id + 1), 0) * Vector3.forward * .15f;
+        pawn.placed = true;
     }
 
     public void Move(string cityNid) {
