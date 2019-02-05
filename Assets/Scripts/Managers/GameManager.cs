@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 ////////// difficulty, win/lose conditions (should only control the play/pause/state of game) //////////
 
@@ -18,7 +19,7 @@ public class GameManager : MonoBehaviour {
     public bool DEBUG = true;
 
     // private
-    public float GameTimer { get; private set; }
+    DateTime gameStartTimer;
 
     // references
     public static GameManager instance;
@@ -38,9 +39,10 @@ public class GameManager : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.S) && !Playing) {
             //StartGame();
         }
+        /*
         if (Playing) {
             GameTimer += Time.deltaTime;
-        }
+        }*/
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -51,7 +53,7 @@ public class GameManager : MonoBehaviour {
         FlowManager.instance.GameSetup();
         FlowManager.instance.GameStart();
         state = State.play;
-        GameTimer = 0;
+        gameStartTimer = DateTime.Now;
     }
     
 
@@ -61,6 +63,7 @@ public class GameManager : MonoBehaviour {
 
     // queries
     public bool Playing { get { return state == State.play; } }
+    public TimeSpan ElapsedGameTime { get { return DateTime.Now - gameStartTimer; } }
 
 
 

@@ -68,6 +68,8 @@ public class ColorManager : MonoBehaviour {
     }
 
     public Material Char2Material(char c) {
+        if (materials == null || materials.Length == 0) CreateMaterials();
+
         int idx = Char2Int(c);
         if (0 <= idx && idx < colors.Length) return materials[idx];
         return null;

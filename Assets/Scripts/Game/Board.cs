@@ -21,6 +21,7 @@ public class Board : MonoBehaviour {
 
     // references
     public static Board instance;
+    public GameObject graphParent;
 
     public TextAsset graphText, citiesText;
 
@@ -67,7 +68,13 @@ public class Board : MonoBehaviour {
 
     public void GenerateBoardGraph() {
         //create is visually
-        transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
+        if (graphParent == null) {
+            transform.root.GetComponentInChildren<GraphVisualizer>().GenerateGraph(BoardGraph);
+            graphParent = GameObject.Find("graphParent");
+        } else {
+            graphParent.SetActive(true);
+            //set city names
+        }
     }
 
 

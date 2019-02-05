@@ -10,20 +10,23 @@ public class BoardPiece : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public bool useRandomPos = true;
-    public float circleRadius = .15f; // random around center
-
+    //public bool useRandomPos = true;
+    //public float circleRadius = .15f; // random around center
     float movementSpeed = 2f; // units/s
+    public Vector3 offsetPos;
 
     AnimationCurve movementCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    readonly Vector3 restPosition = new Vector3(-5, 0, 0);
 
-    protected Vector3 posOffset;
-    bool anim; // if in animation
+    //public Vector3 restPosition = new Vector3(-5, 0, 0);
+
     // private
-    Vector3 endPos;
-    public City CurrentCity { get; private set; }
+    bool anim;
+    Vector3 goalPos;
+    [HideInInspector]
+    public bool placed;
+
+    //public City CurrentCity { get; private set; }
 
 
     // references
@@ -31,13 +34,14 @@ public class BoardPiece : MonoBehaviour {
 
     // --------------------- BASE METHODS ------------------
     void Start() {
-        MoveAway();
+        //MoveAway();
+        placed = false;
     }
 
     protected virtual void Update() {
         //lerp to target pos
         if (!anim) {
-            transform.position = endPos + posOffset;
+            transform.position = TargetPos;
         }
         
     }
@@ -49,32 +53,38 @@ public class BoardPiece : MonoBehaviour {
     public void MoveToCity(string cityNid) {
         MoveToCity(City.Get(cityNid));
     }
-    public virtual void MoveToCity(City city) {
-        CurrentCity = city;
-        MoveToPosition(city.Position);
+    public void MoveToCity(City city) {
+        //CurrentCity = city;
+        AnimateTo(city.Position);
     }
 
     public void MoveTo(Vector3 pos) {
-        CurrentCity = null;
-        MoveToPosition(pos);
+        //CurrentCity = null;
+        AnimateTo(pos);
     }
-    public void MoveAway() {
-        MoveTo(restPosition);
-    }
+    
 
-
-    void MoveToPosition(Vector3 p) {
-        
-        if (useRandomPos) {
-            posOffset = Utility.OnUnitCircle().To3() * circleRadius;
-        } else {
-            posOffset = Vector3.zero;
+    public void TeleportTo(Vector3 p) {
+        if (anim) {
+            StopCoroutine("MoveToAnimation");
+            anim = false;
         }
-
-        endPos = p + posOffset;
-        StopCoroutine("MoveToRoutine");
-        StartCoroutine("MoveToRoutine");
+        goalPos = p;
+        transform.position = TargetPos;
     }
+
+    void AnimateTo(Vector3 p) {
+        if (anim) {
+            StopCoroutine("MoveToAnimation");
+            anim = false;
+        }
+        goalPos = p;
+        StartCoroutine("MoveToAnimation");
+    }
+
+
+
+
 
     public void SetColor(char color) {
         GetComponentInChildren<MeshRenderer>().material = ColorManager.instance.Char2Material(color);
@@ -83,24 +93,24 @@ public class BoardPiece : MonoBehaviour {
 
 
     // queries
+    Vector3 TargetPos { get { return goalPos + (placed? offsetPos:Vector3.zero); } }
 
 
 
     // other
-    IEnumerator MoveToRoutine() {
+    IEnumerator MoveToAnimation() {
         anim = true;
         float percent = 0;
-        float dist = Vector3.Distance(transform.position, endPos);
         Vector3 startPos = transform.position;
+        float dist = Vector3.Distance(startPos, TargetPos);
 
         while (percent < 1) {
             percent += Time.deltaTime * movementSpeed / dist;
-            transform.position = Vector3.Lerp(startPos, endPos, movementCurve.Evaluate(percent));
+            transform.position = Vector3.Lerp(startPos, TargetPos, movementCurve.Evaluate(percent));
             yield return null;
         }
-        transform.position = endPos;
+        transform.position = TargetPos;
         anim = false;
-
     }
 
 }

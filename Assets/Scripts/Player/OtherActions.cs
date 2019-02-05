@@ -100,7 +100,8 @@ public class CureAction : Action {
         Card[] cardsRightColor = player.personalDeck.AllCardsSatisfying(c => c.color == diseaseColor);
 
         for (int i = 0; i < NumCardsToCure; i++) {
-            player.personalDeck.Remove(cardsRightColor[i]); // TODO: let player choose which
+            player.Discard(cardsRightColor[i].Nid);
+            //player.personalDeck.Remove(); // TODO: let player choose which
         }
         Disease.Get(DiseaseParam).Cure();
     }

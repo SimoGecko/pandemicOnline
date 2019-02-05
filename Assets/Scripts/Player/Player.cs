@@ -14,7 +14,7 @@ public class Player : IElement {
     const int maxActions = 4;
     const int handLimit = 7;
 
-    public float TurnTimer;// { get; private set; }
+    public DateTime startTurnTime;// { get; private set; }
 
 
     // private
@@ -27,6 +27,7 @@ public class Player : IElement {
     char colorChar;
 
     // references
+    City currentCity;
     Pawn pawn;
 
 
@@ -45,11 +46,15 @@ public class Player : IElement {
     public void Setup() {
         //create pawn
         pawn = ElementManager.instance.Copy(ElementManager.instance.pawnPrefab);
-        pawn.Setup(this, colorChar);
+        pawn.SetColor(colorChar);
     }
 
     public void Move(string cityNid) {
         //move pawn
+        if (currentCity != null) currentCity.RemovePlayer(this);
+        currentCity = City.Get(cityNid);
+        currentCity.AddPlayer(this);
+
         pawn.MoveToCity(cityNid);
     }
     public void GiveInitialDeck(Deck deck) {
@@ -74,14 +79,19 @@ public class Player : IElement {
     }
 
     public void StartTurn() {
+        NetworkManager.instance.LogSeparator();
+
         numPerformedActions = 0;
-        TurnTimer = 0;
+        startTurnTime = DateTime.Now;
+        //TurnTimer = 0;
         isTurn = true;
     }
 
     public void EndTurn() { // this is called as action
         if (!isTurn) return;
         isTurn = false;
+        NetworkManager.instance.LogSeparator();
+
         FlowManager.instance.OnTurnEnd();
     }
 
@@ -102,7 +112,9 @@ public class Player : IElement {
         //hand limit
         while (personalDeck.NumCards > handLimit) {
             //TODO let user choose which to discard
-            Discard(personalDeck.PeekTop().Nid);
+            string cardNid = personalDeck.PeekTop().Nid;
+            //Discard();
+            CommandManager.instance.ProcessCommand(string.Format("discard {0} {1}", Nid, cardNid));
         }
     }
 
@@ -110,7 +122,7 @@ public class Player : IElement {
 
     // queries
     public City CurrentCity {
-        get { return pawn.CurrentCity; }
+        get { return currentCity; }
     }
 
 
@@ -141,9 +153,12 @@ public class Player : IElement {
         get { return ColorManager.instance.Char2Color(colorChar); }
     }
 
+    public TimeSpan ElapsedTurnTime { get { return DateTime.Now - startTurnTime; } }
+
 
     public string GetStatus() {
-        return isTurn ? string.Format("turn: ({0} left)\n{1}", NumRemainingActions, Utility.MinuteStamp(TurnTimer)) : "-";
+        //TimeSpan elapsedTime = DateTime.Now - startTurnTime;
+        return isTurn ? string.Format("turn: ({0} left)\n{1}", NumRemainingActions, Utility.MinuteStamp(ElapsedTurnTime)) : "-";
     }
 
 

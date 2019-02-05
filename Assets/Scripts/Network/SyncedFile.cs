@@ -69,9 +69,12 @@ public class SyncedFile : MonoBehaviour {
 
     // commands
     public void Write(string data) {
+        Debug.Assert(data != null, "trying to write null string to synced file");
+        if (data == null) return;
         //assume a single line is written
         //if (toWrite == null) toWrite = "";
         //toWrite += data + '\n';
+        if (toWrite == null) toWrite = new List<string>();
         toWrite.Add(data);
 
         //lines.Add(data);

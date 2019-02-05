@@ -64,7 +64,7 @@ public class DiseaseManager : MonoBehaviour {
         //setup disease
         int numDiseases = diseaseNids.Length;
         for (int i = 0; i < numDiseases; i++) {
-            Disease newDisease = new Disease(diseaseNids[i], diseaseColors[i]); // auto setup
+            Disease newDisease = new Disease(diseaseNids[i], diseaseColors[i], ElementManager.instance.diseasePlacement[i], ElementManager.instance.curePlacement[i]); // auto setup
             //newDisease.InstantiateCubesAndMarkers();
             diseaseDic.Add(newDisease.Nid, newDisease);
         }

@@ -29,6 +29,7 @@ public class CommandManager : MonoBehaviour {
         "share P C O",
         "cure P C D",
 
+        "discard P C",
         "endturn P",
 
         /*
@@ -52,6 +53,7 @@ public class CommandManager : MonoBehaviour {
         (p, c, d, o, n) => Action.GetAction(Action.Type.Share, p, c, o).TryPerform(),
         (p, c, d, o, n) => Action.GetAction(Action.Type.Cure, p, c, d).TryPerform(),
                   
+        (p, c, d, o, n) => Player.Get(p).Discard(c),
         (p, c, d, o, n) => Player.Get(p).EndTurn(),
 
         /*

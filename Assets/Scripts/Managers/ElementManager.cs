@@ -22,8 +22,9 @@ public class ElementManager : MonoBehaviour {
     public RectTransform cardUIPrefab;
 
 
-    //[Header("Objects")]
-
+    [Header("Objects")]
+    public BoardPlacement stationPlacement;
+    public BoardPlacement[] diseasePlacement, curePlacement;
 
     [Header("Pieces")]
     public DiseaseCube diseaseCubePrefab;

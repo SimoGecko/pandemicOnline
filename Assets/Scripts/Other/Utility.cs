@@ -113,29 +113,36 @@ public static class Utility {
         return result;
     }
 
-    public static string TimeStamp(DateTime value) {
+
+
+    //--------------------------------- STAMPS ---------------------------------
+
+    public static string DateTimeStamp(DateTime value) {
         return value.ToString("dd/MM/yy_HH:mm:ss");
     }
 
+
+    public static string HourStamp(TimeSpan value) {
+        return HourStamp(new DateTime(value.Ticks));
+    }
     public static string HourStamp(DateTime value) {
         return value.ToString("HH:mm:ss");
     }
     public static string HourStamp(float secs) {
-        TimeSpan t = TimeSpan.FromSeconds(secs);//new TimeSpan(0, 0, Mathf.RoundToInt(secs));
-        return string.Format("{0:D2}:{1:D2}:{2:D2}",
-                t.Hours,
-                t.Minutes,
-                t.Seconds);
+        TimeSpan t = TimeSpan.FromSeconds(secs);
+        return string.Format("{0:D2}:{1:D2}:{2:D2}", t.Hours, t.Minutes, t.Seconds);
+    }
 
+
+    public static string MinuteStamp(TimeSpan value) {
+        return MinuteStamp(new DateTime(value.Ticks));
     }
     public static string MinuteStamp(DateTime value) {
         return value.ToString("mm:ss");
     }
     public static string MinuteStamp(float secs) {
-        TimeSpan t = TimeSpan.FromSeconds(secs);//new TimeSpan(0, 0, Mathf.RoundToInt(secs));
-        return string.Format("{0:D2}:{1:D2}",
-                t.Minutes,
-                t.Seconds);
+        TimeSpan t = TimeSpan.FromSeconds(secs);
+        return string.Format("{0:D2}:{1:D2}", t.Minutes, t.Seconds);
     }
 
 

@@ -55,7 +55,10 @@ public class ResearchManager : MonoBehaviour {
             newStation.SetColor('s');
             stations.Add(newStation);
             //newStation.Setup();
-            newStation.MoveAway();
+
+            newStation.TeleportTo(ElementManager.instance.stationPlacement.GetPos(i));
+            newStation.placed = true;
+            //newStation.MoveAway();
         }
     }
 
@@ -69,7 +72,7 @@ public class ResearchManager : MonoBehaviour {
         if (numAvailableStations <= 0) return;
 
         numAvailableStations--;
-        ResearchStation rs = stations[NumDeployedStations];
+        ResearchStation rs = stations[numAvailableStations];
 
         City city = City.Get(cityNid);
         city.AddResearchStation(rs);

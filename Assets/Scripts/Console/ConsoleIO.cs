@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using System.Linq;
 
 
 ////////// deals with reading output and printing output to console //////////
@@ -17,20 +18,21 @@ public class ConsoleIO : MonoBehaviour {
 
     // public
     public int maxLines = 15;
+
     public bool startFocus = false;
     public bool keepInputFocus = true;
     public bool toLower = false;
     public bool autoAddToOutput = false;
 
     // private
-    string[] consoleLines;
+    List<string> consoleLines;
     string lastTypedLine = "";
 
     bool wasFocused;
 
     // references
-    GameObject consoleUI;
     public Text outputText;
+    GameObject consoleUI;
     InputField inputField;
     Toggle showConsoleToggle;
 
@@ -68,7 +70,7 @@ public class ConsoleIO : MonoBehaviour {
 
         //init them
         outputText.text = "";
-        consoleLines = new string[maxLines];
+        consoleLines = new List<string>();//new string[maxLines];
         showConsoleToggle.onValueChanged.AddListener(b => consoleUI.SetActive(b));
         if (startFocus) inputField.ActivateInputField();
     }
@@ -99,6 +101,15 @@ public class ConsoleIO : MonoBehaviour {
 
 
     public void OutputConsole(string text) {
+        //Debug.Log(text);
+
+        if (text == null) text = "";
+        consoleLines.Add(text);
+        while (consoleLines.Count > maxLines && maxLines>0) consoleLines.RemoveAt(0);
+
+        string result = consoleLines.Aggregate((s1, s2) => s1 + '\n' + s2);
+
+        /*
         string result = "";
         for (int i = 0; i < maxLines - 1; i++) {
             consoleLines[i] = consoleLines[i + 1];
@@ -108,6 +119,7 @@ public class ConsoleIO : MonoBehaviour {
         }
         consoleLines[maxLines - 1] = text;
         result += text;
+        */
 
         outputText.text = result;
     }

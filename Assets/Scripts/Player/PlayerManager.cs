@@ -48,8 +48,8 @@ public class PlayerManager : MonoBehaviour {
 
     void Update() {
         if(CurrentPlayer!=null && CurrentPlayer.isTurn) {
-            CurrentPlayer.TurnTimer += Time.deltaTime;
-            if (CurrentPlayer.TurnTimer > maxTurnTime) {
+            //CurrentPlayer.TurnTimer += Time.deltaTime;
+            if (CurrentPlayer.ElapsedTurnTime.TotalSeconds > maxTurnTime) {
                 //end turn
                 CurrentPlayer.EndTurn();
             }

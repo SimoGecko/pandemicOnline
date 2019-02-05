@@ -56,17 +56,22 @@ public class NetworkManager : MonoBehaviour {
     }
 
     public void LocalNewInput(string s) {
-        CommandManager.instance.ProcessCommand(s); // locally
 
         //only if performable log it online
 
         if (logOnline) {
             sf.Write(s);
         }
+        CommandManager.instance.ProcessCommand(s); // locally
     }
 
     void RemoteNewInput(string s) {
         CommandManager.instance.ProcessCommand(s);
+    }
+
+    public void LogSeparator() {
+        Debug.Log("separator");
+        sf.Write("");
     }
 
 

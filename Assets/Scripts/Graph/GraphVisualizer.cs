@@ -39,7 +39,8 @@ public class GraphVisualizer : MonoBehaviour {
 
         //clean previous one
         if (parent != null) {
-            Destroy(parent);
+            if (Application.isEditor) DestroyImmediate(parent);
+            else Destroy(parent);
         }
         parent = new GameObject("graph parent");
 

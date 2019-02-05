@@ -23,6 +23,8 @@ public class Disease : IElement {
 
     List<DiseaseCube> cubes;
     CureMarker cureMarker;
+    BoardPlacement diseasePlacement, curePlacement;
+
 
     public int NumAvailableCubes { get; private set; }
     public bool RunOutOfCubes { get; private set; }
@@ -37,7 +39,7 @@ public class Disease : IElement {
 
 
     // commands
-    public Disease(string Nid, char color) {
+    public Disease(string Nid, char color, BoardPlacement diseasePlacement, BoardPlacement curePlacement) {
         this.Nid = Nid;
         this.Color = color;
 
@@ -45,6 +47,9 @@ public class Disease : IElement {
 
         NumAvailableCubes = numStartingCubes;
         RunOutOfCubes = false;
+
+        this.diseasePlacement = diseasePlacement;
+        this.curePlacement = curePlacement;
 
         InstantiateCubesAndMarkers();
     }
@@ -56,11 +61,14 @@ public class Disease : IElement {
             DiseaseCube newCube = ElementManager.instance.Copy(ElementManager.instance.diseaseCubePrefab);
             cubes.Add(newCube);
             newCube.Setup(this);
+            newCube.TeleportTo(diseasePlacement.GetPos(i));
         }
 
-        // setup cure marker
+        // instantiate cure marker
         cureMarker = ElementManager.instance.Copy(ElementManager.instance.cureMarkerPrefab);
         cureMarker.SetColor(Color); // setup
+        cureMarker.TeleportTo(curePlacement.GetPos(0));
+
     }
 
 
@@ -73,12 +81,15 @@ public class Disease : IElement {
             RunOutOfCubes = true; // game over
         } else {
             Debug.Assert(0 <= NumDeployedCubes && NumDeployedCubes < numStartingCubes, "NumDeployedCubes out of range: " + NumDeployedCubes);
-            DiseaseCube cube = cubes[NumDeployedCubes];
+            if (NumAvailableCubes <= 0) return;
+
             NumAvailableCubes--;
+            DiseaseCube cube = cubes[NumAvailableCubes];
 
             cube.SetIth(city.NumTotalDiseaseCubes);
             city.AddDisease(cube);
             cube.MoveToCity(city);
+            cube.placed = true;
         }
     }
 
@@ -92,7 +103,9 @@ public class Disease : IElement {
         int amount = Cured ? city.NumDiseaseCubes(Nid) : 1;
         for (int i = 0; i < amount; i++) {
             DiseaseCube cube = city.RemoveDisease(Nid);
-            cube.MoveAway();
+            cube.MoveTo(diseasePlacement.GetPos(NumAvailableCubes));
+            cube.placed = false;
+
             NumAvailableCubes++;
         }
         if (NumDeployedCubes == 0 && Cured) Eradicate();

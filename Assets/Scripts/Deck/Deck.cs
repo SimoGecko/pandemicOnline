@@ -128,7 +128,10 @@ public class Deck {
     }
     public Card Remove(string cardNid) {
         Debug.Assert(CardStrings.Contains(cardNid), "Deck doesn't contain card " + cardNid);
-        return Remove(GetCard(cardNid));
+        if (CardStrings.Contains(cardNid)) {
+            return Remove(GetCard(cardNid));
+        }
+        return null;
     }
     /*
     public void Discard(Card c) {

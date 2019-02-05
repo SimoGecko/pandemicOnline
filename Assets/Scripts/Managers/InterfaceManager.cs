@@ -103,7 +103,7 @@ public class InterfaceManager : MonoBehaviour {
     }
 
     void SetupGameInfo() {
-        AddLink(playtimeText, () => Utility.HourStamp(GameManager.instance.GameTimer));
+        AddLink(playtimeText, () => Utility.HourStamp(GameManager.instance.ElapsedGameTime));
         AddLink(gameStatusText, () => EndManager.instance.EndStatus);
     }
 
