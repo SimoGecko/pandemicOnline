@@ -2,13 +2,14 @@
 
 
 FEATURES:
-    ☐ buttons for actions & clicking cities/diseases
+    ☐ buttons for actions & clicking cities/diseases @high
     ☐ highlight possible actions & consumed cards
     ☐ simplified console typing (only necessary params)
-    ☐ timer (game & turn) & max turn time
+    ✔ timer (game & turn) & max turn time @done (19-02-04 19:34)
     ☐ only allow current player to take actions
     ✘ roles @cancelled (Mon 04-Feb-19 10:46)
     ✘ events @cancelled (Mon 04-Feb-19 10:46)
+    ☐ let player choose which card to discard
 
 ONLINE:
     ☐ lobby system (show players in lobby)
@@ -20,15 +21,15 @@ ONLINE:
     ☐ variable number players
 
 VISUALS:
-    ☐ cubes infect animation & smooth movement (one after other)
-    ☐ board pieces placement
+    ☐ cubes infect animation & smooth movement (one after other) @high
+    ☐ board pieces placement @high
     ☐ show available stations UI
     ☐ card drawing animation (time between & show)
     ☐ adjust background map
-    ☐ hidden cards & inverted
+    ✔ hidden cards & inverted @done (19-02-04 18:54)
     ☐ cards/console scrolling
     ☐ various flaticons (disease, action, players, decks, ...)
-    ☐ show win/lose
+    ✔ show win/lose @done (19-02-04 22:55)
     ✘ sounds @cancelled (Mon 04-Feb-19 10:52)
     ✘ particle effects @cancelled (Mon 04-Feb-19 10:52)
     ✘ camera movement to highligh actions @cancelled (Mon 04-Feb-19 10:52)
@@ -36,9 +37,11 @@ VISUALS:
 
 BUGS:
     ☐ inverted command sequence
-    ☐ end game at endcondition (& print console)
+    ☐ end game at endcondition (& print console) @high
     ☐ (duplicate insertion)
     ☐ synchronization with server file (only write to remote?)
+    ☐ command considered wrong but when rewritten is right
+    ✔ doesn't show correct number remaining cubes @done (19-02-04 22:48)
 
 
 cure -> card discarded but not to discard deck
@@ -58,9 +61,9 @@ allow reconnect
 separate data in new file, ready for lobby connect settings
 
 TESTING:
-    ☐ complete test game
+    ✔ complete test game @done (19-02-04 22:29)
     ☐ win
-    ☐ lose
+    ✔ lose @done (19-02-04 22:29)
     ✘ robustness @cancelled (Mon 04-Feb-19 11:01)
 
 
@@ -124,18 +127,26 @@ STEPS:
 
 
 COMMANDS:
-disease_infect     @C @D
-disease_outbreak   @C
-disease_epidemic   @C
+infect C D N", // C D N
+"outbreak C D",
+"epidemic C",
 
-action_move     @P @C
-action_direct   @P @C
-action_charter  @P @C
-action_shuttle  @P @C
-action_build    @P @C
-action_treat    @P @C @D
-action_share    @P @C "otherPlayer"
-action_cure     @P @C @D
+"move P C",
+"direct P C",
+"charter P C",
+"shuttle P C",
+
+"build P C",
+"treat P C D",
+"share P C O",
+"cure P C D",
+
+"endturn P",
+
+SIMPLE:
+  move/direct/charter/shuttle C
+  build treat share cure (nothing)
+
 
 deck_draw       @P
 deck_discard    @P @C

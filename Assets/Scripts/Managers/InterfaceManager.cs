@@ -24,7 +24,7 @@ public class InterfaceManager : MonoBehaviour {
     public RectTransform playerArea;
     public RectTransform diseaseArea;
     public DeckVisualizer playerDeck, playerDeckDiscard, infectionDeck, infectionDeckDiscard;
-    public TextMeshProUGUI outbreakText, infectionText, rateText;
+    public TextMeshProUGUI outbreakText, infectionText, rateText, playtimeText, gameStatusText;
 
     [Header("Prefabs")]
     public GameObject playerUI;
@@ -73,16 +73,16 @@ public class InterfaceManager : MonoBehaviour {
             newPlayerUI.transform.Find("playerColor").GetComponent<Image>().color = p.Color;
             newPlayerUI.transform.Find("playerName").GetComponent<TextMeshProUGUI>().text = p.Nid;
             AddLink(newPlayerUI.transform.Find("playerInfo").GetComponent<TextMeshProUGUI>(), p.GetStatus);
-            newPlayerUI.transform.Find("personalDeck").GetComponent<DeckVisualizer>().SetDeck(p.personalDeck);
+            newPlayerUI.transform.Find("personalDeck").GetComponent<DeckVisualizer>().SetDeck(p.personalDeck, true);
         }
     }
 
     void SetupDecks() {
-        playerDeck.SetDeck(PlayerManager.instance.playerDeck);
-        playerDeckDiscard.SetDeck(PlayerManager.instance.playerDiscardDeck);
+        playerDeck.SetDeck(PlayerManager.instance.playerDeck, false);
+        playerDeckDiscard.SetDeck(PlayerManager.instance.playerDiscardDeck, true);
 
-        infectionDeck.SetDeck(DiseaseManager.instance.InfectionDeck);
-        infectionDeckDiscard.SetDeck(DiseaseManager.instance.InfectionDiscardDeck);
+        infectionDeck.SetDeck(DiseaseManager.instance.InfectionDeck, false );
+        infectionDeckDiscard.SetDeck(DiseaseManager.instance.InfectionDiscardDeck, true);
     }
 
     void SetupDiseases() {
@@ -103,7 +103,8 @@ public class InterfaceManager : MonoBehaviour {
     }
 
     void SetupGameInfo() {
-
+        AddLink(playtimeText, () => Utility.HourStamp(GameManager.instance.GameTimer));
+        AddLink(gameStatusText, () => EndManager.instance.EndStatus);
     }
 
 

@@ -18,7 +18,7 @@ public class City : Vertex, IElement {
     // private
 
     ResearchStation researchStation;
-    //Player[] stationedPlayers; // not needed
+    List<Player> stationedPlayers;
     Dictionary<string, List<DiseaseCube>> diseaseCubes;
 
     // references
@@ -36,6 +36,7 @@ public class City : Vertex, IElement {
         FullName = "";
         researchStation = null;
         diseaseCubes = new Dictionary<string, List<DiseaseCube>>();
+        stationedPlayers = new List<Player>();
 
         Debug.Assert(!cityNidsTemp.Contains(Nid), "duplicate nid: " + Nid);
         cityNidsTemp.Add(Nid);
@@ -75,6 +76,17 @@ public class City : Vertex, IElement {
         return cube;
     }
 
+    public void AddPlayer(Player p) {
+        stationedPlayers.Add(p);
+    }
+    public void RemovePlayer(Player p) {
+        if (stationedPlayers.Contains(p)) {
+            stationedPlayers.Remove(p);
+        } else {
+            Debug.LogError("stationed player not present at "+Nid);
+        }
+    }
+
 
 
     // queries
@@ -110,6 +122,8 @@ public class City : Vertex, IElement {
     public bool HasDisease(string diseaseNid) {
         return NumDiseaseCubes(diseaseNid) > 0;
     }
+
+    public Disease DefaultDisease { get { return DiseaseManager.instance.GetDisease(color.ToString()); } }
 
 
     // other

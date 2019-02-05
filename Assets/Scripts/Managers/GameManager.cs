@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
     public bool DEBUG = true;
 
     // private
-
+    public float GameTimer { get; private set; }
 
     // references
     public static GameManager instance;
@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.S) && !Playing) {
             //StartGame();
         }
+        if (Playing) {
+            GameTimer += Time.deltaTime;
+        }
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -48,6 +51,7 @@ public class GameManager : MonoBehaviour {
         FlowManager.instance.GameSetup();
         FlowManager.instance.GameStart();
         state = State.play;
+        GameTimer = 0;
     }
     
 
@@ -57,6 +61,7 @@ public class GameManager : MonoBehaviour {
 
     // queries
     public bool Playing { get { return state == State.play; } }
+
 
 
 

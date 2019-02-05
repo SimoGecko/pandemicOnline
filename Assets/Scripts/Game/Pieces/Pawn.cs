@@ -13,6 +13,7 @@ public class Pawn : BoardPiece {
 
 
     // private
+    Player owner;
 
 
     // references
@@ -32,7 +33,16 @@ public class Pawn : BoardPiece {
 
 
     // commands
+    public void Setup(Player p, char color) {
+        base.SetColor(color);
+        owner = p;
+    }
 
+    public override void MoveToCity(City city) {
+        if (CurrentCity != null) CurrentCity.RemovePlayer(owner);
+        base.MoveToCity(city);
+        if (CurrentCity != null) CurrentCity.AddPlayer(owner);
+    }
 
 
     // queries

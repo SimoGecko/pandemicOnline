@@ -12,9 +12,10 @@ public class DeckVisualizer : MonoBehaviour {
     // --------------------- VARIABLES ---------------------
 
     // public
-    public bool openCards = true; // shows front or back
+    //public bool invertOrder = false;
 
     // private
+    bool openCards = true; // shows front or back
 
 
     // references
@@ -22,6 +23,7 @@ public class DeckVisualizer : MonoBehaviour {
 
     RectTransform cardPanel;
     TextMeshProUGUI cardInfoText;
+    Toggle openCardsToggle;//, invertOrderToggle;
 
     // --------------------- BASE METHODS ------------------
     void Start() {
@@ -36,15 +38,26 @@ public class DeckVisualizer : MonoBehaviour {
 
     // commands
 
-    public void SetDeck(Deck d) {
+    public void SetDeck(Deck d, bool openCards = true) {
         //find refs
         cardPanel = GetComponent<RectTransform>();
         cardInfoText = GetComponentInChildren<TextMeshProUGUI>();
+        openCardsToggle = transform.Find("deckInfo").GetComponentInChildren<Toggle>();
+        //invertOrderToggle = transform.Find("invertToggle").GetComponent<Toggle>();
+
         Debug.Assert(cardPanel != null, "deckVisualizer is on component without rectTransform");
         Debug.Assert(cardInfoText != null, "deckVisualizer has no TMPro child");
+        Debug.Assert(openCardsToggle != null, "deckVisualizer has no open cards toggle");
+        //Debug.Assert(invertOrderToggle != null, "deckVisualizer has no invert order toggle");
+
+        this.openCards = openCards;
+        openCardsToggle.isOn = openCards;
 
         deckToVisualize = d;
+
         d.OnDeckChange += VisualizeDeck;
+        openCardsToggle.onValueChanged.AddListener(SetOpenCards);
+        //invertOrderToggle.onValueChanged.AddListener(b => invertOrder = b);
         VisualizeDeck();
     }
 
@@ -55,9 +68,18 @@ public class DeckVisualizer : MonoBehaviour {
         for (int i = 0; i < deckToVisualize.NumCards; i++) {
             RectTransform newCard = Instantiate(ElementManager.instance.cardUIPrefab, cardPanel) as RectTransform;
 
+
+            //deck: if covered, i=0 -> top
+            // if open, i = count-1 -> top
+            int idx = openCards?(deckToVisualize.NumCards-1)-i: i;
+            //if (invertOrder) idx = (deckToVisualize.NumCards - 1) - idx;
+
+            Card card = deckToVisualize.Cards[idx];
+
+
             //set values
-            string cardName = openCards ? deckToVisualize.Cards[i].Nid : "";
-            Color cardColor = openCards ? ColorManager.instance.Char2Color(deckToVisualize.Cards[i].color) : Color.white;
+            string cardName = openCards ? card.Nid : "";
+            Color cardColor = openCards ? ColorManager.instance.Char2Color(card.color) : Color.white;
 
             newCard.Find("cardName").GetComponent<TextMeshProUGUI>().text = cardName;
             newCard.Find("cardColor").GetComponent<Image>().color = cardColor;
@@ -65,6 +87,10 @@ public class DeckVisualizer : MonoBehaviour {
         cardInfoText.text = deckToVisualize.DeckName + ": " + deckToVisualize.NumCards;
     }
 
+    void SetOpenCards(bool b) {
+        openCards = b;
+        VisualizeDeck();
+    }
 
     // queries
 

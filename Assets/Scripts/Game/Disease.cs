@@ -93,6 +93,7 @@ public class Disease : IElement {
         for (int i = 0; i < amount; i++) {
             DiseaseCube cube = city.RemoveDisease(Nid);
             cube.MoveAway();
+            NumAvailableCubes++;
         }
         if (NumDeployedCubes == 0 && Cured) Eradicate();
     }

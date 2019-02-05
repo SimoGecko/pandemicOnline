@@ -49,6 +49,21 @@ public class Command {
         f = method;
     }
 
+    public bool IsValidAllParams(string[] parameters) {
+        //filter to only needed params
+        return IsValid(FilterParams(parameters));
+    }
+
+    string[] FilterParams(string[] parameters) {
+        Debug.Assert(parameters.Length == paramChars.Length, "Not all parameters were supplied");
+        List<string> needed = new List<string>();
+        for (int i = 0; i < paramIndexMap.Length; i++) {
+            if (paramIndexMap[i] != -1) {
+                needed.Add(needed[paramIndexMap[i]]);
+            }
+        }
+        return needed.ToArray();
+    }
 
     public bool IsValid(string[] parameters) {
         param = parameters;
@@ -59,6 +74,10 @@ public class Command {
             }
         }
         return true;
+    }
+
+    public void InvokeAllParams(string[] parameters) {
+        Invoke(FilterParams(parameters));
     }
 
     public void Invoke(string[] parameters) {

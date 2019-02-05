@@ -18,6 +18,8 @@ public class PlayerManager : MonoBehaviour {
     readonly static int[] numCardsPerPlayerNumber = new int[] { 0, 6, 4, 3, 2, 2 };
     readonly static int[] epidemiCardsPerDifficulty = new int[] { 4, 5, 6 };
 
+    const float maxTurnTime = 5 * 60;
+
     // private
     Dictionary<string, Player> playerDic = new Dictionary<string, Player>();
     List<Player> players = new List<Player>();
@@ -45,7 +47,13 @@ public class PlayerManager : MonoBehaviour {
     }
 
     void Update() {
-
+        if(CurrentPlayer!=null && CurrentPlayer.isTurn) {
+            CurrentPlayer.TurnTimer += Time.deltaTime;
+            if (CurrentPlayer.TurnTimer > maxTurnTime) {
+                //end turn
+                CurrentPlayer.EndTurn();
+            }
+        }
     }
 
     // --------------------- CUSTOM METHODS ----------------
@@ -131,7 +139,9 @@ public class PlayerManager : MonoBehaviour {
     public void IncreaseTurn() {
         currentPlayerTurn = (currentPlayerTurn + 1) % numPlayers;
     }
-    public Player CurrentPlayer { get { return players[currentPlayerTurn]; } }
+    public Player CurrentPlayer { get {
+            if (players == null || currentPlayerTurn < 0 || currentPlayerTurn >= players.Count) return null;
+            return players[currentPlayerTurn]; } }
 
     // queries
     public Player GetPlayer(string Nid) {
