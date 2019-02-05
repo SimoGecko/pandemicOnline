@@ -40,6 +40,23 @@ BUGS:
     ☐ (duplicate insertion)
     ☐ synchronization with server file (only write to remote?)
 
+
+cure -> card discarded but not to discard deck
+
+disconnect -> reconnect
+timer is not realtime (slowdown)
+
+state syncrhonization works except player
+add other lines outside map
+add lines to console to delimit turn/infect
+outbreak happened when only 2 cubes were present (at ta)
+cards are not resynced from decks following commands
+outbreak/infects logged wrong order
+allow player to select discard card
+show all lines console -> command only real command (restore)
+allow reconnect
+separate data in new file, ready for lobby connect settings
+
 TESTING:
     ☐ complete test game
     ☐ win
