@@ -32,10 +32,6 @@ public class CommandManager : MonoBehaviour {
         "discard P C",
         "endturn P",
 
-        /*
-        "draw P",
-        "discard P C",
-        "shuffle O", // should be N with deckID*/
     };
 
     readonly CommandInvoke[] commandInvokes = new CommandInvoke[] {
@@ -56,10 +52,6 @@ public class CommandManager : MonoBehaviour {
         (p, c, d, o, n) => Player.Get(p).Discard(c),
         (p, c, d, o, n) => Player.Get(p).EndTurn(),
 
-        /*
-        (p, c, d, o) => ,
-        (p, c, d, o) => ,
-        (p, c, d, o) => ,*/
     };
 
 
@@ -103,40 +95,81 @@ public class CommandManager : MonoBehaviour {
     }
 
 
-    public void ProcessCommand(string text) {
+
+    //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    void ProcessCommandOld(string text) {
         if (string.IsNullOrEmpty(text)) return;
+
+        //if (text[text.Length - 1] == ' ') text.Remove(text.Length - 1, 1); // remove last space
+
+        OutputTextLocal(text); // ALREADY OUTPUT THE COMMAND PROCESSED
 
         List<string> parts = text.Split(' ').ToList();
 
+
+        //special case, output help in console
         if (text == "help") {
-            //special case, output help in console
-            OutputText("available commands: (P=player, C=city, D=disease, O=other player)");
+            OutputTextLocal("available commands: (P=player, C=city, D=disease, O=other player)");
             foreach (string s in commandStrings) {
-                OutputText(s);
+                OutputTextLocal(s);
             }
             return;
         }
 
         Command c = FindMatchingCommand(parts[0]);
         if (c == null) {
-            OutputText("unrecognized command '" + parts[0] + "'. Type 'help'.");
+            OutputTextLocal("unrecognized command '" + parts[0] + "'. Type 'help'.");
             return;
         }
 
         parts.RemoveAt(0);
         string[] parameters = parts.ToArray();
-        if (c.IsValid(parameters)) {
-            OutputText(text);
-            c.Invoke(parameters);
+        if (!c.IsValid(parameters)) {
+            //OutputText(text);
+            OutputTextLocal("Invalid parameters for command " + c.memo + ".");
         } else {
-            OutputText("Invalid parameters for command " + c.memo + ".");
-            OutputText(text);
+            //OutputText(text);
+            c.Invoke(parameters);
         }
     }
 
-    public void OutputText(string s) {
+    public void ProcessCommand(string text) {
+        if (string.IsNullOrEmpty(text)) return;
+
+        List<string> parts = text.Split(' ').ToList();
+
+        Command c = FindMatchingCommand(parts[0]);
+        if (c == null) return;
+
+        parts.RemoveAt(0);
+        string[] parameters = parts.ToArray();
+        if (c.IsValid(parameters)) {
+            c.Invoke(parameters);
+        }
+    }
+
+
+    public bool ValidCommandString(string text) {
+        if (string.IsNullOrEmpty(text)) return false;
+
+        List<string> parts = text.Split(' ').ToList();
+
+        Command c = FindMatchingCommand(parts[0]);
+        if (c == null) return false;
+
+        parts.RemoveAt(0);
+        string[] parameters = parts.ToArray();
+        if (parameters == null) return false;
+        return c.IsValid(parameters);
+    }
+
+
+
+    public void OutputTextLocal(string s) {
         if (OutputEvent != null) OutputEvent(s);
     }
+
+
 
     // queries
     public Command FindMatchingCommand(string memo) {

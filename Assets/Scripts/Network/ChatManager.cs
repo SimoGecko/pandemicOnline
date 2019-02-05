@@ -11,7 +11,7 @@ public class ChatManager : MonoBehaviour {
 
     // public
     public string myName = "player";
-    public bool logOnline = true;
+    public bool logOnline = true; // else log to file
 
     // private
     SyncedFile sf;
@@ -41,21 +41,18 @@ public class ChatManager : MonoBehaviour {
     public void Setup(Lobby lobby) {
 
         sf = gameObject.AddComponent<SyncedFile>();
-        sf.Setup(string.Format("chats/chat_{0}.txt", lobby.lobbyID));
-
+        sf.Setup(string.Format("data/chat_{0}.txt", lobby.lobbyID));
 
         chatConsole.OnInput += LocalNewInput; // local input
-        sf.OnNewRemoteLine += RemoteNewInput; // remote input
+        sf.OnNewLine += RemoteNewInput; // remote input
     }
 
 
     public void LocalNewInput(string s) {
         string toLog = string.Format("[{0}] {1}:\t{2}", Utility.HourStamp(System.DateTime.Now), myName, s);
-        chatConsole.OutputConsole(toLog);
+        //chatConsole.OutputConsole(toLog);
 
-        if (logOnline) {
-            sf.Write(toLog);
-        }
+        if (logOnline) sf.Write(toLog);
     }
 
     public void RemoteNewInput(string s) {

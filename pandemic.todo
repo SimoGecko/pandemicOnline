@@ -1,61 +1,69 @@
 === P A N D E M I C   O N L I N E ===
 
 
+GOALS:
+  ☐ robust play experience
+  ☐ polish
+
 FEATURES:
-    ☐ buttons for actions & clicking cities/diseases
+    ☐ buttons for actions & clicking cities/diseases @high
     ☐ highlight possible actions & consumed cards
     ☐ simplified console typing (only necessary params)
     ✔ timer (game & turn) & max turn time @done (19-02-04 19:34)
-    ☐ only allow current player to take actions
+    ☐ only allow current player to take actions (type in console) -> identify user with player
     ✘ roles @cancelled (Mon 04-Feb-19 10:46)
     ✘ events @cancelled (Mon 04-Feb-19 10:46)
-    ☐ let player choose which card to discard @high
+    ✔ let player choose which card to discard @high @done (Tue 05-Feb-19 13:57)
 
 ONLINE:
-    ☐ lobby system (show players in lobby)
-    ☐ lobby chat (max amount of lines)
-    ☐ player icons/colors
+    ☐ lobby system (show players in lobby) @low
+    ✘ lobby chat (max amount of lines) @cancelled (Tue 05-Feb-19 14:06)
+    ☐ player icons/colors @low
     ☐ game settings (difficulty, starting loc, mode, time limit, ...)
     ☐ lobby settings communication
     ☐ save/load with lobbyID
     ☐ variable number players
 
-    disconnect -> reconnect
-    separate data in new file, ready for lobby connect settings
-    show all lines console -> command only real command (restore)
-    cards are not resynced from decks following commands
-    state syncrhonization works except player
+    ☐ disconnect -> reconnect
+    ☐ separate data in new file, ready for lobby connect settings
+    ☐ show all lines console -> command only real command (restore)
+    ☐ cards are not resynced from decks following commands
+    ☐ state syncrhonization works except player
 
 
 VISUALS:
-    ☐ cubes infect animation & smooth movement (one after other) @high
-    ☐ board pieces placement @high
-    ☐ show available stations UI
+    ☐ cubes infect animation & smooth movement (one after other)
     ☐ card drawing animation (time between & show)
+    ☐ various flaticons (disease, action, players, decks, ...)
+    ☐ show available stations UI
+
+    ✔ board pieces placement @high @done (Tue 05-Feb-19 13:05)
     ✔ adjust background map @done (Tue 05-Feb-19 10:52)
     ✔ hidden cards & inverted @done (19-02-04 18:54)
-    ☐ cards/console scrolling
-    ☐ various flaticons (disease, action, players, decks, ...)
+    ✔ cards/console scrolling @done (Tue 05-Feb-19 13:18)
     ✔ show win/lose @done (19-02-04 22:55)
+
     ✘ sounds @cancelled (Mon 04-Feb-19 10:52)
     ✘ particle effects @cancelled (Mon 04-Feb-19 10:52)
     ✘ camera movement to highligh actions @cancelled (Mon 04-Feb-19 10:52)
 
 
 BUGS:
-    ☐ inverted command sequence (logged wrong order?)
+    ✔ inverted command sequence (logged wrong order?) @done (Tue 05-Feb-19 14:24)
     ☐ end game at endcondition (& print console) @high
     ☐ (duplicate insertion)
+    ☐ 
     ☐ synchronization with server file (only write to remote?)
-    ☐ command considered wrong but when rewritten is right
+    ☐ command considered wrong but when rewritten is right (extra space at end)
     ✔ doesn't show correct number remaining cubes @done (19-02-04 22:48)
-    ☐ cure -> card discarded but not to discard deck
+    ✔ cure -> card discarded but not to discard deck @done (Tue 05-Feb-19 11:00)
 
-    ☐ timer is not realtime (slowdown)
+    ✔ timer is not realtime (slowdown) @done (Tue 05-Feb-19 11:08)
 
-    ☐ add other lines outside map
+    ✔ add other lines outside map @done (Tue 05-Feb-19 11:19)
     ☐ add lines to console to delimit turn/infect
     ☐ 3 cubes were present but only 2 showed at city
+    ☐ commands are duplicated (maybe because write first then execute?)
 
 
 TESTING:

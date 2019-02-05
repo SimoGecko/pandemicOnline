@@ -12,10 +12,9 @@ public class NetworkManager : MonoBehaviour {
     // public
     bool logOnline = true;
 
+    public const string separator = "-----";
+
     // private
-    //fName in the form "/folder/file.txt"
-    //base folder: pandemic_online
-    //string downloadedResult = "";
     SyncedFile sf;
 
     public bool IsHost { get; set; }
@@ -32,7 +31,7 @@ public class NetworkManager : MonoBehaviour {
     }
 
     void Start() {
-        IsHost = true;
+
     }
 
     void Update() {
@@ -45,32 +44,42 @@ public class NetworkManager : MonoBehaviour {
 
     // commands
     public void Setup(Lobby lobby) {
-
         sf = gameObject.AddComponent<SyncedFile>();
-        sf.Setup(string.Format("games/game_{0}.txt", lobby.lobbyID));
+        sf.Setup(string.Format("data/game_{0}.txt", lobby.lobbyID));
 
         commandConsole.OnInput += LocalNewInput;
-        sf.OnNewRemoteLine += RemoteNewInput;
+        sf.OnNewLine += RemoteNewInput;
 
-        CommandManager.instance.OutputEvent += commandConsole.OutputConsole; // out -> give to console
+        //CommandManager.instance.OutputEvent += commandConsole.OutputConsole; // out -> give to console
     }
 
     public void LocalNewInput(string s) {
 
         //only if performable log it online
 
-        if (logOnline) {
+        if (logOnline && CommandManager.instance.ValidCommandString(s)) {
             sf.Write(s);
         }
-        CommandManager.instance.ProcessCommand(s); // locally
+        //CommandManager.instance.ProcessCommand(s);
+
+        //CommandManager.instance.ProcessCommand(s); // locally
     }
 
     void RemoteNewInput(string s) {
+        commandConsole.OutputConsole(s);
         CommandManager.instance.ProcessCommand(s);
+        /*
+        if (s.Equals(separator)) commandConsole.OutputConsole(separator);
+        else {
+            
+        }*/
     }
 
     public void LogSeparator() {
-        sf.Write("");
+        if (IsHost && logOnline) {
+            sf.Write(separator);
+            //commandConsole.OutputConsole(separator);
+        }
     }
 
 

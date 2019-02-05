@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 ////////// DESCRIPTION //////////
 
@@ -111,6 +112,11 @@ public static class Utility {
             result += glyphs[randomIdx];
         }
         return result;
+    }
+
+    public static string MergeLines(List<string> lines, bool addNewlineAtEnd = false) {
+        string result = lines.Aggregate((s1, s2) => s1 + '\n' + s2);
+        return addNewlineAtEnd ? (result + '\n') : result;
     }
 
 

@@ -240,7 +240,7 @@ public class DiseaseManager : MonoBehaviour {
     public static string DiseaseNidFromColor(char color) {
         int idx = System.Array.FindIndex(diseaseColors, c => c == color);// diseaseColors.ToList().Find();
         if(idx>=0)return diseaseNids[idx];
-        Debug.Log("couldn't find disease with color " + color);
+        Debug.LogError("couldn't find disease with color " + color);
         return null;
     }
 

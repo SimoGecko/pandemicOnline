@@ -17,7 +17,7 @@ public class ConsoleIO : MonoBehaviour {
 
 
     // public
-    public int maxLines = 15;
+    public int maxLines = 30;
 
     public bool startFocus = false;
     public bool keepInputFocus = true;
@@ -64,13 +64,12 @@ public class ConsoleIO : MonoBehaviour {
     void Setup() {
         //find refs
         consoleUI = transform.Find("background").gameObject;
-        //outputText = consoleUI.GetComponentInChildren<Text>();
         inputField = consoleUI.GetComponentInChildren<InputField>();
         showConsoleToggle = GetComponentInChildren<Toggle>();
 
         //init them
         outputText.text = "";
-        consoleLines = new List<string>();//new string[maxLines];
+        consoleLines = new List<string>();
         showConsoleToggle.onValueChanged.AddListener(b => consoleUI.SetActive(b));
         if (startFocus) inputField.ActivateInputField();
     }
@@ -101,27 +100,12 @@ public class ConsoleIO : MonoBehaviour {
 
 
     public void OutputConsole(string text) {
-        //Debug.Log(text);
-
         if (text == null) text = "";
+
         consoleLines.Add(text);
-        while (consoleLines.Count > maxLines && maxLines>0) consoleLines.RemoveAt(0);
+        while (consoleLines.Count > maxLines && maxLines > 0) consoleLines.RemoveAt(0);
 
-        string result = consoleLines.Aggregate((s1, s2) => s1 + '\n' + s2);
-
-        /*
-        string result = "";
-        for (int i = 0; i < maxLines - 1; i++) {
-            consoleLines[i] = consoleLines[i + 1];
-            if (!string.IsNullOrEmpty(consoleLines[i])) {
-                result += consoleLines[i] + "\n";
-            }
-        }
-        consoleLines[maxLines - 1] = text;
-        result += text;
-        */
-
-        outputText.text = result;
+        outputText.text = Utility.MergeLines(consoleLines, false);
     }
 
 
