@@ -99,8 +99,7 @@ public class CommandManager : MonoBehaviour {
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     void ProcessCommandOld(string text) {
         if (string.IsNullOrEmpty(text)) return;
-
-        //if (text[text.Length - 1] == ' ') text.Remove(text.Length - 1, 1); // remove last space
+        text = text.Trim();
 
         OutputTextLocal(text); // ALREADY OUTPUT THE COMMAND PROCESSED
 
@@ -135,6 +134,7 @@ public class CommandManager : MonoBehaviour {
 
     public void ProcessCommand(string text) {
         if (string.IsNullOrEmpty(text)) return;
+        text = text.Trim();
 
         List<string> parts = text.Split(' ').ToList();
 
@@ -151,6 +151,7 @@ public class CommandManager : MonoBehaviour {
 
     public bool ValidCommandString(string text) {
         if (string.IsNullOrEmpty(text)) return false;
+        text = text.Trim();
 
         List<string> parts = text.Split(' ').ToList();
 

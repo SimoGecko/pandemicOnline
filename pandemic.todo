@@ -20,22 +20,24 @@ ONLINE:
     ✘ lobby chat (max amount of lines) @cancelled (Tue 05-Feb-19 14:06)
     ☐ player icons/colors @low
     ☐ game settings (difficulty, starting loc, mode, time limit, ...)
-    ☐ lobby settings communication
     ☐ save/load with lobbyID
     ☐ variable number players
+    ☐ delete file on quit
 
     ☐ disconnect -> reconnect
     ☐ separate data in new file, ready for lobby connect settings
     ☐ show all lines console -> command only real command (restore)
     ☐ cards are not resynced from decks following commands
-    ☐ state syncrhonization works except player
+    ☐ state synchronization works except player
 
 
 VISUALS:
     ☐ cubes infect animation & smooth movement (one after other)
     ☐ card drawing animation (time between & show)
+    ☐ inform turn start/infection start/outbreak with titles @high
     ☐ various flaticons (disease, action, players, decks, ...)
     ☐ show available stations UI
+    ☐ change camera angle
 
     ✔ board pieces placement @high @done (Tue 05-Feb-19 13:05)
     ✔ adjust background map @done (Tue 05-Feb-19 10:52)
@@ -49,64 +51,66 @@ VISUALS:
 
 
 BUGS:
-    ✔ inverted command sequence (logged wrong order?) @done (Tue 05-Feb-19 14:24)
     ☐ end game at endcondition (& print console) @high
-    ☐ (duplicate insertion)
-    ☐ 
-    ☐ synchronization with server file (only write to remote?)
-    ☐ command considered wrong but when rewritten is right (extra space at end)
+    ☐ 3 cubes were present but only 2 showed at city (cubes overlap when outbreak happens)
+    ☐ disease cubes have holes (they are correct up to their shown number which is not syncing)
+    ☐ share action not working (but costing actions)
+    ☐ automatic endturn should show on console
+    ☐ map doesn't show outside lines 
+    ☐ cube moved from wrong pos?
+
+    ✔ inverted command sequence (logged wrong order?) @done (Tue 05-Feb-19 14:24)
+    ✔ (duplicate insertion) @done (Tue 05-Feb-19 22:48)
+    ✔ synchronization with server file (only write to remote?) @done (Tue 05-Feb-19 22:46)
+    ✔ command considered wrong but when rewritten is right (extra space at end) @done (Tue 05-Feb-19 22:48)
     ✔ doesn't show correct number remaining cubes @done (19-02-04 22:48)
     ✔ cure -> card discarded but not to discard deck @done (Tue 05-Feb-19 11:00)
-
     ✔ timer is not realtime (slowdown) @done (Tue 05-Feb-19 11:08)
-
     ✔ add other lines outside map @done (Tue 05-Feb-19 11:19)
-    ☐ add lines to console to delimit turn/infect
-    ☐ 3 cubes were present but only 2 showed at city
-    ☐ commands are duplicated (maybe because write first then execute?)
+    ✔ add lines to console to delimit turn/infect @done (Tue 05-Feb-19 22:45)
+    ✔ commands are duplicated (maybe because write first then execute?) @done (Tue 05-Feb-19 22:45)
 
 
 TESTING:
     ✔ complete test game @done (19-02-04 22:29)
     ☐ win
     ✔ lose @done (19-02-04 22:29)
-    ✘ robustness @cancelled (Mon 04-Feb-19 11:01)
 
 
 ROLES:
 ☐ basic
-  ☐ medic
-  ☐ researcher
-  ☐ scientist
-  ☐ dispatcher
-  ☐ operations expert
+  ✘ medic @cancelled (Tue 05-Feb-19 22:46)
+  ✘ researcher @cancelled (Tue 05-Feb-19 22:46)
+  ✘ scientist @cancelled (Tue 05-Feb-19 22:46)
+  ✘ dispatcher @cancelled (Tue 05-Feb-19 22:46)
+  ✘ operations expert @cancelled (Tue 05-Feb-19 22:46)
 
 ☐ advanced
-  ☐ containment specialist
-  ☐ generalist
-  ☐ trouble shooter
-  ☐ epidemiologist
-  ☐ field operative
-  ☐ archivist
-  ☐ exterminator
+  ✘ containment specialist @cancelled (Tue 05-Feb-19 22:46)
+  ✘ generalist @cancelled (Tue 05-Feb-19 22:46)
+  ✘ trouble shooter @cancelled (Tue 05-Feb-19 22:46)
+  ✘ epidemiologist @cancelled (Tue 05-Feb-19 22:46)
+  ✘ field operative @cancelled (Tue 05-Feb-19 22:46)
+  ✘ archivist @cancelled (Tue 05-Feb-19 22:46)
+  ✘ exterminator @cancelled (Tue 05-Feb-19 22:46)
 
 EVENTS:
  ☐ base
-   ☐ resilient pop
-   ☐ quiet night
-   ☐ forecast
-   ☐ government grant
-   ☐ airlift
+   ✘ resilient pop @cancelled (Tue 05-Feb-19 22:46)
+   ✘ quiet night @cancelled (Tue 05-Feb-19 22:46)
+   ✘ forecast @cancelled (Tue 05-Feb-19 22:46)
+   ✘ government grant @cancelled (Tue 05-Feb-19 22:46)
+   ✘ airlift @cancelled (Tue 05-Feb-19 22:46)
 
 ☐ brink
-  ☐ borrowed time
-  ☐ commercial travel ban
-  ☐ mobile hospital
-  ☐ new assignment
-  ☐ rapid vaccine deployment
-  ☐ re-examined research
-  ☐ remote treatment
-  ☐ special orders
+  ✘ borrowed time @cancelled (Tue 05-Feb-19 22:46)
+  ✘ commercial travel ban @cancelled (Tue 05-Feb-19 22:46)
+  ✘ mobile hospital @cancelled (Tue 05-Feb-19 22:46)
+  ✘ new assignment @cancelled (Tue 05-Feb-19 22:46)
+  ✘ rapid vaccine deployment @cancelled (Tue 05-Feb-19 22:46)
+  ✘ re-examined research @cancelled (Tue 05-Feb-19 22:46)
+  ✘ remote treatment @cancelled (Tue 05-Feb-19 22:46)
+  ✘ special orders @cancelled (Tue 05-Feb-19 22:46)
 
 STEPS:
   graph
